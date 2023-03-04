@@ -1,0 +1,10 @@
+<set>
+  <tiles>
+<tile name="palette thing" symmetry="X" weight="1.0"/>
+<tile name="Quad_2" symmetry="X" weight="1.0"/>
+	</tiles>
+<neighbors>  <neighbor left="palette thing 0" right="palette thing 0"/>
+  <neighbor left="palette thing 1" right="palette thing 1"/>
+  <neighbor left="Quad_2 1" right="Quad_2 1"/>
+	</neighbors>
+</set>
