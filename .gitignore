@@ -9,6 +9,7 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
+/00*/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
@@ -29,6 +30,7 @@
 ExportedObj/
 .consulo/
 *.csproj
+*.csproj.DotSettings
 *.unityproj
 *.sln
 *.suo
@@ -42,6 +44,7 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+*.vscode
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -58,3 +61,10 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+.idea/
+UserSettings
+.DS_Store
+Assets/AmplifyShaderEditor/Examples
+Assets/AmplifyShaderEditor/Plugins/EditorResources/Templates
+Assets/StreamingAssets/InGame
+Assets/StreamingAssets/InGame.meta
