@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+using Random = UnityEngine.Random;
 
 namespace RoguelikeGeneratorPro
 {
@@ -42,7 +42,7 @@ namespace RoguelikeGeneratorPro
         public int chunkSpawnChance = 4;
         public float chunkChance2x2 = 95;
         public float chunkChance3x3 = 5;
-
+        
 
         //Pattern floor overlay
         public patternType patternFloor = patternType.checker;
@@ -378,6 +378,17 @@ namespace RoguelikeGeneratorPro
 
         /**/
 
+        #region Singleton
+
+        public static RoguelikeGeneratorPro Instance;
+        private void Awake()
+        {
+            Instance = this;
+        }
+
+        #endregion
+        
+
 
         #region Generation
 
@@ -386,8 +397,6 @@ namespace RoguelikeGeneratorPro
             Clear();
             AssignSeed();
             GenerateLevel();
-
-            Debug.Log("Level generated!");
         }
 
 
@@ -2204,7 +2213,7 @@ namespace RoguelikeGeneratorPro
             wallParent.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
 
             wallParent.AddComponent<TilemapCollider2D>();
-
+      
             wallParent.AddComponent<CompositeCollider2D>();
             wallParent.GetComponent<TilemapCollider2D>().usedByComposite = true;
         }
@@ -2237,6 +2246,7 @@ namespace RoguelikeGeneratorPro
             {
                 GameObject instObj = GameObject.Instantiate(_tileObj, new Vector3(_posX * tileSize, 0, _posY * tileSize), _tileObj.transform.rotation * Quaternion.Euler(0f, _rotation, 0f));
                 instObj.transform.parent = _parentTrm;
+                instObj.AddComponent<BaseTileUnit>();
                 instObj.transform.localPosition = new Vector3(instObj.transform.position.x, 0f, instObj.transform.position.z);
             }
         }
@@ -2247,6 +2257,7 @@ namespace RoguelikeGeneratorPro
             if (_tileObj != null)
             {
                 GameObject instObj = GameObject.Instantiate(_tileObj, new Vector3(_posX * tileSize, 0, _posY * tileSize), Quaternion.identity);
+                instObj.AddComponent<BaseTileUnit>();
                 instObj.transform.parent = _parentTrm;
                 instObj.transform.localPosition = new Vector3(instObj.transform.position.x, 0f, instObj.transform.position.z);
             }
