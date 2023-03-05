@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Game.Managers
 {
+    //
     public class GameManager : MonoBehaviour
     {
         public enum GameState
@@ -18,12 +20,39 @@ namespace Game.Managers
       
         private LevelManager _levelManager;
         private GameState _currentGameState;
+        private bool _movementActive = true;
+        
+        private readonly KeyCode[] _keyCodes =
+        {
+            KeyCode.Keypad0,
+            KeyCode.Keypad1,
+            KeyCode.Keypad2,
+            KeyCode.Keypad3,
+            KeyCode.Keypad4,
+            KeyCode.Keypad5,
+            KeyCode.Keypad6,
+            KeyCode.Keypad7,
+            KeyCode.Keypad8,
+            KeyCode.Keypad9,
+        };
 
+        private Dictionary<int, Vector2Int> _movementVectors = new Dictionary<int, Vector2Int>
+        {
+            {1, new Vector2Int(-1, -1)},
+            {2, new Vector2Int(0, -1)},
+            {3, new Vector2Int(1, -1)},
+            {4, new Vector2Int(-1, 0)},
+            {6, new Vector2Int(1, 0)},
+            {7, new Vector2Int(-1, 1)},
+            {8, new Vector2Int(0, 1)},
+            {9, new Vector2Int(1, 1)},
+        };
+        
         void Start()
         {
-         _levelManager = LevelManager.Instance;
+            _levelManager = LevelManager.Instance;
 
-         UpdateGameState(GameState.loadLevel);
+            UpdateGameState(GameState.loadLevel);
         }
 
         public GameState GetGameState()
@@ -79,5 +108,28 @@ namespace Game.Managers
         private void HandleCPUTurn()
         {
         }
+
+        #region GameLoopElements
+
+        private void Update()
+        {
+            if (_currentGameState == GameState.playerTurn && _movementActive)
+            {
+                for (int i = 0; i < _keyCodes.Length; i++)
+                {
+                    if (Input.GetKeyDown(_keyCodes[i]))
+                    {
+                        if (_movementVectors.TryGetValue(i, out var motionVector))
+                        {
+                            _levelManager.MovePlayerTo(motionVector);
+                            Debug.Log("pressed: " + i);
+                            Debug.Log("moving to" + motionVector);
+                        }
+                    }
+                }
+            }
+        }
+
+        #endregion
+        }
     }
-}
