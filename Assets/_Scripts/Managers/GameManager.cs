@@ -1,5 +1,4 @@
 using System;
-using System.Security.Authentication;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -18,15 +17,12 @@ namespace Game.Managers
         public static event Action<GameState> OnGameStateChanged;
       
         private LevelManager _levelManager;
-        private EntityManager _entityManager;
-        
         private GameState _currentGameState;
 
         void Start()
         {
          _levelManager = LevelManager.Instance;
-         _entityManager = EntityManager.Instance;
-         
+
          UpdateGameState(GameState.loadLevel);
         }
 
@@ -64,9 +60,6 @@ namespace Game.Managers
         {
             _levelManager.CreateLevel();
             
-            _entityManager.InstantiateEntity(EntityBase.EntityType.player, new Vector2(2, 2));
-            _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2(3, 2));
-            
             Debug.Log("level is Ready!");
             UpdateGameState(GameState.evaluate);
         }
@@ -79,6 +72,7 @@ namespace Game.Managers
 
         private void HandlePlayerTurn()
         {
+            
             Debug.Log("player turn!");
         }
 

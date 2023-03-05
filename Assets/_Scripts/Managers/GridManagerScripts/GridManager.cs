@@ -18,7 +18,7 @@ public class GridManager : MonoBehaviour
    
    private OverlapWFC _levelGenerator;
    private GridManagerReferences _gridManagerReferences;
-   public Dictionary<Vector2Int, Game.Tiles.TileBase> _registeredTiles;
+   public Dictionary<Vector2Int, TileBase> _registeredTiles;
 
    public static GridManager Instance;
 
@@ -82,6 +82,28 @@ public class GridManager : MonoBehaviour
          newTemplate.gameObject.name = "WFTCanvas_" + _trainingTemplates.Count;
          newTraining.gameObject.name = "template_" + _trainingTemplates.Count;
          _maxRange = _trainingTemplates.Count - 1;
+      }
+   }
+
+   /// <summary>
+   /// Gets the tile at a given coordinate.
+   /// </summary>
+   /// <param name="cellX"></param>
+   /// <param name="cellY"></param>
+   /// <returns></returns>
+   public TileBase GetTile(int cellX, int cellY)
+   {
+      if (CheckPosInBounds(cellX, cellY) == false)
+         Debug.LogError("tile is not within bounds!");
+      
+      if (_registeredTiles.TryGetValue(new Vector2Int(cellX, cellY), out var tile) != false)
+      {
+         return tile;
+      }
+      else
+      {
+         Debug.LogError("No tile was found at given position");
+         return null;
       }
    }
    
