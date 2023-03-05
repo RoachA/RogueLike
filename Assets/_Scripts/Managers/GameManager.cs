@@ -17,11 +17,16 @@ namespace Game.Managers
         public static event Action<GameState> OnGameStateChanged;
         
         private LevelManager _levelManager;
+        private EntityManager _entityManager;
+        
         private GameState _currentGameState;
 
         void Start()
         {
          _levelManager = LevelManager.Instance;
+         _entityManager = EntityManager.Instance;
+         
+         HandleLoadLevel();
         }
 
         public GameState GetGameState()
@@ -52,7 +57,7 @@ namespace Game.Managers
 
         private void HandleLoadLevel()
         {
-            
+            _entityManager.InstantiateEntity(EntityBase.EntityType.player, new Vector2(2, 2));
         }
 
         private void HandlePlayerTurn()
@@ -64,11 +69,5 @@ namespace Game.Managers
         {
             
         }
-
-        void Update()
-        {
-        }
-        
-        
     }
 }
