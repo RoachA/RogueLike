@@ -21,11 +21,10 @@ namespace Game.Tiles
             _spriteRenderer.sprite = _spriteVariants[Random.Range(0, _spriteVariants.Count)];
         }
 
-        protected virtual void SetTilePosId()
+        public virtual void SetTilePosId(int x, int y)
         {
-            Vector3 thisPos = transform.position;
-            _tilePosId.x = (int) thisPos.x;
-            _tilePosId.y = (int) thisPos.y;
+            _tilePosId.x = x;
+            _tilePosId.y = y;
         }
 
         public Vector2Int GetTilePosId()
@@ -36,7 +35,6 @@ namespace Game.Tiles
         protected virtual void Start()
         {
             SetRandomSprite();
-            SetTilePosId();
         }
     }
 }

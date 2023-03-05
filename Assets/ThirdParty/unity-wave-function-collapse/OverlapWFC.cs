@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using Game.Tiles;
+using UnityEngine.Rendering.Universal;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -23,6 +26,7 @@ public class OverlapWFC : MonoBehaviour{
 	public bool incremental = false;
 	public OverlappingModel model = null;
 	public GameObject[,] rendering;
+	public List<TileBase> Tiles;
 	public GameObject output;
 	private Transform group;
     private bool undrawn = true;
@@ -97,7 +101,7 @@ public class OverlapWFC : MonoBehaviour{
 		group.rotation = output.transform.rotation;
         group.localScale = new Vector3(1f, 1f, 1f);
         rendering = new GameObject[width, depth];
-		model = new OverlappingModel(training.sample, N, width, depth, periodicInput, periodicOutput, symmetry, foundation);
+        model = new OverlappingModel(training.sample, N, width, depth, periodicInput, periodicOutput, symmetry, foundation);
         undrawn = true;
     }
 
@@ -120,7 +124,11 @@ public class OverlapWFC : MonoBehaviour{
 		return rendering[x,y];
 	}
 
-	public void Draw(){
+	public void Draw()
+	{
+		Tiles.Clear();
+		Tiles = new List<TileBase>();
+		
 		if (output == null){return;}
 		if (group == null){return;}
         undrawn = false;
@@ -140,7 +148,10 @@ public class OverlapWFC : MonoBehaviour{
 								tile.transform.localPosition = pos;
 								tile.transform.localEulerAngles = new Vector3(0, 0, 360 - (rot * 90));
 								tile.transform.localScale = fscale;
-								rendering[x,y] = tile;
+								rendering[x, y] = tile;
+								var tileBase = tile.GetComponent<TileBase>();
+								tileBase.SetTilePosId(x, y);
+								Tiles.Add(tileBase);
 							}
 						} else
                         {
