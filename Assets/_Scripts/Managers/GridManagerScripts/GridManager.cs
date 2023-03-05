@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-   
+   //grab tile canvas
+   //train
+   //update overlay WFT
+   //generate
 }

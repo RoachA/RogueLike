@@ -2246,7 +2246,6 @@ namespace RoguelikeGeneratorPro
             {
                 GameObject instObj = GameObject.Instantiate(_tileObj, new Vector3(_posX * tileSize, 0, _posY * tileSize), _tileObj.transform.rotation * Quaternion.Euler(0f, _rotation, 0f));
                 instObj.transform.parent = _parentTrm;
-                instObj.AddComponent<BaseTileUnit>();
                 instObj.transform.localPosition = new Vector3(instObj.transform.position.x, 0f, instObj.transform.position.z);
             }
         }
@@ -2257,7 +2256,6 @@ namespace RoguelikeGeneratorPro
             if (_tileObj != null)
             {
                 GameObject instObj = GameObject.Instantiate(_tileObj, new Vector3(_posX * tileSize, 0, _posY * tileSize), Quaternion.identity);
-                instObj.AddComponent<BaseTileUnit>();
                 instObj.transform.parent = _parentTrm;
                 instObj.transform.localPosition = new Vector3(instObj.transform.position.x, 0f, instObj.transform.position.z);
             }

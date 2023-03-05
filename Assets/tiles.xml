@@ -1,10 +1,15 @@
 <set>
   <tiles>
-<tile name="palette thing" symmetry="X" weight="1.0"/>
-<tile name="Quad_2" symmetry="X" weight="1.0"/>
+<tile name="Tiles/TileFloor" symmetry="X" weight="1.0"/>
+<tile name="Tiles/TileWall" symmetry="X" weight="1.0"/>
 	</tiles>
-<neighbors>  <neighbor left="palette thing 0" right="palette thing 0"/>
-  <neighbor left="palette thing 1" right="palette thing 1"/>
-  <neighbor left="Quad_2 1" right="Quad_2 1"/>
+<neighbors>  <neighbor left="Tiles/TileFloor 0" right="Tiles/TileFloor 0"/>
+  <neighbor left="Tiles/TileFloor 1" right="Tiles/TileFloor 1"/>
+  <neighbor left="Tiles/TileFloor 1" right="Tiles/TileWall 1"/>
+  <neighbor left="Tiles/TileFloor 0" right="Tiles/TileWall 0"/>
+  <neighbor left="Tiles/TileWall 1" right="Tiles/TileFloor 1"/>
+  <neighbor left="Tiles/TileWall 0" right="Tiles/TileFloor 0"/>
+  <neighbor left="Tiles/TileWall 1" right="Tiles/TileWall 1"/>
+  <neighbor left="Tiles/TileWall 0" right="Tiles/TileWall 0"/>
 	</neighbors>
 </set>
