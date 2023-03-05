@@ -6,7 +6,7 @@ using UnityEditor;
 #endif
 
 [ExecuteInEditMode]
-class OverlapWFC : MonoBehaviour{
+public class OverlapWFC : MonoBehaviour{
 	public Training training = null;
 	public int gridsize = 1;
 	public int width = 20;

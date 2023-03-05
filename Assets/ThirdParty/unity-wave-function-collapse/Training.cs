@@ -1,12 +1,10 @@
-using System;
-using System.IO;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 using System.Collections.Generic;
 
-class Training : MonoBehaviour{
+public class Training : MonoBehaviour{
 	public int gridsize = 1;
 	public int width = 12;
 	public int depth = 12;
