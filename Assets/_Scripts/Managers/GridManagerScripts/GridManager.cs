@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Tiles;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
@@ -18,17 +18,13 @@ public class GridManager : MonoBehaviour
    
    private OverlapWFC _levelGenerator;
    private GridManagerReferences _gridManagerReferences;
+   public List<TileBase> _registeredTiles;
 
    public static GridManager Instance;
 
    private void Awake()
    {
       Instance = this;
-   }
-
-   private void Start()
-   {
-      GetReferences();
    }
    
    private void OnValidate()
@@ -60,6 +56,14 @@ public class GridManager : MonoBehaviour
    {
       _levelGenerator.training = _trainingTemplates[_selectedIndex];
       _levelGenerator.Generate();
+      _levelGenerator.Run();
+      
+      RegisterTiles();
+   }
+
+   private void RegisterTiles()
+   {
+      _registeredTiles = _levelGenerator.GetComponentsInChildren<Game.Tiles.TileBase>().ToList();
    }
 
    [PropertyOrder(2)]
@@ -77,6 +81,77 @@ public class GridManager : MonoBehaviour
          newTemplate.gameObject.name = "WFTCanvas_" + _trainingTemplates.Count;
          newTraining.gameObject.name = "template_" + _trainingTemplates.Count;
          _maxRange = _trainingTemplates.Count - 1;
+      }
+   }
+   
+   //need a way to check neighbours.
+   
+   /// <summary>
+   /// checks the given position in the map returns true if it is within the bounds, false if not.
+   /// </summary>
+   /// <param name="cellX"></param>
+   /// <param name="cellY"></param>
+   /// <returns></returns>
+   public bool CheckPosInBounds(int cellX, int cellY)
+   {
+      var array = _levelGenerator.rendering;
+      
+      for (int i = -1; i <= 1; ++i)
+      for (int j = -1; j <= 1; ++j)
+         if ((i != 0) && (j != 0)) 
+         {
+            int x = cellX + i;
+
+            if ((x < 0) || (x >= array.GetLength(0)))
+               continue;
+
+            int y = cellY + j;
+
+            if ((y < 0) || (y >= array.GetLength(1)))
+               continue;
+
+            if (array[x, y])
+            {
+               Debug.LogError("TRUE");
+               return true;
+            }
+         }
+      
+      Debug.LogError("FALSE");
+      return false;
+   }
+
+   [Button("CheckNeighbours")]
+   public void GetNeighbours(int cellX, int cellY)
+   {
+      int x = cellX;
+      int y = cellY;
+
+      int W = _levelGenerator.depth;
+      int H = _levelGenerator.width;
+
+      List<GameObject> neighbors = new List<GameObject>();
+
+      for (int a = -1; a < 2; a++) 
+      {
+         for (int b = -1; b < 2; b++)
+         {
+            if (!(a == 0 && b == 0)) 
+            {
+               var nX = x + a;
+               var nY = y + b;
+               if ((nX >= 0 && nX < W) && (nY >= 0 && nY < H)) 
+               {
+                  neighbors.Add(_levelGenerator.rendering[nX, nY]);
+               }
+            }
+         }
+      }
+
+      foreach (var neighbor in neighbors)
+      {
+         ;
+         Debug.LogError(neighbor.GetComponent<TileBase>().GetTilePosId());
       }
    }
    

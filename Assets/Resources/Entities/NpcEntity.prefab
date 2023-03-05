@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2100899856220769196, guid: 3d8eeb0493f43214ba32d18c7739efc5, type: 3}
       propertyPath: m_Name
-      value: EnemyEntity
+      value: NpcEntity
       objectReference: {fileID: 0}
     - target: {fileID: 2100899856220769197, guid: 3d8eeb0493f43214ba32d18c7739efc5, type: 3}
       propertyPath: m_RootOrder
@@ -63,7 +63,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3307381072891133322, guid: 3d8eeb0493f43214ba32d18c7739efc5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3d8eeb0493f43214ba32d18c7739efc5, type: 3}
 --- !u!1 &768404084215409043 stripped
 GameObject:
@@ -82,3 +83,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d4323db78260f4bad1ec90603ec1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _entityPos: {x: 0, y: 0}
+  _isAlive: 1

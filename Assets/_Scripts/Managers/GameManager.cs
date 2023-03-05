@@ -1,5 +1,6 @@
 using System;
 using System.Security.Authentication;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Game.Managers
@@ -9,13 +10,13 @@ namespace Game.Managers
         public enum GameState
         {
             loadLevel,
-            initializeLevel,
+            evaluate,
             playerTurn,
             cpuTurn,
         }
 
         public static event Action<GameState> OnGameStateChanged;
-        
+      
         private LevelManager _levelManager;
         private EntityManager _entityManager;
         
@@ -26,7 +27,7 @@ namespace Game.Managers
          _levelManager = LevelManager.Instance;
          _entityManager = EntityManager.Instance;
          
-         HandleLoadLevel();
+         UpdateGameState(GameState.loadLevel);
         }
 
         public GameState GetGameState()
@@ -43,6 +44,9 @@ namespace Game.Managers
                 case GameState.loadLevel:
                     HandleLoadLevel();
                     break;
+                case GameState.evaluate:
+                    HandleEvaluate();
+                    break;
                 case GameState.playerTurn:
                     HandlePlayerTurn();
                     break;
@@ -54,20 +58,32 @@ namespace Game.Managers
             
             OnGameStateChanged?.Invoke(newState);
         }
-
+        
+        [Button("Generate Level")]
         private void HandleLoadLevel()
         {
+            _levelManager.CreateLevel();
+            
             _entityManager.InstantiateEntity(EntityBase.EntityType.player, new Vector2(2, 2));
+            _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2(3, 2));
+            
+            Debug.Log("level is Ready!");
+            UpdateGameState(GameState.evaluate);
+        }
+        
+        private void HandleEvaluate()
+        {
+            //todo do calculations to determine who starts first, player or enemy? now start player
+            UpdateGameState(GameState.playerTurn);
         }
 
         private void HandlePlayerTurn()
         {
-            
+            Debug.Log("player turn!");
         }
 
         private void HandleCPUTurn()
         {
-            
         }
     }
 }

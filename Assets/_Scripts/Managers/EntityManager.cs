@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EntityManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class EntityManager : MonoBehaviour
     public static EntityManager Instance;
 
     [SerializeField] private List<EntityBase> _entitiesList;
+    [SerializeField] private EntityPlayer _player;
 
     private void Awake()
     {
@@ -20,12 +22,27 @@ public class EntityManager : MonoBehaviour
 
     public void InstantiateEntity(EntityBase.EntityType entityType, Vector2 pos)
     {
-        _entitiesList = new List<EntityBase>();
-        Debug.LogError("Entity was called for instantiation");
+        var entityResource = Resources.Load(ResourcesHelper.EntitiesPath) as GameObject;
+        
+        switch (entityType)
+        {
+            case (EntityBase.EntityType.player):
+                entityResource = Resources.Load(ResourcesHelper.PlayerEntityPath) as GameObject;
+                break;
+            case (EntityBase.EntityType.npc):
+                entityResource = Resources.Load(ResourcesHelper.NpcEntityPath) as GameObject;
+                break;
+        }
+        
+        var newEntityObj = Instantiate(entityResource, transform);
+        newEntityObj.transform.localPosition = pos;
+        
+        var newEntity = newEntityObj.GetComponent<EntityBase>();
+        newEntity.SetEntityPos(pos);
+        newEntity.SetEntityType(entityType);
+        _entitiesList.Add(newEntity);
 
-        var entityObj = Resources.Load(ResourcesHelper.PlayerEntityPath) as GameObject;
-        var newEntity = Instantiate(entityObj, transform);
-        newEntity.transform.localPosition = pos;
-        _entitiesList.Add(newEntity.GetComponent<EntityBase>());
+        if (entityType == EntityBase.EntityType.player)
+            _player = newEntity as EntityPlayer;
     }
 }

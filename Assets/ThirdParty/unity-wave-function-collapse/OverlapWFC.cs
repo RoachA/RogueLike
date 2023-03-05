@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using UnityEditor;
 #endif
 
-[ExecuteInEditMode]
+[ExecuteAlways]
 public class OverlapWFC : MonoBehaviour{
+	
 	public Training training = null;
 	public int gridsize = 1;
 	public int width = 20;
@@ -25,7 +26,7 @@ public class OverlapWFC : MonoBehaviour{
 	public GameObject output;
 	private Transform group;
     private bool undrawn = true;
-
+ 
 	public static bool IsPrefabRef(UnityEngine.Object o){
 		#if UNITY_EDITOR
 		return PrefabUtility.GetOutermostPrefabInstanceRoot(o) != null;
@@ -57,15 +58,15 @@ public class OverlapWFC : MonoBehaviour{
 		}
 	}
 
-	void Awake(){}
-
-	void Start(){
-		Generate();
+	void Start()
+	{
+		/*Generate();
+		Run();*/
 	}
 
 	void Update(){
 		if (incremental){
-			Run();
+			//Run();
 		}
 	}
 
