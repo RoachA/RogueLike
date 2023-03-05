@@ -52,16 +52,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1067743762, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+    - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Color.b
-      value: 0.13817194
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Color.g
-      value: 0.14757904
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Color.r
-      value: 0.21698111
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2677916929969758866, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Name
@@ -87,3 +91,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f63078d9d10539499adb7247186e13c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsWalkable: 0
+  _spriteVariants:
+  - {fileID: 1067743762, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+  - {fileID: -511180180, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+  - {fileID: 16231413, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+  _spriteRenderer: {fileID: 7029349495824940232}
+--- !u!212 &7029349495824940232 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
+  m_PrefabInstance: {fileID: 8814682858993310935}
+  m_PrefabAsset: {fileID: 0}

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
@@ -18,6 +19,30 @@ public class GridManager : MonoBehaviour
    private OverlapWFC _levelGenerator;
    private GridManagerReferences _gridManagerReferences;
 
+   public static GridManager Instance;
+
+   private void Awake()
+   {
+      Instance = this;
+   }
+
+   private void Start()
+   {
+      GetReferences();
+   }
+   
+   private void OnValidate()
+   {
+      GetReferences();
+      _maxRange = _trainingTemplates.Count - 1;
+   }
+
+   private void GetReferences()
+   {
+      _gridManagerReferences = GetComponent<GridManagerReferences>();
+      _levelGenerator = _gridManagerReferences._levelGenerator;
+   }
+
    [PropertyOrder(1)]
    [Button("Get All Templates")]
    private void GetAllTemplates()
@@ -31,7 +56,7 @@ public class GridManager : MonoBehaviour
    [PropertyOrder(4)]
    [GUIColor(0.9f, 1, 0.9f)]
    [Button("Generate Level")]
-   private void GenerateLevel()
+   public void GenerateLevelGrid()
    {
       _levelGenerator.training = _trainingTemplates[_selectedIndex];
       _levelGenerator.Generate();
@@ -54,21 +79,5 @@ public class GridManager : MonoBehaviour
          _maxRange = _trainingTemplates.Count - 1;
       }
    }
-
-   private void OnValidate()
-   {
-      GetReferences();
-      _maxRange = _trainingTemplates.Count - 1;
-   }
-
-   private void GetReferences()
-   {
-      _gridManagerReferences = GetComponent<GridManagerReferences>();
-      _levelGenerator = _gridManagerReferences._levelGenerator;
-   }
-
-   private void Start()
-   {
-      GetReferences();
-   }
+   
 }
