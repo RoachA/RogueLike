@@ -27,6 +27,11 @@ namespace Game.Tiles
             _tilePosId.y = y;
         }
 
+        public virtual bool CheckIfWalkable()
+        {
+            return IsWalkable;
+        }
+
         public Vector2Int GetTilePosId()
         {
             return _tilePosId;

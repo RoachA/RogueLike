@@ -122,8 +122,6 @@ namespace Game.Managers
                         if (_movementVectors.TryGetValue(i, out var motionVector))
                         {
                             _levelManager.MovePlayerTo(motionVector);
-                            Debug.Log("pressed: " + i);
-                            Debug.Log("moving to" + motionVector);
                         }
                     }
                 }

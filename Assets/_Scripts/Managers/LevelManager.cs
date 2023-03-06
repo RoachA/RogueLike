@@ -22,13 +22,20 @@ namespace Game.Managers
         {
             _gridManager.GenerateLevelGrid();
             
-            _entityManager.InstantiateEntity(EntityBase.EntityType.player, new Vector2(2, 2));
-            _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2(3, 2));
+            _entityManager.InstantiateEntity(EntityBase.EntityType.player, new Vector2Int(2, 2));
+            _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2Int(3, 2));
         }
 
         public void MovePlayerTo(Vector2Int direction)
         {
-            _entityManager.GetPlayerEntity().MoveEntity(direction);
+            var player = _entityManager.GetPlayerEntity();
+            var targetGridPos = player.GetEntityPos() + direction;
+
+            if (_gridManager.CheckTileIfWalkable(targetGridPos.x, targetGridPos.y))
+            {
+                _entityManager.GetPlayerEntity().MoveEntity(direction);
+                _cameraManager.SetCameraPosition(targetGridPos);
+            }
         }
 
         public TileBase GetTileAt(int cellX, int cellY)

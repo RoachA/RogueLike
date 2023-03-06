@@ -58,7 +58,7 @@ public class EntityManager : MonoBehaviour
     {
     }
 
-    public void InstantiateEntity(EntityBase.EntityType entityType, Vector2 pos)
+    public void InstantiateEntity(EntityBase.EntityType entityType, Vector2Int pos)
     {
         var entityResource = Resources.Load(ResourcesHelper.EntitiesPath) as GameObject;
         
@@ -75,7 +75,7 @@ public class EntityManager : MonoBehaviour
         }
         
         var newEntityObj = Instantiate(entityResource, transform);
-        newEntityObj.transform.localPosition = pos;
+        newEntityObj.transform.localPosition = new Vector3(pos.x, pos.y, 0); //todo check z's from a const or something.
         
         var newEntity = newEntityObj.GetComponent<EntityBase>();
         newEntity.SetEntityPos(pos);

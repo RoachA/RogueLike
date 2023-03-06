@@ -85,6 +85,11 @@ public class GridManager : MonoBehaviour
       }
    }
 
+   public bool CheckTileIfWalkable(int cellX, int cellY)
+   {
+      return GetTile(cellX, cellY).CheckIfWalkable();
+   }
+
    /// <summary>
    /// Gets the tile at a given coordinate.
    /// </summary>
