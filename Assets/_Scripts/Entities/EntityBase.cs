@@ -1,5 +1,4 @@
 using System;
-using Unity.Collections;
 using UnityEngine;
 
 [Serializable]
@@ -13,6 +12,7 @@ public class EntityBase : MonoBehaviour
       container,
    }
 
+   [SerializeField] protected SpriteRenderer _spriteRenderer;
    [SerializeField] protected EntityType _entityType { get; set; }
    [Sirenix.OdinInspector.ReadOnly] [SerializeField] protected Vector2Int _entityPos;
 

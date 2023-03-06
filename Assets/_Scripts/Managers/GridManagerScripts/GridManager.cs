@@ -3,6 +3,8 @@ using System.Linq;
 using Game.Tiles;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
+using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -85,6 +87,40 @@ public class GridManager : MonoBehaviour
       }
    }
 
+   //todo this method is a bit ugly... how to make it better?
+   public bool CheckTileIfHasEntity(int cellX, int cellY, out EntityBase entity)
+   {
+      if (CheckPosInBounds(cellX, cellY) == false)
+      {
+         Debug.LogError("The target tile doesn't exist!");
+         goto SkipToEnd;
+      }
+      
+      if (_registeredTiles.TryGetValue(new Vector2Int(cellX, cellY), out TileBase tile))
+      {
+         if (tile.CheckIfWalkable() == false)
+            goto SkipToEnd;
+         
+         if (tile.CheckIfWalkable(out var floor))
+         {
+            if (floor.CheckIfHasEnemy(out var enemy) == false)
+               goto SkipToEnd;
+            
+            entity = enemy;
+            return true;
+         }
+      }  
+      
+      SkipToEnd:
+      entity = null;
+      return false;
+   }
+   
+   public bool CheckTileIfHasEntity(int cellX, int cellY)
+   {
+      return false;
+   }
+
    public bool CheckTileIfWalkable(int cellX, int cellY)
    {
       return GetTile(cellX, cellY).CheckIfWalkable();
@@ -139,13 +175,10 @@ public class GridManager : MonoBehaviour
                continue;
 
             if (array[x, y])
-            {
-               Debug.LogError("TRUE");
+            {        
                return true;
             }
          }
-      
-      Debug.LogError("FALSE");
       return false;
    }
 

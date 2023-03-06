@@ -10,8 +10,8 @@ namespace Game.Tiles
     {
         [SerializeField] protected bool IsWalkable = true;
         [SerializeField] protected List<Sprite> _spriteVariants;
-        [SerializeField] private SpriteRenderer _spriteRenderer;
-        [SerializeField] private Vector2Int _tilePosId;
+        [SerializeField] protected SpriteRenderer _spriteRenderer;
+        [SerializeField] protected Vector2Int _tilePosId;
 
         protected virtual void SetRandomSprite()
         {
@@ -25,6 +25,12 @@ namespace Game.Tiles
         {
             _tilePosId.x = x;
             _tilePosId.y = y;
+        }
+
+        public virtual bool CheckIfWalkable(out TileFloor floor)
+        {
+            floor = IsWalkable ? (TileFloor) this : null;
+            return IsWalkable;
         }
 
         public virtual bool CheckIfWalkable()

@@ -78,6 +78,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3307381072891133322, guid: 3d8eeb0493f43214ba32d18c7739efc5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3d8eeb0493f43214ba32d18c7739efc5, type: 3}
+--- !u!212 &1029580176058384437 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2100899855404785410, guid: 3d8eeb0493f43214ba32d18c7739efc5, type: 3}
+  m_PrefabInstance: {fileID: 1400101607754751799}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1029580176852882587 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2100899856220769196, guid: 3d8eeb0493f43214ba32d18c7739efc5, type: 3}
@@ -95,5 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e26878bb26f7c4f9094c46127c38bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 1029580176058384437}
   _entityPos: {x: 0, y: 0}
   _isAlive: 1

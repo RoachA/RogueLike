@@ -8,6 +8,8 @@ namespace Game.Managers
     //
     public class GameManager : MonoBehaviour
     {
+        public static Game.Managers.GameManager Instance;
+        
         public enum GameState
         {
             loadLevel,
@@ -47,7 +49,12 @@ namespace Game.Managers
             {8, new Vector2Int(0, 1)},
             {9, new Vector2Int(1, 1)},
         };
-        
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
         void Start()
         {
             _levelManager = LevelManager.Instance;
@@ -96,12 +103,12 @@ namespace Game.Managers
         private void HandleEvaluate()
         {
             //todo do calculations to determine who starts first, player or enemy? now start player
+            Debug.Log("Evaluate...");
             UpdateGameState(GameState.playerTurn);
         }
 
         private void HandlePlayerTurn()
         {
-            
             Debug.Log("player turn!");
         }
 

@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -10,9 +12,16 @@ public class EntityManager : MonoBehaviour
     [SerializeField] private List<EntityBase> _entitiesList;
     [SerializeField] private EntityPlayer _player;
 
-    private void Awake()
+    private GridManager _gridManager;
+
+    void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        _gridManager = GridManager.Instance;
     }
 
     #region getters
@@ -58,9 +67,12 @@ public class EntityManager : MonoBehaviour
     {
     }
 
+    //todo feed it with data here! entityData:!!
     public void InstantiateEntity(EntityBase.EntityType entityType, Vector2Int pos)
     {
         var entityResource = Resources.Load(ResourcesHelper.EntitiesPath) as GameObject;
+        
+        //todo check if entity can be spawned on this tile - does the tile exist?
         
         switch (entityType)
         {
@@ -84,5 +96,10 @@ public class EntityManager : MonoBehaviour
 
         if (entityType == EntityBase.EntityType.player)
             _player = newEntity as EntityPlayer;
+        
+        if (_gridManager.GetTile(pos.x, pos.y).CheckIfWalkable(out var targetTile))
+        {
+            targetTile.AddEntityToTile(newEntity);
+        }
     }
 }
