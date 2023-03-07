@@ -76,6 +76,7 @@ namespace Game.Managers
             _cursor.MoveCursorTo(target + currentCursorPos);
             _cursor.SetCursorState(true);
             _cameraManager.SetCameraPosition(target + currentCursorPos);
+            Debug.Log(_gridManager.GetTileData(target + currentCursorPos));
         }
 
         public void StartLookAt()

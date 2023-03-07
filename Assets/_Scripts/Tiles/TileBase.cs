@@ -12,6 +12,8 @@ namespace Game.Tiles
         [SerializeField] protected List<Sprite> _spriteVariants;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] protected Vector2Int _tilePosId;
+        
+        [SerializeField] protected string _tileTypeName; // todo later on will be read from data.
 
         protected virtual void SetRandomSprite()
         {
@@ -38,15 +40,21 @@ namespace Game.Tiles
             return IsWalkable;
         }
 
-        public Vector2Int GetTilePosId()
+        public virtual Vector2Int GetTilePosId()
         {
             return _tilePosId;
+        }
+        
+        public virtual string GetTileType()
+        {
+            return _tileTypeName;
         }
 
         protected virtual void Start()
         {
             SetRandomSprite();
         }
+
     }
 }
 

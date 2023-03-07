@@ -97,3 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37adc95873fb0324eb5faa10dc609d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsWalkable: 1
+  _spriteVariants: []
+  _spriteRenderer: {fileID: 0}
+  _tilePosId: {x: 0, y: 0}
+  _tileTypeName: Base

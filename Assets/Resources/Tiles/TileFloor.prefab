@@ -97,6 +97,9 @@ MonoBehaviour:
   - {fileID: -103674833, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
   - {fileID: -244875904, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
   _spriteRenderer: {fileID: 7029349495824940232}
+  _tilePosId: {x: 0, y: 0}
+  _tileTypeName: Floor
+  _entitiesOnTile: []
 --- !u!212 &7029349495824940232 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}

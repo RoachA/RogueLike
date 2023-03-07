@@ -115,6 +115,19 @@ public class GridManager : MonoBehaviour
       entity = null;
       return false;
    }
+
+   public string GetTileData(Vector2Int target) //todo later on this will return tile data instead
+   {
+      //todo also check if tile has an entity read the entity instead
+      // > or allow player to iterate through the stack of entities and the tile
+      
+      if (_registeredTiles.TryGetValue(target, out TileBase tile)) 
+      {
+         return tile.GetTileType();
+      }
+
+      return "";
+   }
    
    public bool CheckTileIfHasEntity(int cellX, int cellY)
    {
