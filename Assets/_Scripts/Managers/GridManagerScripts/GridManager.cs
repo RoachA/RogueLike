@@ -3,8 +3,6 @@ using System.Linq;
 using Game.Tiles;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace Game.Managers
@@ -26,12 +24,12 @@ namespace Game.Managers
 
       public static GridManager Instance;
 
-      private void Awake()
+      void Awake()
       {
          Instance = this;
       }
 
-      private void OnValidate()
+      void OnValidate()
       {
          GetReferences();
          _maxRange = _trainingTemplates.Count - 1;
@@ -63,6 +61,15 @@ namespace Game.Managers
          _levelGenerator.Run();
 
          RegisterTiles();
+         CacheNeighboursOfEachTile();
+      }
+      
+      private void CacheNeighboursOfEachTile()
+      {
+         foreach (var tile in _registeredTiles)
+         {
+            tile.Value.CacheNeighbors();
+         }
       }
 
       private void RegisterTiles()

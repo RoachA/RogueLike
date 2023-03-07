@@ -88,7 +88,6 @@ namespace Game.Managers
                 default:
                     throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
             }
-            
             OnGameStateChanged?.Invoke(newState);
         }
         
@@ -122,8 +121,10 @@ namespace Game.Managers
         //todo if else if etc a bit ugly.
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.L)) //todo here may cause issues if other conditions come.
+            if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.KeypadEnter)) //todo here may cause issues if other conditions come.
             {
+                _levelManager.UpdateLevelState(); // todo delete laters this is for test
+                
                 _lookAtActive = !_lookAtActive;
                 _movementActive = !_movementActive;
                 

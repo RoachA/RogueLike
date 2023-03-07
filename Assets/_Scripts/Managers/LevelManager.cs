@@ -32,6 +32,11 @@ namespace Game.Managers
             _gameManager = GameManager.Instance;
         }
 
+        public void UpdateLevelState()
+        {
+            _entityManager.DrawPathFromEntityToTargetTile(_entityManager.GetEntityWithIndex(1), _entityManager.GetPlayerEntity().GetOcccupiedTile());
+        }
+
         public void CreateLevel()
         {
             _gridManager.GenerateLevelGrid();
@@ -64,6 +69,7 @@ namespace Game.Managers
             
             //if tile is walkable and if it is not occupied by an enemy >>> walk there! :)
             _entityManager.GetPlayerEntity().MoveEntity(direction);
+            player.SetOccupiedTile(_gridManager.GetTileAtPosition(targetGridPos)); //TODO REFACTOR HERE AND MAKE MORE BEAUTIFUL. IT IS CRAP!
             _cameraManager.SetCameraPosition(targetGridPos);
         }
 

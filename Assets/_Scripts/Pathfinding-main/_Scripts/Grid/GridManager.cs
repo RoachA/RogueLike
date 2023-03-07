@@ -7,8 +7,10 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using Game;
 
-namespace Tarodev_Pathfinding._Scripts.Grid {
-    public class GridManager : MonoBehaviour {
+namespace Tarodev_Pathfinding._Scripts.Grid 
+{
+    public class GridManager : MonoBehaviour 
+    {
         public static GridManager Instance;
 
         [SerializeField] private Sprite _playerSprite, _goalSprite;
@@ -23,7 +25,8 @@ namespace Tarodev_Pathfinding._Scripts.Grid {
 
         void Awake() => Instance = this;
 
-        private void Start() {
+        private void Start() 
+        {
             Tiles = _scriptableGrid.GenerateGrid();
          
             foreach (var tile in Tiles.Values) tile.CacheNeighbors();
@@ -34,16 +37,18 @@ namespace Tarodev_Pathfinding._Scripts.Grid {
 
         private void OnDestroy() => NodeBase.OnHoverTile -= OnTileHover;
 
-        private void OnTileHover(NodeBase nodeBase) {
+        private void OnTileHover(NodeBase nodeBase) 
+        {
             _goalNodeBase = nodeBase;
             _spawnedGoal.transform.position = _goalNodeBase.Coords.Pos;
 
             foreach (var t in Tiles.Values) t.RevertTile();
 
-            var path = Pathfinding.FindPath(_playerNodeBase, _goalNodeBase);
+           // var path = Pathfinding.FindPath(_playerNodeBase, _goalNodeBase);
         }
 
-        void SpawnUnits() {
+        void SpawnUnits() 
+        {
             _playerNodeBase = Tiles.Where(t => t.Value.Walkable).OrderBy(t => Random.value).First().Value;
             _spawnedPlayer = Instantiate(_unitPrefab, _playerNodeBase.Coords.Pos, Quaternion.identity);
             _spawnedPlayer.Init(_playerSprite);
@@ -54,10 +59,12 @@ namespace Tarodev_Pathfinding._Scripts.Grid {
 
         public NodeBase GetTileAtPosition(Vector2 pos) => Tiles.TryGetValue(pos, out var tile) ? tile : null;
 
-        private void OnDrawGizmos() {
+        private void OnDrawGizmos() 
+        {
             if (!Application.isPlaying || !_drawConnections) return;
             Gizmos.color = Color.red;
-            foreach (var tile in Tiles) {
+            foreach (var tile in Tiles) 
+            {
                 if (tile.Value.Connection == null) continue;
                 Gizmos.DrawLine((Vector3)tile.Key + new Vector3(0, 0, -1), (Vector3)tile.Value.Connection.Coords.Pos + new Vector3(0, 0, -1));
             }

@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using Game;
+using Game.Tiles;
 using UnityEngine;
 
 [Serializable]
@@ -13,6 +16,7 @@ public class EntityBase : MonoBehaviour
    }
 
    [SerializeField] protected SpriteRenderer _spriteRenderer;
+   [SerializeField] protected TileBase _occupiedTile;
    [SerializeField] protected EntityType _entityType { get; set; }
    [Sirenix.OdinInspector.ReadOnly] [SerializeField] protected Vector2Int _entityPos;
 
@@ -20,15 +24,32 @@ public class EntityBase : MonoBehaviour
    {
       return _entityPos;
    }
-
-   public void SetEntityPos(Vector2Int newPos)
+   
+   public void SetEntityPos(TileBase targetTile)
    {
-      _entityPos = newPos;
+      _entityPos = targetTile.GetTilePosId();
       transform.localPosition = new Vector3(_entityPos.x, _entityPos.y, transform.localPosition.z);
+       SetOccupiedTile(targetTile);
    }
 
    public void SetEntityType(EntityType entityType)
    {
       _entityType = entityType;
+   }
+
+   public TileBase GetOcccupiedTile()
+   {
+      return _occupiedTile;
+   }
+
+   public void SetOccupiedTile(TileBase tile)
+   {
+      _occupiedTile = tile;
+   }
+   
+   public virtual List<TileBase> FindPathToTargetTile(TileBase tile) //todo this would be handled better on higher level. designed path for the entity there then move it.
+   {
+      var path = Pathfinding.FindPath(_occupiedTile, tile);
+      return path;
    }
 }

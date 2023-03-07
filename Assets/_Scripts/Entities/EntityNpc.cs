@@ -1,4 +1,6 @@
 using System;
+using Game;
+using Game.Tiles;
 using UnityEngine;
 
 public class EntityNpc : EntityDynamic
@@ -20,7 +22,7 @@ public class EntityNpc : EntityDynamic
    {
       _isHostile = !_isHostile;
    }
-
+   
 #if UNITY_EDITOR
    private void OnValidate()
    {

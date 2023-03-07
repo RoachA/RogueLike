@@ -55,10 +55,9 @@ namespace Game.Tiles
         protected virtual void Start()
         {
             SetRandomSprite();
-            CacheNeighbors();
         }
 
-#region pathfinding stuffs   
+#region pathfinding stuffs
 
         public ICoords Coords;
         private bool _selected;
@@ -68,12 +67,26 @@ namespace Game.Tiles
         public float G { get; private set; }
         public float H { get; private set; }
         public float F => G + H;
+        
 
         private static readonly List<Vector2Int> Dirs = new List<Vector2Int>() 
         {
             new Vector2Int(0, 1), new Vector2Int(-1, 0), new Vector2Int(0, -1), new Vector2Int(1, 0),
             new Vector2Int(1, 1), new Vector2Int(1, -1), new Vector2Int(-1, -1), new Vector2Int(-1, 1)
         };
+        
+        public virtual void Init(ICoords coords) 
+        {
+            /*
+            Walkable = walkable;
+            _renderer.color = walkable ? _walkableColor.Evaluate(Random.Range(0f, 1f)) : _obstacleColor;
+            _defaultColor = _renderer.color;
+
+            OnHoverTile += OnOnHoverTile;
+            */
+
+            Coords = coords;
+        }
 
         public void CacheNeighbors() 
         {
@@ -115,7 +128,8 @@ namespace Game.Tiles
         }
 
         
-        public struct SquareCoords : ICoords
+        [Serializable]
+        public struct TileCoords : ICoords
         {
             public float GetDistance(ICoords other)
             {

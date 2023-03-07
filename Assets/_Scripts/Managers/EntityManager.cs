@@ -1,12 +1,14 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Managers;
+using Game.Tiles;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class EntityManager : MonoBehaviour
 {
+    //todo PATH FINDING LOGIC MUST WORK HERE
+    
     public static EntityManager Instance;
 
     [SerializeField] private List<EntityBase> _entitiesList;
@@ -23,7 +25,7 @@ public class EntityManager : MonoBehaviour
     {
         _gridManager = GridManager.Instance;
     }
-
+    
     #region getters
     
     public EntityPlayer GetPlayerEntity()
@@ -60,11 +62,21 @@ public class EntityManager : MonoBehaviour
         Debug.LogError(npcEntities.Count);
         return npcEntities;
     }
+
+    public void DrawPathFromEntityToTargetTile(EntityBase entity, TileBase tile)
+    {
+        entity.FindPathToTargetTile(tile);
+    }
     
     #endregion 
     
     public void InitiateEntities()
     {
+    }
+
+    public EntityBase GetEntityWithIndex(int index)
+    {
+        return _entitiesList[index];
     }
 
     //todo feed it with data here! entityData:!!
@@ -90,7 +102,8 @@ public class EntityManager : MonoBehaviour
         newEntityObj.transform.localPosition = new Vector3(pos.x, pos.y, 0); //todo check z's from a const or something.
         
         var newEntity = newEntityObj.GetComponent<EntityBase>();
-        newEntity.SetEntityPos(pos);
+        var tile = _gridManager.GetTileAtPosition(pos);
+        newEntity.SetEntityPos(tile);
         newEntity.SetEntityType(entityType);
         _entitiesList.Add(newEntity);
 

@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Game;
+using Game.Tiles;
 using UnityEngine;
 
 public class EntityDynamic : EntityBase
@@ -9,6 +12,9 @@ public class EntityDynamic : EntityBase
         var targetVector = new Vector3(direction.x, direction.y, transform.localPosition.z);
         var newPos = transform.localPosition + targetVector;
         transform.localPosition = newPos;
-        _entityPos = new Vector2Int((int) newPos.x, (int) newPos.y); //todo check how to do this better.
+        _entityPos = new Vector2Int((int) newPos.x, (int) newPos.y); 
+        //todo check how to do this better.
     }
+    
+   
 }

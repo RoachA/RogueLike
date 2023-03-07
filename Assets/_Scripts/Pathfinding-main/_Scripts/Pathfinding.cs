@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using _Scripts.Tiles;
+using Game.Tiles;
 using UnityEngine;
 
 namespace Game
@@ -15,14 +15,14 @@ namespace Game
     /// </summary>
     public static class Pathfinding 
     {
-        private static readonly Color PathColor = new Color(0.65f, 0.35f, 0.35f);
-        private static readonly Color OpenColor = new Color(.4f, .6f, .4f);
-        private static readonly Color ClosedColor = new Color(0.35f, 0.4f, 0.5f);
+        private static readonly Color PathColor = new Color(0f, 1f, 0f);
+        private static readonly Color OpenColor = new Color(0, 1, 1);
+        private static readonly Color ClosedColor = new Color(1f, 0, 0.5f);
         
-        public static List<NodeBase> FindPath(NodeBase startNode, NodeBase targetNode) 
+        public static List<TileBase> FindPath(TileBase startNode, TileBase targetNode) 
         {
-            var toSearch = new List<NodeBase>() {startNode};
-            var processed = new List<NodeBase>();
+            var toSearch = new List<TileBase>() {startNode};
+            var processed = new List<TileBase>();
 
             while (toSearch.Any()) 
             {
@@ -39,7 +39,7 @@ namespace Game
                 if (current == targetNode) 
                 {
                     var currentPathTile = targetNode;
-                    var path = new List<NodeBase>();
+                    var path = new List<TileBase>();
                     var count = 100;
                     while (currentPathTile != startNode) 
                     {
@@ -56,7 +56,8 @@ namespace Game
                     return path;
                 }
 
-                foreach (var neighbor in current.Neighbors.Where(t => t.Walkable && !processed.Contains(t))) {
+                foreach (var neighbor in current.Neighbors.Where(t => t.CheckIfWalkable() && !processed.Contains(t))) 
+                {
                     var inSearch = toSearch.Contains(neighbor);
 
                     var costToNeighbor = current.G + current.GetDistance(neighbor);
