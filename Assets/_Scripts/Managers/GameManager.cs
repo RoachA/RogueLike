@@ -23,6 +23,7 @@ namespace Game.Managers
         private LevelManager _levelManager;
         private GameState _currentGameState;
         private bool _movementActive = true;
+        private bool _lookAtActive = false;
         
         private readonly KeyCode[] _keyCodes =
         {
@@ -118,9 +119,19 @@ namespace Game.Managers
 
         #region GameLoopElements
 
+        //todo if else if etc a bit ugly.
         private void Update()
         {
-            if (_currentGameState == GameState.playerTurn && _movementActive)
+            if (Input.GetKeyDown(KeyCode.L)) //todo here may cause issues if other conditions come.
+            {
+                _lookAtActive = !_lookAtActive;
+                _movementActive = !_movementActive;
+                
+                if (_lookAtActive) _levelManager.StartLookAt();
+                else _levelManager.StopLookAtTile();
+            }
+            
+            if (_currentGameState == GameState.playerTurn && _movementActive && _lookAtActive == false)
             {
                 for (int i = 0; i < _keyCodes.Length; i++)
                 {
@@ -129,6 +140,19 @@ namespace Game.Managers
                         if (_movementVectors.TryGetValue(i, out var motionVector))
                         {
                             _levelManager.MovePlayerTo(motionVector);
+                        }
+                    }
+                }
+            }
+            else if (_currentGameState == GameState.playerTurn && _movementActive == false && _lookAtActive)
+            {
+                for (int i = 0; i < _keyCodes.Length; i++)
+                {
+                    if (Input.GetKeyDown(_keyCodes[i]))
+                    {
+                        if (_movementVectors.TryGetValue(i, out var motionVector))
+                        {
+                            _levelManager.LookAtTile(motionVector);
                         }
                     }
                 }
