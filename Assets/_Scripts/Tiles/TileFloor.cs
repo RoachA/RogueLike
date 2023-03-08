@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Game.Entites;
+
 namespace Game.Tiles
 {
     public class TileFloor : TileBase

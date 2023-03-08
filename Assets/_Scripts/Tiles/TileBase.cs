@@ -57,7 +57,7 @@ namespace Game.Tiles
             SetRandomSprite();
         }
 
-#region pathfinding stuffs
+#region PATHFINDING_STUFFS
 
         public ICoords Coords;
         private bool _selected;

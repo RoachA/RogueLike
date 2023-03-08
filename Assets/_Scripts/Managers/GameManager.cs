@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Game.Managers
 {
-    //
     public class GameManager : MonoBehaviour
     {
         public static Game.Managers.GameManager Instance;
@@ -51,7 +50,7 @@ namespace Game.Managers
             {9, new Vector2Int(1, 1)},
         };
 
-        private void Awake()
+        void Awake()
         {
             Instance = this;
         }
@@ -63,6 +62,8 @@ namespace Game.Managers
             UpdateGameState(GameState.loadLevel);
         }
 
+#region STATES
+        
         public GameState GetGameState()
         {
             return _currentGameState;
@@ -88,6 +89,7 @@ namespace Game.Managers
                 default:
                     throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
             }
+            
             OnGameStateChanged?.Invoke(newState);
         }
         
@@ -115,8 +117,10 @@ namespace Game.Managers
         private void HandleCPUTurn()
         {
         }
+        
+#endregion
 
-        #region GameLoopElements
+#region INPUT-GAMELOOP
 
         //todo if else if etc a bit ugly.
         private void Update()
@@ -160,6 +164,6 @@ namespace Game.Managers
             }
         }
 
-        #endregion
+#endregion
         }
     }

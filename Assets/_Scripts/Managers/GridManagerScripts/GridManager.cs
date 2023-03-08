@@ -4,10 +4,10 @@ using Game.Tiles;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
+using Game.Entites;
 
 namespace Game.Managers
 {
-
    public class GridManager : MonoBehaviour
    {
       [GUIColor(1, 0.9f, 0.9f)] [SerializeField]

@@ -1,5 +1,6 @@
 using System;
 using Game.Tiles;
+using Game.Entites;
 using UnityEngine;
 
 namespace Game.Managers
@@ -41,13 +42,13 @@ namespace Game.Managers
         {
             _gridManager.GenerateLevelGrid();
             
-            // todo make a proper entity spawner in entity manager!
+            // todo make a proper entity spawner in entity manager! with parameters etc
             _entityManager.InstantiateEntity(EntityBase.EntityType.player, new Vector2Int(2, 2));
             _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2Int(3, 2));
             _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2Int(0, 0));
         }
 
-        public void MovePlayerTo(Vector2Int direction)
+        public void MovePlayerTo(Vector2Int direction) //todo should this really be here??
         {
             var player = _entityManager.GetPlayerEntity();
             var targetGridPos = player.GetEntityPos() + direction;
