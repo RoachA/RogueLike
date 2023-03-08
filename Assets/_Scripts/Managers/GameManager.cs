@@ -98,7 +98,7 @@ namespace Game.Managers
         {
             _levelManager.CreateLevel();
             
-            Debug.Log("level is Ready!");
+            Debug.Log("Evaluate!");
             UpdateGameState(GameState.evaluate);
         }
         
@@ -106,6 +106,7 @@ namespace Game.Managers
         {
             //todo do calculations to determine who starts first, player or enemy? now start player
             Debug.Log("Evaluate...");
+            _levelManager.UpdateLevelState();
             UpdateGameState(GameState.playerTurn);
         }
 
@@ -142,6 +143,11 @@ namespace Game.Managers
                 {
                     if (Input.GetKeyDown(_keyCodes[i]))
                     {
+                        if (i == 5)
+                        {
+                            UpdateGameState(GameState.evaluate);
+                        }
+                        
                         if (_movementVectors.TryGetValue(i, out var motionVector))
                         {
                             _levelManager.MovePlayerTo(motionVector);

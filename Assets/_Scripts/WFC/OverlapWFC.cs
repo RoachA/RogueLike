@@ -222,8 +222,8 @@ namespace Game
 									tile.transform.localEulerAngles = new Vector3(0, 0, 360 - (rot * 90));
 									tile.transform.localScale = fscale;
 									rendering[x, y] = tile;
-									tile.gameObject.name = tile.GetType().ToString() + "_" + x + "_" + y;
 									var tileBase = tile.GetComponent<TileBase>();
+									tile.gameObject.name = tileBase.GetType().Name + "_" + x + "_" + y;
 									tileBase.SetTilePosId(x, y);
 									Tiles.Add(tileBase);
 									tileBase.Init(new TileBase.TileCoords {Pos = new Vector2Int(x, y)});

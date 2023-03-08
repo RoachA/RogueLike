@@ -1,4 +1,3 @@
-using System;
 using Game.Tiles;
 using Game.Entites;
 using UnityEngine;
@@ -17,7 +16,7 @@ namespace Game.Managers
         [SerializeField] private CameraManager _cameraManager;
         
         [Header("Views")]
-        [SerializeField] private SelectionCursorView _cursor;
+        [SerializeField] private SelectionCursorView _cursor; // todo can be instantiated instead.
         
 
         private Game.Managers.GameManager _gameManager;
@@ -35,7 +34,7 @@ namespace Game.Managers
 
         public void UpdateLevelState()
         {
-            _entityManager.DrawPathFromEntityToTargetTile(_entityManager.GetEntityWithIndex(1), _entityManager.GetPlayerEntity().GetOcccupiedTile());
+            _entityManager.PlayEntityMoves();
         }
 
         public void CreateLevel()
@@ -44,8 +43,8 @@ namespace Game.Managers
             
             // todo make a proper entity spawner in entity manager! with parameters etc
             _entityManager.InstantiateEntity(EntityBase.EntityType.player, new Vector2Int(2, 2));
-            _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2Int(3, 2));
-            _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2Int(0, 0));
+            _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2Int(15, 10));
+           // _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2Int(0, 0));
         }
 
         public void MovePlayerTo(Vector2Int direction) //todo should this really be here??
@@ -69,9 +68,10 @@ namespace Game.Managers
             }
             
             //if tile is walkable and if it is not occupied by an enemy >>> walk there! :)
-            _entityManager.GetPlayerEntity().MoveEntity(direction);
+            _entityManager.GetPlayerEntity().MoveEntityToDirection(direction);
             player.SetOccupiedTile(_gridManager.GetTileAtPosition(targetGridPos)); //TODO REFACTOR HERE AND MAKE MORE BEAUTIFUL. IT IS CRAP!
             _cameraManager.SetCameraPosition(targetGridPos);
+            _gameManager.UpdateGameState(GameManager.GameState.evaluate);
         }
 
         public void LookAtTile(Vector2Int target)

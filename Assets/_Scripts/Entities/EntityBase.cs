@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Game;
 using Game.Tiles;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game.Entites
@@ -21,6 +19,7 @@ namespace Game.Entites
       [SerializeField] protected SpriteRenderer _spriteRenderer;
       [SerializeField] protected TileBase _occupiedTile;
       [SerializeField] protected EntityType _entityType { get; set; }
+      [SerializeField] private List<TileBase> _pathFindingPaths;
 
       [Sirenix.OdinInspector.ReadOnly] [SerializeField]
       protected Vector2Int _entityPos;
@@ -42,7 +41,7 @@ namespace Game.Entites
          _entityType = entityType;
       }
 
-      public TileBase GetOcccupiedTile()
+      public TileBase GetOccupiedTile()
       {
          return _occupiedTile;
       }
@@ -51,13 +50,11 @@ namespace Game.Entites
       {
          _occupiedTile = tile;
       }
-
-      public virtual List<TileBase>
-         FindPathToTargetTile(
-            TileBase tile) //todo this would be handled better on higher level. designed path for the entity there then move it.
+      
+      public virtual List<TileBase> FindPathToTargetTile(TileBase tile) 
       {
-         var path = Pathfinding.FindPath(_occupiedTile, tile);
-         return path;
+         _pathFindingPaths = Pathfinding.Pathfinding.FindPath(_occupiedTile, tile);
+         return _pathFindingPaths;
       }
    }
 }
