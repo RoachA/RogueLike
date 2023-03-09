@@ -8,6 +8,18 @@ using Game.Entites;
 
 namespace Game.Managers
 {
+   public class GridData
+   {
+      public int Seed;
+      public Vector2Int GridSize;
+		
+      public GridData(Vector2Int gridSize, int seed = 0)
+      {
+         Seed = seed;
+         GridSize = gridSize;
+      }
+   }
+   
    public class GridManager : MonoBehaviour
    {
       [GUIColor(1, 0.9f, 0.9f)] [SerializeField]
@@ -23,6 +35,7 @@ namespace Game.Managers
       public Dictionary<Vector2Int, TileBase> _registeredTiles;
 
       public static GridManager Instance;
+      private GridData _currentGridData;
 
       void Awake()
       {
@@ -54,14 +67,26 @@ namespace Game.Managers
       [PropertyOrder(4)]
       [GUIColor(0.9f, 1, 0.9f)]
       [Button("Generate Level")]
-      public void GenerateLevelGrid()
+      public void GenerateLevelGrid(GridData data)
       {
          _levelGenerator.training = _trainingTemplates[_selectedIndex];
+         SetCurrentGridData(data);
+         _levelGenerator.SetGridData(data);
          _levelGenerator.Generate();
          _levelGenerator.Run();
 
          RegisterTiles();
          CacheNeighboursOfEachTile();
+      }
+
+      public GridData GetCurrentGridData()
+      {
+         return _currentGridData;
+      }
+
+      private void SetCurrentGridData(GridData data)
+      {
+         _currentGridData = data;
       }
       
       private void CacheNeighboursOfEachTile()
@@ -227,7 +252,7 @@ namespace Game.Managers
          int x = cellX;
          int y = cellY;
 
-         int W = _levelGenerator.depth;
+         int W = _levelGenerator.height;
          int H = _levelGenerator.width;
 
          List<TileBase> neighbors = new List<TileBase>();
