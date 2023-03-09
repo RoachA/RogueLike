@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99c462919ee8bd74b9ba6325a1915210, type: 3}
   m_Name: scriptableNPCTest
   m_EditorClassIdentifier: 
-  _npcName: npc
-  _baseDemeanor: 0
-  _aggroRadius: 5
+  _npcName: NPC_TEST
+  _demeanor: 2
+  _aggroRadius: 10
+  _hp: 10
+  _energy: 10
   _str: 10
   _agi: 10
+  _toughness: 10
   _int: 10
   _chr: 10
   _wp: 10

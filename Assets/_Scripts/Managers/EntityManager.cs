@@ -64,7 +64,7 @@ namespace Game.Managers
             {
                 bool tryAttackPlayer = entity.CheckIfHostile() && entity.CheckForAggro(_player.GetOccupiedTile());
 
-                bool canMeeleeAttack = entity.GetDistanceToTargetTile(_player.GetOccupiedTile()) == 1;
+                bool canMeeleeAttack = entity.GetDistanceToTargetTile(_player.GetOccupiedTile()) <= 1.42f; //hypotenuse
 
                 if (canMeeleeAttack)
                 {

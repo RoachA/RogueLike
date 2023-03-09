@@ -1,6 +1,8 @@
 using Game.Tiles;
 using UnityEditor;
 using UnityEngine;
+using Game.Utils;
+
 
 namespace Game.Entites
 {
@@ -39,7 +41,6 @@ namespace Game.Entites
       public bool CheckForAggro(TileBase targetTile)
       {
          var aggro = GetDistanceToTargetTile(targetTile) <= _aggroDistance;
-         Debug.LogError("Aggro? " + aggro);
          _aggroDebug = aggro;
          return aggro;
       }
@@ -64,6 +65,20 @@ namespace Game.Entites
          Gizmos.color = _aggroDebug ? new Color(1f, 0f, 0f, 0.15f) : new Color(0f, 1f, 0f, 0.1f);
          Gizmos.DrawSphere(transform.position, _aggroDistance / 2);
          Handles.Label(_targetLabelPos, _detectedDistance.ToString());
+
+         Gizmos.color = Color.green;
+         
+         for (var i = 0; i < _pathNodes.Count; i++)
+         {
+            var index = i;
+            var node = _pathNodes[i].GetTilePosId();
+            Vector2Int nextNode = _pathNodes[_pathNodes.Count - 1].GetTilePosId();
+            
+            if (i < _pathNodes.Count - 1)
+                nextNode = _pathNodes[index + 1].GetTilePosId();
+            
+            Debug.DrawLine(node.ConvertVectorToVector3(1), nextNode.ConvertVectorToVector3(0));
+         }
       }
 #endif
    }

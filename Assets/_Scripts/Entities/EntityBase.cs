@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Tiles;
 using UnityEngine;
+using Game.Utils;
 
 namespace Game.Entites
 {
@@ -21,18 +22,16 @@ namespace Game.Entites
       [SerializeField] protected EntityType _entityType { get; set; }
       [SerializeField] private List<TileBase> _pathFindingPaths;
 
-      [Sirenix.OdinInspector.ReadOnly] [SerializeField]
-      protected Vector2Int _entityPos;
+      [Sirenix.OdinInspector.ReadOnly]
 
       public Vector2Int GetEntityPos()
       {
-         return _entityPos;
+         return _occupiedTile.GetTilePosId();
       }
 
       public void SetEntityPos(TileBase targetTile)
       {
-         _entityPos = targetTile.GetTilePosId();
-         transform.localPosition = new Vector3(_entityPos.x, _entityPos.y, transform.localPosition.z);
+         transform.localPosition = targetTile.GetTilePosId().ConvertVectorToVector3(0);
          SetOccupiedTile(targetTile);
       }
 
@@ -46,9 +45,9 @@ namespace Game.Entites
          return _occupiedTile;
       }
 
-      public void SetOccupiedTile(TileBase tile)
+      public void SetOccupiedTile(TileBase targetTile)
       {
-         _occupiedTile = tile;
+         _occupiedTile = targetTile;
       }
       
       public virtual List<TileBase> FindPathToTargetTile(TileBase tile) 

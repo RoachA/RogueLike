@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Tiles;
+using UnityEditor;
 using UnityEngine;
 
 namespace Game.Pathfinding
@@ -15,7 +16,7 @@ namespace Game.Pathfinding
     /// </summary>
     public static class Pathfinding
     {
-        private const bool EnableDebugVisuals = true;
+        private const bool EnableDebugVisuals = false;
         
         private static readonly Color PathColor = new Color(0f, 1f, 0f);
         private static readonly Color OpenColor = new Color(0, 1, 1);

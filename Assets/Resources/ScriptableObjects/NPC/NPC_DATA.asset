@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0da6f212d2715645be756b55b238c7b, type: 3}
   m_Name: NPC_DATA
   m_EditorClassIdentifier: 
-  _npcDefinitions: []
+  _npcDefinitions:
+  - {fileID: 11400000, guid: f4bab32caa4d3004cbbc9f0362b39021, type: 2}

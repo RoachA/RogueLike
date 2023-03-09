@@ -29,7 +29,6 @@ namespace Game.Entites
             var targetVector = new Vector3(direction.x, direction.y, transform.localPosition.z);
             var newPos = transform.localPosition + targetVector;
             transform.localPosition = newPos;
-            _entityPos = new Vector2Int((int) newPos.x, (int) newPos.y);
             //todo check how to do this better.
         }
 
@@ -37,14 +36,14 @@ namespace Game.Entites
         {
             var targetPosV3 = new Vector3(targetTile.GetTilePosId().x, targetTile.GetTilePosId().y, 0);
             transform.localPosition = targetPosV3;
+            SetEntityPos(targetTile);
             _occupiedTile = targetTile;
         } 
 
         public int GetDistanceToTargetTile(TileBase targetTile)
         {
             Debug.DrawLine(new Vector3(targetTile.GetTilePosId().x, targetTile.GetTilePosId().y, 1), transform.position, Color.green, 5);
-            var distance = (int) Vector2Int.Distance(_entityPos, targetTile.GetTilePosId());
-            Debug.LogWarning("distance is : " + distance);
+            var distance = (int) Vector2Int.Distance(_occupiedTile.GetTilePosId(), targetTile.GetTilePosId());
             _detectedDistance = distance;
             return distance;
         }
