@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityStatic : EntityBase
+namespace Game.Entites
 {
-  
+    public class EntityStatic : EntityBase
+    {
+
+    }
 }

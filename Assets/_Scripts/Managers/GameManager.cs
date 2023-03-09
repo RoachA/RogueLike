@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Game.Managers
 {
-    //
     public class GameManager : MonoBehaviour
     {
         public static Game.Managers.GameManager Instance;
@@ -51,7 +50,7 @@ namespace Game.Managers
             {9, new Vector2Int(1, 1)},
         };
 
-        private void Awake()
+        void Awake()
         {
             Instance = this;
         }
@@ -63,6 +62,8 @@ namespace Game.Managers
             UpdateGameState(GameState.loadLevel);
         }
 
+#region STATES
+        
         public GameState GetGameState()
         {
             return _currentGameState;
@@ -97,7 +98,7 @@ namespace Game.Managers
         {
             _levelManager.CreateLevel();
             
-            Debug.Log("level is Ready!");
+            Debug.Log("Evaluate!");
             UpdateGameState(GameState.evaluate);
         }
         
@@ -105,6 +106,7 @@ namespace Game.Managers
         {
             //todo do calculations to determine who starts first, player or enemy? now start player
             Debug.Log("Evaluate...");
+            _levelManager.UpdateLevelState();
             UpdateGameState(GameState.playerTurn);
         }
 
@@ -116,14 +118,18 @@ namespace Game.Managers
         private void HandleCPUTurn()
         {
         }
+        
+#endregion
 
-        #region GameLoopElements
+#region INPUT-GAMELOOP
 
         //todo if else if etc a bit ugly.
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.L)) //todo here may cause issues if other conditions come.
+            if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.KeypadEnter)) //todo here may cause issues if other conditions come.
             {
+                _levelManager.UpdateLevelState(); // todo delete laters this is for test
+                
                 _lookAtActive = !_lookAtActive;
                 _movementActive = !_movementActive;
                 
@@ -137,6 +143,11 @@ namespace Game.Managers
                 {
                     if (Input.GetKeyDown(_keyCodes[i]))
                     {
+                        if (i == 5)
+                        {
+                            UpdateGameState(GameState.evaluate);
+                        }
+                        
                         if (_movementVectors.TryGetValue(i, out var motionVector))
                         {
                             _levelManager.MovePlayerTo(motionVector);
@@ -159,6 +170,6 @@ namespace Game.Managers
             }
         }
 
-        #endregion
+#endregion
         }
     }
