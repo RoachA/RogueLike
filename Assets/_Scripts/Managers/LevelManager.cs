@@ -41,10 +41,14 @@ namespace Game.Managers
 
         public void CreateLevel()
         {
-            _gridManager.GenerateLevelGrid(new GridData(new Vector2Int(30, 30)));
+            GridData tmpGridMapData = new GridData(new Vector2Int(30, 30));
+            _gridManager.GenerateLevelGrid(tmpGridMapData);
+            _cameraManager.SetMapSize(tmpGridMapData.GridSize);
             
             // todo make a proper entity spawner in entity manager! with parameters etc
             _entityManager.InstantiateEntity(EntityBase.EntityType.player, new Vector2Int(2, 2));
+            _cameraManager.SetCameraPosition(_entityManager.GetPlayerEntity().GetEntityPos());
+            
             _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2Int(15, 10));
            // _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2Int(0, 0));
         }

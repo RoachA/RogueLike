@@ -21,10 +21,6 @@ public class CameraManager : MonoBehaviour
     {
         _camOrtoSize = _mainCam.orthographicSize;
         _screenAspect = (float) Screen.width / (float) Screen.height;
-        
-        _gridManager = GridManager.Instance; // TODO RACING CONDITIONS!
-        var currentGridData = _gridManager.GetCurrentGridData();
-        _mapSize = currentGridData.GridSize;
     } 
 
     public Camera GetMainCam()
@@ -32,9 +28,13 @@ public class CameraManager : MonoBehaviour
         return _mainCam;
     }
 
+    public void SetMapSize(Vector2Int size)
+    { 
+        _mapSize = size;
+    }
+
     public void SetCameraPosition(Vector2 cameraPos)
     {
-        // _mainCam.transform.position = new Vector3(cameraPos.x, cameraPos.y, -15f);
         _mainCam.transform.position = ApplyCameraBounds(cameraPos);
     }
 
