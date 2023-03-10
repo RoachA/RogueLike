@@ -5,6 +5,9 @@ using System.Runtime.CompilerServices;
 using Game.Tiles;
 using Unity.VisualScripting;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
+using Game.Managers;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -14,11 +17,10 @@ namespace Game
 	[ExecuteAlways]
 	public class OverlapWFC : MonoBehaviour
 	{
-
 		public Training training = null;
 		public int gridsize = 1;
 		public int width = 20;
-		public int depth = 20;
+		public int height = 20;
 
 		public int seed = 0;
 
@@ -92,6 +94,12 @@ namespace Game
 			}
 		}
 
+		public void SetGridData(GridData data)
+		{
+			width = data.GridSize.x;
+			height = data.GridSize.y;
+		}
+
 		public void Generate()
 		{
 			if (training == null)
@@ -145,8 +153,8 @@ namespace Game
 			group.position = output.transform.position;
 			group.rotation = output.transform.rotation;
 			group.localScale = new Vector3(1f, 1f, 1f);
-			rendering = new GameObject[width, depth];
-			model = new OverlappingModel(training.sample, N, width, depth, periodicInput, periodicOutput, symmetry,
+			rendering = new GameObject[width, height];
+			model = new OverlappingModel(training.sample, N, width, height, periodicInput, periodicOutput, symmetry,
 				foundation);
 			undrawn = true;
 		}
@@ -156,8 +164,8 @@ namespace Game
 			Gizmos.color = Color.cyan;
 			Gizmos.matrix = transform.localToWorldMatrix;
 			Gizmos.DrawWireCube(
-				new Vector3(width * gridsize / 2f - gridsize * 0.5f, depth * gridsize / 2f - gridsize * 0.5f, 0f),
-				new Vector3(width * gridsize, depth * gridsize, gridsize));
+				new Vector3(width * gridsize / 2f - gridsize * 0.5f, height * gridsize / 2f - gridsize * 0.5f, 0f),
+				new Vector3(width * gridsize, height * gridsize, gridsize));
 		}
 
 		public void Run()
@@ -201,7 +209,7 @@ namespace Game
 			undrawn = false;
 			try
 			{
-				for (int y = 0; y < depth; y++)
+				for (int y = 0; y < height; y++)
 				{
 					for (int x = 0; x < width; x++)
 					{

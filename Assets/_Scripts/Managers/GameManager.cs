@@ -23,6 +23,8 @@ namespace Game.Managers
         private GameState _currentGameState;
         private bool _movementActive = true;
         private bool _lookAtActive = false;
+
+        public static Vector2 GridSize;
         
         private readonly KeyCode[] _keyCodes =
         {
