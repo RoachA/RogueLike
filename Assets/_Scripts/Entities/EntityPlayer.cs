@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+using Game.Entites.Data;
 
 namespace Game.Entites
 {
     public class EntityPlayer : EntityDynamic
     {
+        protected PlayerEntityData _playerData;
     }
 
 }

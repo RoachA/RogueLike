@@ -18,11 +18,17 @@ namespace Game.Entites
       }
 
       [SerializeField] protected SpriteRenderer _spriteRenderer;
+      [SerializeField] protected Sprite _corpseSprite;
       [SerializeField] protected TileBase _occupiedTile;
       [SerializeField] protected EntityType _entityType { get; set; }
       [SerializeField] private List<TileBase> _pathFindingPaths;
 
       [Sirenix.OdinInspector.ReadOnly]
+
+      protected virtual void SetSprite(Sprite sprite)
+      {
+         _spriteRenderer.sprite = sprite;
+      }
 
       public Vector2Int GetEntityPos()
       {

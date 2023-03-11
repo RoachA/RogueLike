@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91599c649ab9d93448d85281091234f1, type: 3}
+  m_Name: Barzo_Npc
+  m_EditorClassIdentifier: 
+  Name: Barzo
+  Description: 'Barzo is a brutish creature originates from middle east. It has a
+    wide face and hairy shoulders. '
+  Sprite: {fileID: 896730608, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+  StatsData:
+    BaseStats:
+      LVL: 10
+      EXP: 10
+      HP: 10
+      MHP: 10
+      ATK: 5
+      AV: 1
+      MAT: 1
+      MDF: 1
+      DV: 1
+      RES: 10
+      SPD: 1
+      MOV: 10
+  _demeanor: 2
+  _behaviorType: 0
+  _aggroRadius: 5

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2100899855404785413}
   - component: {fileID: 2100899855404785410}
   m_Layer: 0
-  m_Name: Player_Sprite
+  m_Name: ActorRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,4 +130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 2100899855404785410}
-  _entityPos: {x: 0, y: 0}
+  _corpseSprite: {fileID: 228499516, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+  _occupiedTile: {fileID: 0}
+  _pathFindingPaths: []

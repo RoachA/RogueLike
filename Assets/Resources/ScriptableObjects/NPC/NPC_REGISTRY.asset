@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0da6f212d2715645be756b55b238c7b, type: 3}
-  m_Name: NPC_DATA
+  m_Name: NPC_REGISTRY
   m_EditorClassIdentifier: 
   _npcDefinitions:
-  - {fileID: 11400000, guid: f4bab32caa4d3004cbbc9f0362b39021, type: 2}
+  - {fileID: 11400000, guid: 2b246d743549f324ab2421513ff7a1cc, type: 2}
+  - {fileID: 11400000, guid: caa4d7a68d8447f4ba952d9f9c2a4e60, type: 2}

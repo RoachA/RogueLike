@@ -4,7 +4,7 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.Entites
+namespace Game.Entites.Data
 {
    [CreateAssetMenu(fileName = "D_ENTITY_DATA_SET", menuName = "Data Set/Dynamic Entities Data Set", order = 1)]
    [Serializable]

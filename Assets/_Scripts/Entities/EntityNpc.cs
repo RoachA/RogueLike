@@ -1,3 +1,4 @@
+using Game.Entites.Data;
 using Game.Tiles;
 using UnityEditor;
 using UnityEngine;
@@ -8,34 +9,53 @@ namespace Game.Entites
 {
    public class EntityNpc : EntityDynamic
    {
-      public enum EntityDemeanor
-      {
-         docile = 0,
-         natural = 1,
-         hostile = 2,
-         friendly = 3,
-      }
-
       [SerializeField] protected EntityDemeanor _demeanor;
+      [SerializeField] protected EntityBehaviorTypes _behaviorType;
       [SerializeField] protected int _aggroDistance;
       
-      #region debug_fields
+      protected NpcEntityData _npcData;
 
+      #region debug_fields
       private readonly Color _hostileColor = Color.red;
       private readonly Color _nautralColor = Color.white;
-
       #endregion
 
-      public bool CheckIfHostile()
+      public EntityDemeanor GetDemeanor()
       {
-         bool isHostile = _demeanor == EntityDemeanor.hostile;
-         _spriteRenderer.color = isHostile ? _hostileColor : _nautralColor;
-         return isHostile;
+         return _demeanor;
+      }
+
+      public override void Init(DynamicEntityData entityData)
+      {
+         base.Init(entityData);
+         
+         _npcData = entityData as NpcEntityData;
+
+         if (_npcData == null)
+         {
+            Debug.LogError("Npc data was null!");
+            return;
+         }
+
+         SetDemeanor(_npcData._demeanor);
+         SetBehaviorType(_npcData._behaviorType);
+         UpdateAggroDistance(_npcData._aggroRadius);
       }
 
       protected void SetDemeanor(EntityDemeanor demeanor)
       {
          _demeanor = demeanor;
+         _spriteRenderer.color = _demeanor == EntityDemeanor.hostile ? _hostileColor : _nautralColor; // would be hidden laters or somethng.
+      }
+
+      protected void SetBehaviorType(EntityBehaviorTypes type)
+      {
+         _behaviorType = type;
+      }
+
+      protected void UpdateAggroDistance(int distance)
+      {
+         _aggroDistance = distance;
       }
       
       public bool CheckForAggro(TileBase targetTile)
@@ -45,17 +65,17 @@ namespace Game.Entites
          return aggro;
       }
 
-      public override void SetEntityData(DynamicEntityData data)
+      public override void SetAliveState(bool isAlive)
       {
-         _aggroDistance = data._aggroRadius;
-         _demeanor = data._demeanor;
-         base.SetEntityData(data);
+         base.SetAliveState(isAlive);
+         if (_isAlive == false)
+            SetDemeanor(EntityDemeanor.natural);
       }
-
+      
 #if UNITY_EDITOR
       private void OnValidate()
       {
-         CheckIfHostile();
+         GetDemeanor();
       }
 
       private bool _aggroDebug;

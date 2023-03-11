@@ -1,29 +1,39 @@
-using System;
 using System.Collections.Generic;
+using Game.Entites.Data;
 using Game.Tiles;
 using UnityEngine;
 
 namespace Game.Entites
 {
-    public class EntityDynamic : EntityBase
+    public abstract class EntityDynamic : EntityBase
     {
+        protected EntityInventoryView InventoryView;
+        protected EntityStatsView _statsView;
         [SerializeField] protected bool _isAlive;
-        
-        [Header("Main Stats")]
-        [SerializeField] protected int _hp = 10;
-        [SerializeField] protected int _energy = 10;
-        
-        [Header("Stats")]
-        [SerializeField] protected int _str = 10;
-        [SerializeField] protected int _agi = 10;
-        [SerializeField] protected int _int = 10;
-        [SerializeField] protected int _chr = 10;
-        [SerializeField] protected int _wp = 10;
-
+       
         public List<TileBase> _pathNodes;
-        
+
         protected int _detectedDistance; //debug
-        
+        protected DynamicEntityData _entityData;
+   
+        public virtual void Init(DynamicEntityData entityData)
+        {
+            Debug.Log(gameObject.name + " was initialized!");
+            
+            InventoryView = GetComponent<EntityInventoryView>() == false
+                ? gameObject.AddComponent<EntityInventoryView>()
+                : GetComponent<EntityInventoryView>();
+            
+            _statsView = GetComponent<EntityStatsView>() == false
+                ? gameObject.AddComponent<EntityStatsView>()
+                : GetComponent<EntityStatsView>();
+
+            _statsView.SetData(entityData);
+            _entityData = entityData;
+
+            SetSprite(entityData.Sprite);
+        }
+
         public virtual void MoveEntityToDirection(Vector2Int direction)
         {
             var targetVector = new Vector3(direction.x, direction.y, transform.localPosition.z);
@@ -54,15 +64,15 @@ namespace Game.Entites
             _pathNodes = Pathfinding.Pathfinding.FindPath(_occupiedTile, targetTile);
         }
 
-        public virtual void SetEntityData(DynamicEntityData data)
+        public bool GetAliveStatus()
         {
-            _hp = data._hp;
-            _energy = data._energy;
-            _str = data._str;
-            _agi = data._agi;
-            _int = data._int;
-            _chr = data._chr;
-            _wp = data._wp;
+            return _isAlive;
+        }
+
+        public virtual void SetAliveState(bool isAlive)
+        {
+            _isAlive = isAlive;
+            _spriteRenderer.sprite = _corpseSprite;
         }
     }
 }

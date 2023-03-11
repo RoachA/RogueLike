@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91599c649ab9d93448d85281091234f1, type: 3}
+  m_Name: Kurd_Npc
+  m_EditorClassIdentifier: 
+  Name: Kurd Warrior
+  Description: 'A ferocious kurdish warrior with a lot of body hair and feromones. '
+  Sprite: {fileID: 1863892825, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+  BaseStats:
+    LVL: 1
+    EXP: 10
+    HP: 8
+    MHP: 8
+    ATK: 8
+    AV: 1
+    MAT: 1
+    MDF: 1
+    DV: 1
+    RES: 2
+    SPD: 1
+    MOV: 1
+  _demeanor: 2
+  _behaviorType: 0
+  _aggroRadius: 5

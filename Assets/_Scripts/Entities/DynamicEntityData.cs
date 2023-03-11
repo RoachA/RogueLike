@@ -1,23 +1,25 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.Entites
+namespace Game.Entites.Data
 {
-    [CreateAssetMenu(fileName = "dynamicEntity_DATA", menuName = "ScriptableEntities/Dynamic Entity Data", order = 1)]
     [Serializable]
     public class DynamicEntityData : ScriptableObject
     {
-        public string _npcName = "npc";
-        public EntityNpc.EntityDemeanor _demeanor;
-        public int _aggroRadius;
-        [Space] public int _hp;
-        public int _energy;
-        [Space] public int _str;
-        public int _agi;
-        public int _toughness;
-        public int _int;
-        public int _chr;
-        public int _wp;
+        [PropertyOrder(-1)]
+        public string Name = "npc";
+
+        [Multiline(10)]
+        [PropertyOrder(-1)] public string Description = "";
+        [PropertyOrder(-1)] public Sprite Sprite;
+
+        [BoxGroup("Stats Section")] [PropertyOrder(2)] [SerializeField]
+        public StatsData StatsData;
+
+        /*public void CreateNewStatsData()
+        {
+            StatsData = new StatsData();
+        }*/
     }
 }
-

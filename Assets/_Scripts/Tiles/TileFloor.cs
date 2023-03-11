@@ -67,7 +67,7 @@ namespace Game.Tiles
         {
             if (CheckIfHasNpc(out EntityNpc npc))
             {
-                if (npc.CheckIfHostile())
+                if (npc.GetDemeanor() == EntityDemeanor.hostile)
                 {
                     Debug.Log(npc.name + " is hostile!");
                     hostileNpc = npc;

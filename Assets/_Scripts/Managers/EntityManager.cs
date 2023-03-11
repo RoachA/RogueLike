@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Data;
 using Game.Tiles;
 using UnityEngine;
 using Game.Entites;
+using Game.Entites.Data;
 
 namespace Game.Managers
 {
@@ -20,18 +23,46 @@ namespace Game.Managers
 
         [SerializeField] private List<EntityBase> _entitiesList;
         [SerializeField] private EntityPlayer _player;
-        [SerializeField] private DynamicEntityDataSet _dynamicEntityDataSet;
+        [SerializeField] private DynamicEntityDataSet _entityRegistry;
 
         private GridManager _gridManager;
 
         void Awake()
         {
             Instance = this;
+            _entityRegistry = DataManager.GetNpcRegistries();
+            Debug.Log("Entity registry is set.");
         }
 
-        private void Start()
+        void Start()
         {
             _gridManager = GridManager.Instance;
+            SetSubscriptions();
+        }
+
+        private void OnDestroy()
+        {
+            ReleaseSubscriptions();
+        }
+
+        public DynamicEntityDataSet GetEntityRegistry()
+        {
+            return _entityRegistry;
+        }
+
+        public DynamicEntityData GetEntityDataWithIndex(int index)
+        {
+            return _entityRegistry._npcDefinitions[index];
+        }
+
+        private void SetSubscriptions()
+        {
+            EntityStatsView._entityDiesEvent += OnEntityDies;
+            EntityStatsView._entityHPUpdatedEvent += OnEntityHpChanges;
+        }
+        private void ReleaseSubscriptions()
+        {
+            EntityStatsView._entityDiesEvent -= OnEntityDies;
         }
 
         #region getters
@@ -62,7 +93,10 @@ namespace Game.Managers
         {
             foreach (var entity in ReturnEntityList<EntityNpc>(false))
             {
-                bool tryAttackPlayer = entity.CheckIfHostile() && entity.CheckForAggro(_player.GetOccupiedTile());
+                if (entity.GetAliveStatus() == false)
+                    return;
+                
+                bool tryAttackPlayer = entity.GetDemeanor() == EntityDemeanor.hostile && entity.CheckForAggro(_player.GetOccupiedTile());
 
                 bool canMeeleeAttack = entity.GetDistanceToTargetTile(_player.GetOccupiedTile()) <= 1.42f; //hypotenuse
 
@@ -94,7 +128,7 @@ namespace Game.Managers
 
         //todo feed it with data here! entityData:!! since things are procedural we would pass rules here.
         // and select entity types depending on rules.
-        public void InstantiateEntity(EntityBase.EntityType entityType, Vector2Int pos)
+        public void InstantiateDynamicEntity(EntityBase.EntityType entityType, Vector2Int pos, DynamicEntityData definition)
         {
             var entityResource = Resources.Load(ResourcesHelper.EntitiesPath) as GameObject;
 
@@ -119,9 +153,13 @@ namespace Game.Managers
                 new Vector3(pos.x, pos.y, 0); 
 
             var newEntity = newEntityObj.GetComponent<EntityDynamic>();
-            newEntity.SetEntityData(_dynamicEntityDataSet._npcDefinitions[0]);
+            //newEntity.SetEntityData(_dynamicEntityDataSet._npcDefinitions[0]);
             var tile = _gridManager.GetTileAtPosition(pos);
             newEntity.SetEntityPos(tile);
+            
+            if (entityType == EntityBase.EntityType.npc)
+                newEntity.Init(definition);
+            
             newEntity.SetEntityType(entityType);
             _entitiesList.Add(newEntity);
 
@@ -133,7 +171,24 @@ namespace Game.Managers
                 targetTile.AddEntityToTile(newEntity);
             }
         }
-        
-        //todo can add entity spawning filters selectors etc here to get particular data types to start with.
+
+        #region EventListeners
+
+        private void OnEntityDies(EntityDynamic entity)
+        {
+            Debug.Log(entity.name + " dies!");
+            entity.SetAliveState(false);
+        }
+
+        private void OnEntityHpChanges(EntityDynamic entity, int hpChange)
+        {
+            if (hpChange > 0)
+                Debug.Log(entity.name + " gains " + hpChange + " HP!");
+            
+            if (hpChange < 0)
+                Debug.Log(entity.name + " loses " + hpChange + " HP!");
+        }
+
+        #endregion
     }
 }

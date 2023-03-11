@@ -92,9 +92,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 768404085550972221}
-  _entityPos: {x: 0, y: 0}
+  _corpseSprite: {fileID: 228499516, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+  _occupiedTile: {fileID: 0}
+  _pathFindingPaths: []
   _isAlive: 1
-  _isHostile: 0
+  _pathNodes: []
+  _demeanor: 0
+  _behaviorType: 0
+  _aggroDistance: 0
 --- !u!212 &768404085550972221 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2100899855404785410, guid: 3d8eeb0493f43214ba32d18c7739efc5, type: 3}
