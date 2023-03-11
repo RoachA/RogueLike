@@ -7,7 +7,7 @@ namespace Game.Entites
 {
     public class EntityStatsView : MonoBehaviour
     {
-        [SerializeField] public StatsData _baseStats;
+        [SerializeField] public DynamicEntityStatsData _baseDynamicEntityStats;
 
         private EntityDynamic _entity;
         public static Action<EntityDynamic> _entityDiesEvent;
@@ -15,7 +15,7 @@ namespace Game.Entites
 
         public void SetData(DynamicEntityData statsData)
         {
-            _baseStats = statsData.StatsData;
+            _baseDynamicEntityStats = statsData._dynamicEntityStatsData;
         }
 
         private void Start()
@@ -25,25 +25,25 @@ namespace Game.Entites
 
         public int GetMaxHp()
         {
-            return _baseStats.BaseStats.HP;
+            return _baseDynamicEntityStats.BaseStats.HP;
         }
         
         public int GetHp()
         {
-            return _baseStats.BaseStats.HP;
+            return _baseDynamicEntityStats.BaseStats.HP;
         }
         
         [Button]
         public void AddHp(int amount)
         {
-            if (amount + _baseStats.BaseStats.HP > _baseStats.BaseStats.MHP)
-                _baseStats.BaseStats.HP = _baseStats.BaseStats.MHP;
+            if (amount + _baseDynamicEntityStats.BaseStats.HP > _baseDynamicEntityStats.BaseStats.MHP)
+                _baseDynamicEntityStats.BaseStats.HP = _baseDynamicEntityStats.BaseStats.MHP;
 
-            _baseStats.BaseStats.HP += amount;
+            _baseDynamicEntityStats.BaseStats.HP += amount;
             _entityHPUpdatedEvent?.Invoke(_entity, amount);
 
             //it is either one inheritor or the other
-            if (_baseStats.BaseStats.HP <= 0)
+            if (_baseDynamicEntityStats.BaseStats.HP <= 0)
                 _entityDiesEvent?.Invoke(_entity.GetType() == typeof(EntityNpc) ? _entity as EntityNpc : _entity as EntityPlayer);
         }
     }

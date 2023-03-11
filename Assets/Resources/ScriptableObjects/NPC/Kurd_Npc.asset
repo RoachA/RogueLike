@@ -15,19 +15,20 @@ MonoBehaviour:
   Name: Kurd Warrior
   Description: 'A ferocious kurdish warrior with a lot of body hair and feromones. '
   Sprite: {fileID: 1863892825, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
-  BaseStats:
-    LVL: 1
-    EXP: 10
-    HP: 8
-    MHP: 8
-    ATK: 8
-    AV: 1
-    MAT: 1
-    MDF: 1
-    DV: 1
-    RES: 2
-    SPD: 1
-    MOV: 1
+  _dynamicEntityStatsData:
+    BaseStats:
+      LVL: 5
+      EXP: 5
+      HP: 5
+      MHP: 5
+      ATK: 5
+      AV: 5
+      MAT: 5
+      MDF: 5
+      DV: 5
+      RES: 5
+      SPD: 5
+      MOV: 5
   _demeanor: 2
   _behaviorType: 0
   _aggroRadius: 5

@@ -4,12 +4,12 @@ namespace Game.Entites.Data
 {
     
     [Serializable]
-    public class StatsData
+    public class DynamicEntityStatsData
     {
         public BaseStatsData BaseStats; 
         public SkillsData SecondaryStats;
         
-        public StatsData(BaseStatsData baseStats = null, SkillsData secondaryStats = null)
+        public DynamicEntityStatsData(BaseStatsData baseStats = null, SkillsData secondaryStats = null)
         {
             BaseStats = baseStats;
             SecondaryStats = secondaryStats;

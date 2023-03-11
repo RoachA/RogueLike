@@ -15,7 +15,7 @@ namespace Game.Entites.Data
         [PropertyOrder(-1)] public Sprite Sprite;
 
         [BoxGroup("Stats Section")] [PropertyOrder(2)] [SerializeField]
-        public StatsData StatsData;
+        public DynamicEntityStatsData _dynamicEntityStatsData;
 
         /*public void CreateNewStatsData()
         {

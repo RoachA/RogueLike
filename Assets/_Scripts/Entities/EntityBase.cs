@@ -9,14 +9,6 @@ namespace Game.Entites
    [Serializable]
    public class EntityBase : MonoBehaviour
    {
-      public enum EntityType
-      {
-         player,
-         npc,
-         item,
-         container,
-      }
-
       [SerializeField] protected SpriteRenderer _spriteRenderer;
       [SerializeField] protected Sprite _corpseSprite;
       [SerializeField] protected TileBase _occupiedTile;

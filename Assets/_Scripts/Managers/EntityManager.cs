@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Data;
@@ -128,7 +127,7 @@ namespace Game.Managers
 
         //todo feed it with data here! entityData:!! since things are procedural we would pass rules here.
         // and select entity types depending on rules.
-        public void InstantiateDynamicEntity(EntityBase.EntityType entityType, Vector2Int pos, DynamicEntityData definition)
+        public void InstantiateDynamicEntity(EntityType entityType, Vector2Int pos, DynamicEntityData definition)
         {
             var entityResource = Resources.Load(ResourcesHelper.EntitiesPath) as GameObject;
 
@@ -136,12 +135,12 @@ namespace Game.Managers
 
             switch (entityType)
             {
-                case (EntityBase.EntityType.player):
+                case (EntityType.player):
                     entityResource = Resources.Load(ResourcesHelper.PlayerEntityPath) as GameObject;
                     if (_player != null)
                         return;
                     break;
-                case (EntityBase.EntityType.npc):
+                case (EntityType.npc):
                     entityResource = Resources.Load(ResourcesHelper.NpcEntityPath) as GameObject;
                     break;
             }
@@ -157,13 +156,13 @@ namespace Game.Managers
             var tile = _gridManager.GetTileAtPosition(pos);
             newEntity.SetEntityPos(tile);
             
-            if (entityType == EntityBase.EntityType.npc)
+            if (entityType == EntityType.npc)
                 newEntity.Init(definition);
             
             newEntity.SetEntityType(entityType);
             _entitiesList.Add(newEntity);
 
-            if (entityType == EntityBase.EntityType.player)
+            if (entityType == EntityType.player)
                 _player = newEntity as EntityPlayer;
 
             if (_gridManager.GetTile(pos.x, pos.y).CheckIfWalkable(out var targetTile))
