@@ -2,17 +2,16 @@ using System;
 
 namespace Game.Entites.Data
 {
-    
     [Serializable]
     public class DynamicEntityStatsData
     {
         public BaseStatsData BaseStats; 
-        public SkillsData SecondaryStats;
+        public SkillsData Skills;
         
-        public DynamicEntityStatsData(BaseStatsData baseStats = null, SkillsData secondaryStats = null)
+        public DynamicEntityStatsData(BaseStatsData baseStats = null, SkillsData skills = null)
         {
             BaseStats = baseStats;
-            SecondaryStats = secondaryStats;
+            Skills = skills;
         }
     }
 
@@ -47,6 +46,52 @@ namespace Game.Entites.Data
             RES = res;
             SPD = spd;
             MOV = mov;
+        }
+        
+        //todo >>>> so damn ugly yo.
+        public void SetStat(BaseStatTypes stat, int val)
+        {
+            switch (stat)
+            {
+                case BaseStatTypes.LVL:
+                    LVL = val;
+                    break;
+                case BaseStatTypes.EXP:
+                    EXP = val;
+                    break;
+                case BaseStatTypes.HP:
+                    HP = val;
+                    break;
+                case BaseStatTypes.MHP:
+                    MHP = val;
+                    break;
+                case BaseStatTypes.ATK:
+                    ATK = val;
+                    break;
+                case BaseStatTypes.AV:
+                    AV = val;
+                    break;
+                case BaseStatTypes.MAT:
+                    MAT = val;
+                    break;
+                case BaseStatTypes.MDF:
+                    MDF = val;
+                    break;
+                case BaseStatTypes.DV:
+                    DV = val;
+                    break;
+                case BaseStatTypes.RES:
+                    RES = val;
+                    break;
+                case BaseStatTypes.SPD:
+                    SPD = val;
+                    break;
+                case BaseStatTypes.MOV:
+                    MOV = val;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(stat), stat, null);
+            }
         }
     }
 

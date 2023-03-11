@@ -10,9 +10,23 @@ namespace Game.Data
       {
          GetNpcRegistries();
       }
-      public static DynamicEntityDataSet GetNpcRegistries()
+
+      public static PlayerEntityScriptableData GetPlayerData()
       {
-         var entityResource = (Resources.LoadAll<DynamicEntityDataSet>(ResourcesHelper.ScriptableNpcPath));
+         //todo this would pull the serialized data later on.
+         return null;
+      }
+
+      public static PlayerEntityScriptableData GenerateMiscPlayerData()
+      {
+         var newplayer = new PlayerEntityScriptableData();
+         newplayer.GenerateStarterPlayerData();
+         return newplayer;
+      }
+      
+      public static DynamicEntityScriptableDataSet GetNpcRegistries()
+      {
+         var entityResource = (Resources.LoadAll<DynamicEntityScriptableDataSet>(ResourcesHelper.ScriptableNpcPath));
 
          if (entityResource != null)
             return entityResource[0];

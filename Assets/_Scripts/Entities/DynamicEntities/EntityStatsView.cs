@@ -8,16 +8,24 @@ namespace Game.Entites
     public class EntityStatsView : MonoBehaviour
     {
         [SerializeField] public DynamicEntityStatsData _baseDynamicEntityStats;
+        [SerializeField] public DynamicEntityDefinitionData _baseDynamicDefitinion;
 
         private EntityDynamic _entity;
         public static Action<EntityDynamic> _entityDiesEvent;
         public static Action<EntityDynamic, int> _entityHPUpdatedEvent;
 
-        public void SetData(DynamicEntityData statsData)
+        public void SetData(DynamicEntityScriptableData statsScriptableData)
         {
-            _baseDynamicEntityStats = statsData._dynamicEntityStatsData;
+            _baseDynamicEntityStats = statsScriptableData._dynamicEntityStatsData;
         }
 
+        public void SetData(BaseStatsData statsScriptableData, DynamicEntityDefinitionData definitionData)
+        {
+            _baseDynamicEntityStats.BaseStats = statsScriptableData;
+            _baseDynamicDefitinion = definitionData;
+        }
+        
+        
         private void Start()
         {
             _entity = GetComponent<EntityDynamic>();

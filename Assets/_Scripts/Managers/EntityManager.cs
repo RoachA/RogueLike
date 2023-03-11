@@ -22,14 +22,14 @@ namespace Game.Managers
 
         [SerializeField] private List<EntityBase> _entitiesList;
         [SerializeField] private EntityPlayer _player;
-        [SerializeField] private DynamicEntityDataSet _entityRegistry;
+        [SerializeField] private DynamicEntityScriptableDataSet _entityScriptableRegistry;
 
         private GridManager _gridManager;
 
         void Awake()
         {
             Instance = this;
-            _entityRegistry = DataManager.GetNpcRegistries();
+            _entityScriptableRegistry = DataManager.GetNpcRegistries();
             Debug.Log("Entity registry is set.");
         }
 
@@ -44,14 +44,14 @@ namespace Game.Managers
             ReleaseSubscriptions();
         }
 
-        public DynamicEntityDataSet GetEntityRegistry()
+        public DynamicEntityScriptableDataSet GetEntityRegistry()
         {
-            return _entityRegistry;
+            return _entityScriptableRegistry;
         }
 
-        public DynamicEntityData GetEntityDataWithIndex(int index)
+        public DynamicEntityScriptableData GetEntityDataWithIndex(int index)
         {
-            return _entityRegistry._npcDefinitions[index];
+            return _entityScriptableRegistry._npcDefinitions[index];
         }
 
         private void SetSubscriptions()
@@ -125,26 +125,31 @@ namespace Game.Managers
             return _entitiesList[index];
         }
 
+        public void InstantiatePlayerEntity(Vector2Int pos, DynamicEntityStatsData stats, DynamicEntityDefinitionData definitionData)
+        {
+            if (_gridManager.CheckPosInBounds(pos.x, pos.y) == false) return;
+            
+            var entityResource = Resources.Load(ResourcesHelper.NpcEntityPath) as GameObject;
+            var newEntityObj = Instantiate(entityResource, transform);
+            
+            newEntityObj.transform.localPosition =
+                new Vector3(pos.x, pos.y, 0); 
+            
+            var newEntity = newEntityObj.GetComponent<EntityPlayer>();
+            var tile = _gridManager.GetTileAtPosition(pos);
+            
+            newEntity.SetEntityPos(tile);
+            newEntity.Init(stats.BaseStats, definitionData);
+            _entitiesList.Add(newEntity);
+        }
+        
         //todo feed it with data here! entityData:!! since things are procedural we would pass rules here.
         // and select entity types depending on rules.
-        public void InstantiateDynamicEntity(EntityType entityType, Vector2Int pos, DynamicEntityData definition)
+        public void InstantiateNpcEntity(Vector2Int pos, DynamicEntityScriptableData definition)
         {
-            var entityResource = Resources.Load(ResourcesHelper.EntitiesPath) as GameObject;
-
             if (_gridManager.CheckPosInBounds(pos.x, pos.y) == false) return;
-
-            switch (entityType)
-            {
-                case (EntityType.player):
-                    entityResource = Resources.Load(ResourcesHelper.PlayerEntityPath) as GameObject;
-                    if (_player != null)
-                        return;
-                    break;
-                case (EntityType.npc):
-                    entityResource = Resources.Load(ResourcesHelper.NpcEntityPath) as GameObject;
-                    break;
-            }
-
+            
+            var entityResource = Resources.Load(ResourcesHelper.NpcEntityPath) as GameObject;
             var newEntityObj = Instantiate(entityResource, transform);
             
             //todo check z's from a const or something.
@@ -152,19 +157,13 @@ namespace Game.Managers
                 new Vector3(pos.x, pos.y, 0); 
 
             var newEntity = newEntityObj.GetComponent<EntityDynamic>();
-            //newEntity.SetEntityData(_dynamicEntityDataSet._npcDefinitions[0]);
+            
             var tile = _gridManager.GetTileAtPosition(pos);
+            
             newEntity.SetEntityPos(tile);
-            
-            if (entityType == EntityType.npc)
-                newEntity.Init(definition);
-            
-            newEntity.SetEntityType(entityType);
+            newEntity.Init(definition);
             _entitiesList.Add(newEntity);
-
-            if (entityType == EntityType.player)
-                _player = newEntity as EntityPlayer;
-
+            
             if (_gridManager.GetTile(pos.x, pos.y).CheckIfWalkable(out var targetTile))
             {
                 targetTile.AddEntityToTile(newEntity);
