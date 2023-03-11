@@ -4,8 +4,7 @@ using UnityEngine;
 
 namespace Game.Entites
 {
-    public class ItemWeaponEntity : ItemEntity
+    public class ItemWearableEntity : ItemEntity
     {
-
     }
 }

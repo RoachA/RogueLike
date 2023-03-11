@@ -8,6 +8,7 @@ namespace Game.Entites.Data
     [Serializable]
     public class NpcEntityData : DynamicEntityData
     {
+        [PropertyOrder(-2)] public string _entityName;
         [PropertyOrder(0)] public EntityDemeanor _demeanor;
         [PropertyOrder(0)] public EntityBehaviorTypes _behaviorType;
         [PropertyOrder(1)] public int _aggroRadius;

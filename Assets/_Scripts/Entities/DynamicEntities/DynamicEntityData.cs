@@ -7,8 +7,8 @@ namespace Game.Entites.Data
     [Serializable]
     public class DynamicEntityData : ScriptableObject
     {
-        [PropertyOrder(-1)]
-        public string Name = "npc";
+        [PropertyOrder(-3)]
+        public string Identifier = "npc";
 
         [Multiline(10)]
         [PropertyOrder(-1)] public string Description = "";

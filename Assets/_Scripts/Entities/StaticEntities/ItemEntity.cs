@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using Game.Entites;
 using UnityEngine;
 
-public class ItemEntity : StaticEntityBase
+namespace Game.Entites
 {
+    public class ItemEntity : StaticEntityBase
+    {
+        [SerializeField] protected string _itemName;
+        [SerializeField] protected float _weight;
+    }
 }

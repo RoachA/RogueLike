@@ -2,6 +2,12 @@ using Unity.VisualScripting;
 
 namespace Game.Entites
 {
+    public enum SkillTypes
+    {
+        //todo castable skills must have their own class to inherit from. But such skills can be 
+        //categorized as ranged, tile-select, meelee etc.
+        //should we call them skills? or actionables? or perks? or moves?
+    }
 
     public enum BaseStatTypes
     {
@@ -49,10 +55,30 @@ namespace Game.Entites
 
     public enum EntityType
     {
-        player,
-        npc,
-        item,
-        container,
+        player = 0,
+        npc = 1,
+        item = 2,
+        container = 3,
+    }
+
+    public enum ItemTypes
+    {
+        meeleeWeapons = 0,
+        rangedWeapons = 1,
+        wearable = 2,
+        consumable = 3,
+        throwable = 4,
+        misc = 5,
+        readable = 6,
+        currency = 7,
+        tool = 8,
+        furniture = 9,
+    }
+
+    public enum AmmoTypes
+    {
+        basic = 0,
+        advanced = 1,
     }
 }
 

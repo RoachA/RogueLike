@@ -7,6 +7,6 @@ namespace Game.Entites
 {
     public class StaticEntityBase : EntityBase
     {
-
+        
     }
 }

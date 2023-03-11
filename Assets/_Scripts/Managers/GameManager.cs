@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Dice;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -170,6 +171,19 @@ namespace Game.Managers
                     }
                 }
             }
+        }
+
+        [BoxGroup("debug")]
+        [Button]
+        public void RollDice(Dice.Dice dice)
+        {
+            DiceRollHelper.RollRegularDice(dice);
+        }
+
+        [Button]
+        public void RollDRM()
+        {
+            DiceRollHelper.RollDRN();
         }
 
 #endregion

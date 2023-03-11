@@ -9,6 +9,7 @@ namespace Game.Entites
    [Serializable]
    public class EntityBase : MonoBehaviour
    {
+      [SerializeField] protected String _identifier;
       [SerializeField] protected SpriteRenderer _spriteRenderer;
       [SerializeField] protected Sprite _corpseSprite;
       [SerializeField] protected TileBase _occupiedTile;
