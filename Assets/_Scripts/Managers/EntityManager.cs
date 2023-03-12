@@ -4,6 +4,7 @@ using Game.Data;
 using Game.Tiles;
 using UnityEngine;
 using Game.Entites;
+using Game.Entites.Actions;
 using Game.Entites.Data;
 
 namespace Game.Managers
@@ -62,6 +63,7 @@ namespace Game.Managers
         private void ReleaseSubscriptions()
         {
             EntityStatsView._entityDiesEvent -= OnEntityDies;
+            EntityStatsView._entityHPUpdatedEvent -= OnEntityHpChanges;
         }
 
         #region getters
@@ -93,7 +95,7 @@ namespace Game.Managers
             entity.FindPathToTargetTile(tile);
         }
 
-        public void PlayEntityMoves()
+        public void PlayEntityOffense()
         {
             foreach (var entity in ReturnEntityList<EntityNpc>(false))
             {
@@ -110,10 +112,10 @@ namespace Game.Managers
                     return;
                 }
 
-                if (tryAttackPlayer) //move towards player
+                if (tryAttackPlayer) //move towards player but shouldn't move actually.
                 {
                     entity.GetPathToTarget(_player.GetOccupiedTile());
-                    entity.MoveEntityToTile(entity._pathNodes[entity._pathNodes.Count - 1]);
+                    var action = new MoveAction<EntityNpc>(entity, entity._pathNodes[entity._pathNodes.Count - 1]);
                 }
             }
         }
@@ -122,7 +124,6 @@ namespace Game.Managers
 
         public void InitiateEntities<T>(List<T> entitylist) where T : EntityBase
         {
-            
         }
 
         public EntityBase GetEntityWithIndex(int index)

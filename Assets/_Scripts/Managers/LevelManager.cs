@@ -1,6 +1,7 @@
 using Game.Data;
 using Game.Tiles;
 using Game.Entites;
+using Game.Entites.Actions;
 using Game.Entites.Data;
 using UnityEngine;
 
@@ -38,7 +39,7 @@ namespace Game.Managers
      
         public void UpdateLevelState()
         {
-            _entityManager.PlayEntityMoves();
+            _entityManager.PlayEntityOffense();
         }
 
         public void CreateLevel()
@@ -75,10 +76,8 @@ namespace Game.Managers
                 return;
             }
             
-            //if tile is walkable and if it is not occupied by an enemy >>> walk there! :)
-            _entityManager.GetPlayerEntity().MoveEntityToDirection(direction);
-            player.SetOccupiedTile(_gridManager.GetTileAtPosition(targetGridPos)); //TODO REFACTOR HERE AND MAKE MORE BEAUTIFUL. IT IS CRAP!
             _cameraManager.SetCameraPosition(targetGridPos);
+            var moveAction = new MoveAction<EntityPlayer>(player, _gridManager.GetTileAtPosition(targetGridPos));
             _gameManager.UpdateGameState(GameManager.GameState.evaluate);
         }
 

@@ -49,13 +49,13 @@ namespace Game.Entites
             SetSprite(definition.Sprite);
         }
 
-        public virtual void MoveEntityToDirection(Vector2Int direction)
+        /*public virtual void MoveEntityToDirection(Vector2Int direction)
         {
             var targetVector = new Vector3(direction.x, direction.y, transform.localPosition.z);
             var newPos = transform.localPosition + targetVector;
             transform.localPosition = newPos;
             //todo check how to do this better.
-        }
+        }*/
 
         public virtual void MoveEntityToTile(TileBase targetTile)
         {
