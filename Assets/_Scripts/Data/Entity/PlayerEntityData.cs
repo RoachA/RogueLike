@@ -15,8 +15,8 @@ namespace Game.Entites.Data
         public BaseStatsData GenerateStarterStats()
         {
             var newStatsData = new BaseStatsData
-            (1, 0, 10, 10, 3, 5, 0, 0, 3, 0, 3, 1);
-            
+            (1, 0, 10, 10, 3, 2, 1, 1, 3, 1);
+
             return newStatsData;
         }
 
@@ -31,11 +31,6 @@ namespace Game.Entites.Data
             definitionData.Genders = Genders.gay;
             definitionData.Sprite = ResourceManager.GetPlayerSprite(0);
             return definitionData;
-        }
-
-        public void SetStat(BaseStatTypes stat, int newVal)
-        {
-            BaseStatsData.SetStat(stat, newVal);
         }
     }
 }

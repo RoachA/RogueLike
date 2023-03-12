@@ -14,7 +14,7 @@ public class ItemData : ScriptableObject
 }
 
 [Serializable]
-public class RangedWeaponStats
+public class RangedWeaponData
 {
     public Dice BaseDmg;
     public int ShotsPerAction;

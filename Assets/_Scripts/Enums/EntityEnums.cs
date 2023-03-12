@@ -9,22 +9,6 @@ namespace Game.Entites
         //should we call them skills? or actionables? or perks? or moves?
     }
 
-    public enum BaseStatTypes
-    {
-        LVL = 0, // Level
-        EXP = 1, // Experience
-        HP = 2, // Hit Points
-        MHP = 3, // Max Hit Points
-        ATK = 4, // Physical Attack
-        AV = 5, // Armor Value
-        MAT = 6, // Magic Attack
-        MDF = 7, // Magic Defense
-        DV = 8, // DodgeValue
-        RES = 9, // Status Resistance
-        SPD = 10, // Speed
-        MOV = 11, // Movement Speed
-    }
-
     public enum EntityDemeanor
     {
         docile = 0,

@@ -1,5 +1,11 @@
+using UnityEngine;
+
 namespace Game.Entites.Actions
 {
+    /// <summary>
+    /// Any melee attack falls into this category.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class AttackAction<T> : ActionsBase where T : EntityDynamic
     {
         public T Entity_A;
@@ -16,7 +22,19 @@ namespace Game.Entites.Actions
 
         protected override void Do()
         {
-            Entity_A.GetEquippedWeapons();
+            //first check hit chance
+            var attackerDEX = Entity_A.GetStats().DEX;
+            var defenderDV = Entity_B.GetInventoryView().GetItemsDv();
+            var defenderDex = Entity_B.GetStats().DEX;
+
+            if (CombatHelper.DamageHitCheck(attackerDEX, defenderDV, defenderDex))
+            {
+                //check dmg/penetration output
+            }
+            else
+            {
+                Debug.Log("Attack misses!");
+            }
             base.Do();
         }
 

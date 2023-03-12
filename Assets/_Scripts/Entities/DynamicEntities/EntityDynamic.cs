@@ -7,7 +7,7 @@ namespace Game.Entites
 {
     public abstract class EntityDynamic : EntityBase
     {
-        protected EntityInventoryView InventoryView;
+        protected EntityInventoryView _inventoryView;
         protected EntityStatsView _statsView;
         [SerializeField] protected bool _isAlive;
        
@@ -20,7 +20,7 @@ namespace Game.Entites
         {
             Debug.Log(gameObject.name + " was initialized!");
             
-            InventoryView = GetComponent<EntityInventoryView>() == false
+            _inventoryView = GetComponent<EntityInventoryView>() == false
                 ? gameObject.AddComponent<EntityInventoryView>()
                 : GetComponent<EntityInventoryView>();
             
@@ -37,7 +37,7 @@ namespace Game.Entites
         public virtual void Init(BaseStatsData stats, DynamicEntityDefinitionData definition) //for player
         {
             Debug.Log(gameObject.name + " was initialized!");
-            InventoryView = GetComponent<EntityInventoryView>() == false
+            _inventoryView = GetComponent<EntityInventoryView>() == false
                 ? gameObject.AddComponent<EntityInventoryView>()
                 : GetComponent<EntityInventoryView>();
             
@@ -77,14 +77,24 @@ namespace Game.Entites
 
         #region get-set
 
-        public Dictionary<EntityEquipSlots, ItemEntity> GetEquippedItems()
+        public BaseStatsData GetStats()
         {
-            return InventoryView.GetEquippedItems();
+            return _statsView.GetBaseStats();
+        }
+
+        public EntityInventoryView GetInventoryView()
+        {
+            return _inventoryView;
         }
         
-        public ItemWeaponEntity[] GetEquippedWeapons()
+        public Dictionary<EntityEquipSlots, ItemEntity> GetEquippedItems()
         {
-          return InventoryView.GetEquippedWeapons();
+            return _inventoryView.GetEquippedItems();
+        }
+        
+        public ItemMeleeWeaponEntity[] GetEquippedWeapons()
+        {
+          return _inventoryView.GetEquippedWeapons();
         }
         
         public bool GetAliveStatus()

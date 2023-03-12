@@ -8,15 +8,13 @@ namespace Game.Entites
     public class ItemEntity : StaticEntityBase
     {
         [SerializeField] protected ItemData _itemData;
-        [SerializeField] protected string _itemName;
-        [SerializeField] protected float _weight;
 
         public void SetItemData(ItemData data)
         {
             _itemData = data;
         }
-
-        public ItemData GetItemData()
+        
+        public T GetItemData<T>() where T : ItemData
         {
             if (_itemData == null)
             {
@@ -24,7 +22,7 @@ namespace Game.Entites
                 return null;
             }
             
-            return _itemData;
+            return (T) _itemData;
         }
     }
 }
