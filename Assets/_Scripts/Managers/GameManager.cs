@@ -100,22 +100,20 @@ namespace Game.Managers
         private void HandleLoadLevel()
         {
             _levelManager.CreateLevel();
-            
-            Debug.Log("Evaluate!");
             UpdateGameState(GameState.evaluate);
         }
         
         private void HandleEvaluate()
         {
             //todo do calculations to determine who starts first, player or enemy? now start player
-            Debug.Log("Evaluate...");
+            Debug.Log("Evaluate...---------------------------->");
             _levelManager.UpdateLevelState();
             UpdateGameState(GameState.playerTurn);
         }
 
         private void HandlePlayerTurn()
         {
-            Debug.Log("player turn!");
+            Debug.Log("player's turn!---------------------------->");
         }
 
         private void HandleCPUTurn()

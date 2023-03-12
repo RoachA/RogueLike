@@ -20,7 +20,6 @@ namespace Game.Entites.Actions
         {
             Entity.MoveEntityToTile(TargetTile);
             Entity.SetOccupiedTile(TargetTile);
-            Entity.SetOccupiedTile(TargetTile);
             base.Do();
         }
     }
