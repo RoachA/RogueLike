@@ -21,7 +21,8 @@ namespace Game.Entites
 
         public void SetData(BaseStatsData statsScriptableData, DynamicEntityDefinitionData definitionData)
         {
-            _baseDynamicEntityStats.BaseStats = statsScriptableData;
+            _baseDynamicEntityStats = new DynamicEntityStatsData(statsScriptableData);
+            _baseDynamicDefitinion = new DynamicEntityDefinitionData();
             _baseDynamicDefitinion = definitionData;
         }
         

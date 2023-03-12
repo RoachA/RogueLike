@@ -6,11 +6,5 @@ namespace Game.Entites.Data
     {
         public BaseStatsData BaseStatsData;
         public DynamicEntityDefinitionData DefinitionData;
-
-        public DynamicEntityBaseData(BaseStatsData stats, DynamicEntityDefinitionData definition)
-        {
-            BaseStatsData = stats;
-            DefinitionData = definition;
-        }
     }
 }

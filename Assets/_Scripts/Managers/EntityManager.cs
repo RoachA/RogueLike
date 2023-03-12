@@ -70,6 +70,11 @@ namespace Game.Managers
         {
             return _player;
         }
+
+        public void SetPlayerEntity(EntityPlayer player)
+        {
+            _player = player;
+        }
         
         public List<EntityBase> GetAllEntities()
         {
@@ -125,11 +130,11 @@ namespace Game.Managers
             return _entitiesList[index];
         }
 
-        public void InstantiatePlayerEntity(Vector2Int pos, DynamicEntityStatsData stats, DynamicEntityDefinitionData definitionData)
+        public void InstantiatePlayerEntity(Vector2Int pos, PlayerEntityData data)
         {
             if (_gridManager.CheckPosInBounds(pos.x, pos.y) == false) return;
             
-            var entityResource = Resources.Load(ResourcesHelper.NpcEntityPath) as GameObject;
+            var entityResource = Resources.Load(ResourceManager.PlayerEntityPath) as GameObject;
             var newEntityObj = Instantiate(entityResource, transform);
             
             newEntityObj.transform.localPosition =
@@ -139,8 +144,10 @@ namespace Game.Managers
             var tile = _gridManager.GetTileAtPosition(pos);
             
             newEntity.SetEntityPos(tile);
-            newEntity.Init(stats.BaseStats, definitionData);
+            newEntity.Init(data.BaseStatsData, data.DefinitionData);
+            newEntity.SetEntityType(EntityType.player);
             _entitiesList.Add(newEntity);
+            SetPlayerEntity(newEntity);
         }
         
         //todo feed it with data here! entityData:!! since things are procedural we would pass rules here.
@@ -149,7 +156,7 @@ namespace Game.Managers
         {
             if (_gridManager.CheckPosInBounds(pos.x, pos.y) == false) return;
             
-            var entityResource = Resources.Load(ResourcesHelper.NpcEntityPath) as GameObject;
+            var entityResource = Resources.Load(ResourceManager.NpcEntityPath) as GameObject;
             var newEntityObj = Instantiate(entityResource, transform);
             
             //todo check z's from a const or something.
@@ -162,6 +169,7 @@ namespace Game.Managers
             
             newEntity.SetEntityPos(tile);
             newEntity.Init(definition);
+            newEntity.SetEntityType(EntityType.npc);
             _entitiesList.Add(newEntity);
             
             if (_gridManager.GetTile(pos.x, pos.y).CheckIfWalkable(out var targetTile))

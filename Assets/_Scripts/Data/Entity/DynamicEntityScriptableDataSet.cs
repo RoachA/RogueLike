@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace Game.Entites.Data
       [Button]
       private void LoadEntitiesFromResources()
       {
-         var npcDataSet = Resources.LoadAll<DynamicEntityScriptableData>(ResourcesHelper.ScriptableNpcPath).ToList();
+         var npcDataSet = Resources.LoadAll<DynamicEntityScriptableData>(ResourceManager.ScriptableNpcPath).ToList();
          _npcDefinitions.Clear();
          _npcDefinitions = npcDataSet;
       }

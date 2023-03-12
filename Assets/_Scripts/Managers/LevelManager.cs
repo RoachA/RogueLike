@@ -48,7 +48,7 @@ namespace Game.Managers
             _cameraManager.SetMapSize(tmpGridMapData.GridSize);
             
             // todo make a proper entity spawner in entity manager! with parameters etc
-            _entityManager.InstantiatePlayerEntity (new Vector2Int(2, 2), DataManager.GenerateMiscPlayerData().GenerateStarterPlayerData());
+            _entityManager.InstantiatePlayerEntity (new Vector2Int(2, 2), DataManager.GenerateStarterPlayerData());
             _cameraManager.SetCameraPosition(_entityManager.GetPlayerEntity().GetEntityPos());
             
             _entityManager.InstantiateNpcEntity(new Vector2Int(15, 10), _entityManager.GetEntityDataWithIndex(0));

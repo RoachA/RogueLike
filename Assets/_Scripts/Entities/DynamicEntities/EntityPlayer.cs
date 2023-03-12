@@ -4,11 +4,11 @@ namespace Game.Entites
 {
     public class EntityPlayer : EntityDynamic
     {
-        protected PlayerEntityScriptableData PlayerScriptableData;
+        protected PlayerEntityData PlayerData;
 
-        public void SetPlayerData(PlayerEntityScriptableData scriptableData)
+        public void SetPlayerData(PlayerEntityData data)
         {
-            PlayerScriptableData = scriptableData;
+            PlayerData = data;
         }
     }
 
