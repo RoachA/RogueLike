@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace Game.Entites.Actions
 {
+    /// <summary>
+    /// base action class, this can be queued later on. because these are objects and can be registered in a dictionary etc
+    /// for iterative resolve!
+    /// </summary>
     public class ActionsBase
     {
         protected string ActionId = "AttackAction";

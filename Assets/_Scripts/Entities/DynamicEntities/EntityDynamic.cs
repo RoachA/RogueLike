@@ -16,7 +16,7 @@ namespace Game.Entites
         protected int _detectedDistance; //debug
         protected DynamicEntityScriptableData EntityScriptableData;
    
-        public virtual void Init(DynamicEntityScriptableData entityScriptableData)
+        public virtual void Init(DynamicEntityScriptableData entityScriptableData) //for npc
         {
             Debug.Log(gameObject.name + " was initialized!");
             
@@ -34,7 +34,7 @@ namespace Game.Entites
             SetSprite(entityScriptableData._dynamicEntityDefinitionData.Sprite);
         }
 
-        public virtual void Init(BaseStatsData stats, DynamicEntityDefinitionData definition)
+        public virtual void Init(BaseStatsData stats, DynamicEntityDefinitionData definition) //for player
         {
             Debug.Log(gameObject.name + " was initialized!");
             InventoryView = GetComponent<EntityInventoryView>() == false
@@ -49,14 +49,8 @@ namespace Game.Entites
             SetSprite(definition.Sprite);
         }
 
-        /*public virtual void MoveEntityToDirection(Vector2Int direction)
-        {
-            var targetVector = new Vector3(direction.x, direction.y, transform.localPosition.z);
-            var newPos = transform.localPosition + targetVector;
-            transform.localPosition = newPos;
-            //todo check how to do this better.
-        }*/
-
+        #region Movement
+        
         public virtual void MoveEntityToTile(TileBase targetTile)
         {
             var targetPosV3 = new Vector3(targetTile.GetTilePosId().x, targetTile.GetTilePosId().y, 0);
@@ -78,7 +72,21 @@ namespace Game.Entites
             _pathNodes.Clear();
             _pathNodes = Pathfinding.Pathfinding.FindPath(_occupiedTile, targetTile);
         }
+        
+        #endregion
 
+        #region get-set
+
+        public Dictionary<EntityEquipSlots, ItemEntity> GetEquippedItems()
+        {
+            return InventoryView.GetEquippedItems();
+        }
+        
+        public ItemWeaponEntity[] GetEquippedWeapons()
+        {
+          return InventoryView.GetEquippedWeapons();
+        }
+        
         public bool GetAliveStatus()
         {
             return _isAlive;
@@ -90,4 +98,6 @@ namespace Game.Entites
             _spriteRenderer.sprite = _corpseSprite;
         }
     }
+    
+        #endregion
 }

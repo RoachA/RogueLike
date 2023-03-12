@@ -7,8 +7,8 @@ namespace Game.Entites
 {
     public class EntityStatsView : MonoBehaviour
     {
-        [SerializeField] public DynamicEntityStatsData _baseDynamicEntityStats;
-        [SerializeField] public DynamicEntityDefinitionData _baseDynamicDefitinion;
+        [SerializeField] public DynamicEntityStatsData _stats;
+        [SerializeField] public DynamicEntityDefinitionData _definition;
 
         private EntityDynamic _entity;
         public static Action<EntityDynamic> _entityDiesEvent;
@@ -16,44 +16,48 @@ namespace Game.Entites
 
         public void SetData(DynamicEntityScriptableData statsScriptableData)
         {
-            _baseDynamicEntityStats = statsScriptableData._dynamicEntityStatsData;
+            _stats = statsScriptableData._dynamicEntityStatsData;
         }
 
         public void SetData(BaseStatsData statsScriptableData, DynamicEntityDefinitionData definitionData)
         {
-            _baseDynamicEntityStats = new DynamicEntityStatsData(statsScriptableData);
-            _baseDynamicDefitinion = new DynamicEntityDefinitionData();
-            _baseDynamicDefitinion = definitionData;
+            _stats = new DynamicEntityStatsData(statsScriptableData);
+            _definition = new DynamicEntityDefinitionData();
+            _definition = definitionData;
         }
-        
         
         private void Start()
         {
             _entity = GetComponent<EntityDynamic>();
         }
 
-        public int GetMaxHp()
+        public BaseStatsData GetBaseStats()
         {
-            return _baseDynamicEntityStats.BaseStats.HP;
-        }
-        
-        public int GetHp()
-        {
-            return _baseDynamicEntityStats.BaseStats.HP;
+            return _stats.BaseStats;
         }
         
         [Button]
         public void AddHp(int amount)
         {
-            if (amount + _baseDynamicEntityStats.BaseStats.HP > _baseDynamicEntityStats.BaseStats.MHP)
-                _baseDynamicEntityStats.BaseStats.HP = _baseDynamicEntityStats.BaseStats.MHP;
+            if (amount + _stats.BaseStats.HP > _stats.BaseStats.MHP)
+                _stats.BaseStats.HP = _stats.BaseStats.MHP;
 
-            _baseDynamicEntityStats.BaseStats.HP += amount;
+            _stats.BaseStats.HP += amount;
             _entityHPUpdatedEvent?.Invoke(_entity, amount);
 
             //it is either one inheritor or the other
-            if (_baseDynamicEntityStats.BaseStats.HP <= 0)
+            if (_stats.BaseStats.HP <= 0)
                 _entityDiesEvent?.Invoke(_entity.GetType() == typeof(EntityNpc) ? _entity as EntityNpc : _entity as EntityPlayer);
+        }
+        
+        public int GetMaxHp()
+        {
+            return _stats.BaseStats.HP;
+        }
+        
+        public int GetHp()
+        {
+            return _stats.BaseStats.HP;
         }
     }
 }

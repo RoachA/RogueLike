@@ -22,6 +22,25 @@ namespace Game.Entites
             return _equippedItems;
         }
 
+        public ItemWeaponEntity[] GetEquippedWeapons()
+        {
+            var equippedWeapons = new ItemWeaponEntity[2];
+            
+            if (_equippedItems.TryGetValue(EntityEquipSlots.rightHand, out ItemEntity equippedItem_r))
+            {
+                if (equippedItem_r.GetType() == typeof(ItemWeaponEntity))
+                    equippedWeapons[0] = (ItemWeaponEntity) equippedItem_r;
+            }
+            
+            if (_equippedItems.TryGetValue(EntityEquipSlots.leftHand, out ItemEntity equippedItem_l))
+            {
+                if (equippedItem_l.GetType() == typeof(ItemWeaponEntity))
+                    equippedWeapons[1] = (ItemWeaponEntity) equippedItem_l;
+            }
+
+            return equippedWeapons;
+        }
+
         public void EquipItem(EntityEquipSlots slot, ItemEntity item)
         {
             if (_equippedItems.TryGetValue(slot, out ItemEntity equippedItem))
