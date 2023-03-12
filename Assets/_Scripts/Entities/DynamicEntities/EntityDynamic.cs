@@ -14,9 +14,9 @@ namespace Game.Entites
         public List<TileBase> _pathNodes;
 
         protected int _detectedDistance; //debug
-        protected DynamicEntityData _entityData;
+        protected DynamicEntityScriptableData EntityScriptableData;
    
-        public virtual void Init(DynamicEntityData entityData)
+        public virtual void Init(DynamicEntityScriptableData entityScriptableData)
         {
             Debug.Log(gameObject.name + " was initialized!");
             
@@ -28,10 +28,25 @@ namespace Game.Entites
                 ? gameObject.AddComponent<EntityStatsView>()
                 : GetComponent<EntityStatsView>();
 
-            _statsView.SetData(entityData);
-            _entityData = entityData;
+            _statsView.SetData(entityScriptableData);
+            EntityScriptableData = entityScriptableData;
 
-            SetSprite(entityData.Sprite);
+            SetSprite(entityScriptableData._dynamicEntityDefinitionData.Sprite);
+        }
+
+        public virtual void Init(BaseStatsData stats, DynamicEntityDefinitionData definition)
+        {
+            Debug.Log(gameObject.name + " was initialized!");
+            InventoryView = GetComponent<EntityInventoryView>() == false
+                ? gameObject.AddComponent<EntityInventoryView>()
+                : GetComponent<EntityInventoryView>();
+            
+            _statsView = GetComponent<EntityStatsView>() == false
+                ? gameObject.AddComponent<EntityStatsView>()
+                : GetComponent<EntityStatsView>();
+            
+            _statsView.SetData(stats, definition);
+            SetSprite(definition.Sprite);
         }
 
         public virtual void MoveEntityToDirection(Vector2Int direction)

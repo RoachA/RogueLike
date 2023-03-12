@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -8,14 +9,14 @@ namespace Game.Entites.Data
 {
    [CreateAssetMenu(fileName = "D_ENTITY_DATA_SET", menuName = "Data Set/Dynamic Entities Data Set", order = 1)]
    [Serializable]
-   public class DynamicEntityDataSet : ScriptableObject
+   public class DynamicEntityScriptableDataSet : ScriptableObject
    {
-      [SerializeField] public List<DynamicEntityData> _npcDefinitions;
+      [SerializeField] public List<DynamicEntityScriptableData> _npcDefinitions;
 
       [Button]
       private void LoadEntitiesFromResources()
       {
-         var npcDataSet = Resources.LoadAll<DynamicEntityData>(ResourcesHelper.ScriptableNpcPath).ToList();
+         var npcDataSet = Resources.LoadAll<DynamicEntityScriptableData>(ResourceManager.ScriptableNpcPath).ToList();
          _npcDefinitions.Clear();
          _npcDefinitions = npcDataSet;
       }

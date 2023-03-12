@@ -42,6 +42,31 @@ namespace Game.Entites
         weak = 4,
     }
 
+    public enum Races
+    {
+        turk = 0,
+        other = 1,
+    }
+
+    public enum Genders
+    {
+        male = 0,
+        female = 1,
+        gay = 2,
+    }
+
+    public enum Clans
+    {
+        nosferatu = 0,
+        klavian = 1,
+        gorgonian = 2,
+    }
+
+    public enum classes
+    {
+        dallama = 0,
+    }
+
     public enum EntityEquipSlots
     {
         head = 0,
@@ -51,6 +76,7 @@ namespace Game.Entites
         back = 4,
         legs = 5,
         feet = 6,
+        face = 7,
     }
 
     public enum EntityType
@@ -73,6 +99,14 @@ namespace Game.Entites
         currency = 7,
         tool = 8,
         furniture = 9,
+    }
+
+    public enum DamageTypes
+    {
+        slashing = 0,
+        piercing = 1,
+        blunt = 2,
+        magic = 3,
     }
 
     public enum AmmoTypes

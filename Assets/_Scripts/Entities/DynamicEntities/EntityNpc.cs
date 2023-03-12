@@ -13,7 +13,7 @@ namespace Game.Entites
       [SerializeField] protected EntityBehaviorTypes _behaviorType;
       [SerializeField] protected int _aggroDistance;
       
-      protected NpcEntityData _npcData;
+      protected NpcEntityScriptableData NpcScriptableData;
 
       #region debug_fields
       private readonly Color _hostileColor = Color.red;
@@ -25,21 +25,21 @@ namespace Game.Entites
          return _demeanor;
       }
 
-      public override void Init(DynamicEntityData entityData)
+      public override void Init(DynamicEntityScriptableData entityScriptableData)
       {
-         base.Init(entityData);
+         base.Init(entityScriptableData);
          
-         _npcData = entityData as NpcEntityData;
+         NpcScriptableData = entityScriptableData as NpcEntityScriptableData;
 
-         if (_npcData == null)
+         if (NpcScriptableData == null)
          {
             Debug.LogError("Npc data was null!");
             return;
          }
 
-         SetDemeanor(_npcData._demeanor);
-         SetBehaviorType(_npcData._behaviorType);
-         UpdateAggroDistance(_npcData._aggroRadius);
+         SetDemeanor(NpcScriptableData._demeanor);
+         SetBehaviorType(NpcScriptableData._behaviorType);
+         UpdateAggroDistance(NpcScriptableData._aggroRadius);
       }
 
       protected void SetDemeanor(EntityDemeanor demeanor)

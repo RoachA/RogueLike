@@ -1,4 +1,7 @@
+using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Game.Dice
 {
@@ -52,18 +55,19 @@ namespace Game.Dice
     /// <summary>
     /// Basic DRoll struct
     /// </summary>
-    public struct Dice
+    [Serializable]
+    public class Dice
     {
         /// <summary>
         /// defines the type of dice.
         /// </summary>
-        public int D;
+        [BoxGroup("Dice")] public int D;
         
         /// <summary>
         /// defines a roll of N times.
         /// </summary>
-        public int N;
-
+        [BoxGroup("Dice")] public int N;
+        
         public Dice(int d, int n)
         {
             D = d;

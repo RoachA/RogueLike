@@ -1,5 +1,5 @@
-using System;
 using Game.Entites.Data;
+using Game.Managers;
 using UnityEngine;
 
 namespace Game.Data
@@ -10,15 +10,27 @@ namespace Game.Data
       {
          GetNpcRegistries();
       }
-      public static DynamicEntityDataSet GetNpcRegistries()
+      
+
+      public static PlayerEntityData GenerateStarterPlayerData()
       {
-         var entityResource = (Resources.LoadAll<DynamicEntityDataSet>(ResourcesHelper.ScriptableNpcPath));
+         var newPlayerData = new PlayerEntityData();
+         newPlayerData.BaseStatsData = newPlayerData.GenerateStarterStats();
+         newPlayerData.DefinitionData = newPlayerData.GenerateStarterDefinition();
+
+         return newPlayerData;
+      }
+      
+      
+      public static DynamicEntityScriptableDataSet GetNpcRegistries()
+      {
+         var entityResource = (Resources.LoadAll<DynamicEntityScriptableDataSet>(ResourceManager.ScriptableNpcPath));
 
          if (entityResource != null)
             return entityResource[0];
          else
          {
-            Debug.LogError("No registries found in: " + ResourcesHelper.ScriptableNpcPath);
+            Debug.LogError("No registries found in: " + ResourceManager.ScriptableNpcPath);
             return null;
          }
       }

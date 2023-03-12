@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game.Entites
 {
     public class EntityInventoryView : MonoBehaviour
     {
-        [SerializeField] Dictionary<ItemTypes, ItemEntity> _inventoryItems;
+        [SerializeField] List<ItemEntity> _inventoryItems;
         [SerializeField] private Dictionary<EntityEquipSlots, ItemEntity> _equippedItems;
 
         [SerializeField] private int _inventorySize;
 
         public void AddItemToInventory(ItemEntity item)
         {
-            //_registeredItems.Add(item.name, item);
+            _inventoryItems.Add(item);
         }
 
         public Dictionary<EntityEquipSlots, ItemEntity> GetEquippedItems()
@@ -23,10 +24,13 @@ namespace Game.Entites
 
         public void EquipItem(EntityEquipSlots slot, ItemEntity item)
         {
-            if (_equippedItems.TryGetValue(slot, out var equippedItem))
+            if (_equippedItems.TryGetValue(slot, out ItemEntity equippedItem))
             {
-                
+                _inventoryItems.Add(equippedItem);
+                //todo after this check if the character is encumbered. if so, don't let him walk etc.
             }
+
+            _equippedItems.TryAdd(slot, item);
         }
     }
 }

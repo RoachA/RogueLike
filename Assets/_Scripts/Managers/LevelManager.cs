@@ -1,5 +1,7 @@
+using Game.Data;
 using Game.Tiles;
 using Game.Entites;
+using Game.Entites.Data;
 using UnityEngine;
 
 namespace Game.Managers
@@ -46,10 +48,10 @@ namespace Game.Managers
             _cameraManager.SetMapSize(tmpGridMapData.GridSize);
             
             // todo make a proper entity spawner in entity manager! with parameters etc
-            _entityManager.InstantiateDynamicEntity(EntityType.player, new Vector2Int(2, 2), null);
+            _entityManager.InstantiatePlayerEntity(new Vector2Int(2, 2), DataManager.GenerateStarterPlayerData());
             _cameraManager.SetCameraPosition(_entityManager.GetPlayerEntity().GetEntityPos());
             
-            _entityManager.InstantiateDynamicEntity(EntityType.npc, new Vector2Int(15, 10), _entityManager.GetEntityDataWithIndex(0));
+            _entityManager.InstantiateNpcEntity(new Vector2Int(15, 10), _entityManager.GetEntityDataWithIndex(0));
            // _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2Int(0, 0));
         }
 

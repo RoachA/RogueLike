@@ -4,7 +4,12 @@ namespace Game.Entites
 {
     public class EntityPlayer : EntityDynamic
     {
-        protected PlayerEntityData _playerData;
+        protected PlayerEntityData PlayerData;
+
+        public void SetPlayerData(PlayerEntityData data)
+        {
+            PlayerData = data;
+        }
     }
 
 }

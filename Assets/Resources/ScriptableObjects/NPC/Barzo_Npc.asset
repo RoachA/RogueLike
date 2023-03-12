@@ -12,10 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91599c649ab9d93448d85281091234f1, type: 3}
   m_Name: Barzo_Npc
   m_EditorClassIdentifier: 
-  Name: Barzo
-  Description: 'Barzo is a brutish creature originates from middle east. It has a
-    wide face and hairy shoulders. '
-  Sprite: {fileID: 896730608, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
   _dynamicEntityStatsData:
     BaseStats:
       LVL: 10
@@ -30,6 +26,15 @@ MonoBehaviour:
       RES: 10
       SPD: 10
       MOV: 10
+  _dynamicEntityDefinitionData:
+    Identifier: npc_1
+    _entityName: "Vakkas evlad\u0131"
+    Description: "onun ben ta anas\u0131n\u0131 sikeyim demi\u015Fti annesi."
+    Sprite: {fileID: -723748374, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+    race: 1
+    Genders: 0
+    clan: 1
+    characterClass: 0
   _demeanor: 2
   _behaviorType: 0
   _aggroRadius: 5
