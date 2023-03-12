@@ -15,7 +15,7 @@ namespace Game.Entites.Data
         public BaseStatsData GenerateStarterStats()
         {
             var newStatsData = new BaseStatsData
-            (10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10);
+            (1, 0, 10, 10, 3, 5, 0, 0, 3, 0, 3, 1);
             
             return newStatsData;
         }
