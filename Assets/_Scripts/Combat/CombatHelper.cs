@@ -8,8 +8,15 @@ public static class CombatHelper
     /// dices and return a final result basically.
     /// </summary>
     /// <returns></returns>
-    public static int DamageCalculator()
+    public static int DamageCalculator(int defender_av, int atacker_str, int atacker_pv)
     {
+        //get defenders armor value >> all equipped AV, additonal AV if any <auras etc>, shield bonus AV
+        //get attackers penetration value >> comes from str and weapon bonus 
+        //(weapon bonus has a str multiplier)!!! can be done here. get STR.
+        //+1 for sharp bonus if weapon has one
+        //+4 if target is sleeping
+        //additional bonus from skill usage <charge, lunge etc.>
+        
         return 0;
     }
     

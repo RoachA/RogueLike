@@ -22,26 +22,29 @@ namespace Game.Entites.Actions
 
         protected override void Do()
         {
+            //todo do a guaranteed hit check here: >> if target has specific afflictions such as stuck, overburdened etc.
+            //todo can add bonus damage for attacking from behind. but this also requires implementation to show what direction an entity looks.
             //first check hit chance
-            var attackerDEX = Entity_A.GetStats().DEX;
+            var attackerStats = Entity_A.GetStats();
+            var attackerDEX = attackerStats.DEX;
             var defenderDV = Entity_B.GetInventoryView().GetItemsDv();
             var defenderDex = Entity_B.GetStats().DEX;
 
             if (CombatHelper.DamageHitCheck(attackerDEX, defenderDV, defenderDex))
             {
-                //check dmg/penetration output
+                var attackerSTR = attackerStats.STR;
+                //get attacker PV
+                //get defender AV
+              var appliedDmg = CombatHelper.DamageCalculator(2, attackerSTR, 2);
+              
+              //todo send this damage to the target, update HP. Kill if HP<0 ;
             }
             else
             {
                 Debug.Log("Attack misses!");
             }
+            
             base.Do();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
     }
 }
