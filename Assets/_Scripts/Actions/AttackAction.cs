@@ -25,6 +25,8 @@ namespace Game.Entites.Actions
             //todo do a guaranteed hit check here: >> if target has specific afflictions such as stuck, overburdened etc.
             //todo can add bonus damage for attacking from behind. but this also requires implementation to show what direction an entity looks.
             //first check hit chance
+            //todo these parts are a bit annoying to rewrite for each offensive skill.. maybe could use a moderator class to have it easier. idk. 
+            //or a method here in attack action class would be inherited from other classes of offense. ?
             var attackerStats = Entity_A.GetStats();
             var attackerDEX = attackerStats.DEX;
             var defenderDV = Entity_B.GetInventoryView().GetItemsDv();
@@ -33,11 +35,11 @@ namespace Game.Entites.Actions
             if (CombatHelper.DamageHitCheck(attackerDEX, defenderDV, defenderDex))
             {
                 var attackerSTR = attackerStats.STR;
-                //get attacker PV
-                //get defender AV
-              var appliedDmg = CombatHelper.DamageCalculator(2, attackerSTR, 2);
+                //get attacker PV >>>
+                //get defender AV >>>
+                var appliedDmg = CombatHelper.DamageCalculator(2, attackerSTR, 2);
               
-              //todo send this damage to the target, update HP. Kill if HP<0 ;
+                //todo send this damage to the target, update HP. Kill if HP<0 ;
             }
             else
             {
