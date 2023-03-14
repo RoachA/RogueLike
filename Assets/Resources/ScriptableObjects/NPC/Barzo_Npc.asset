@@ -14,18 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dynamicEntityStatsData:
     BaseStats:
-      LVL: 10
-      EXP: 10
-      HP: 10
-      MHP: 10
-      ATK: 10
-      AV: 10
-      MAT: 10
-      MDF: 10
-      DV: 10
-      RES: 10
-      SPD: 10
-      MOV: 10
+      LVL: 5
+      EXP: 5
+      HP: 5
+      MHP: 5
+      STR: 5
+      STA: 5
+      DEX: 5
+      DEF: 5
+      INT: 5
+      CHR: 5
   _dynamicEntityDefinitionData:
     Identifier: npc_1
     _entityName: "Vakkas evlad\u0131"

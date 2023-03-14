@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a638fb2cc94464c83e2f817bc700ef, type: 3}
   m_Name: WEARABLE_DATA
   m_EditorClassIdentifier: 
-  _itemType: 0
-  _itemIdentifier: 
-  _itemName: 
-  _itemSprite: {fileID: 0}
-  _baseValue: 0
-  _durability: 0
+  _itemType: 2
+  _itemIdentifier: test_suit
+  _itemName: suit_1
+  _itemSprite: {fileID: -2121877980, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+  _baseValue: 10
+  _durability: 10
   Stats:
-    AV: 0
-    DV: 0
+    AV: 2
+    DV: 5

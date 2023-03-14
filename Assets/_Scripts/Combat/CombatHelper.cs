@@ -1,4 +1,5 @@
 using Game.Dice;
+using UnityEngine;
 
 public static class CombatHelper
 {
@@ -28,6 +29,7 @@ public static class CombatHelper
         var attackerAASum = DiceRollHelper.RollRegularDice(new Dice(20, 1)) + attacker_dex; //++ any hitbonus? laters.
         
         bool hitLands = attackerAASum > defenderDvSum;
+        Debug.LogWarning(hitLands ? "hit lands!" : "miss!");
 
         return hitLands;
     }

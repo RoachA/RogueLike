@@ -11,6 +11,7 @@ namespace Game.Entites.Actions
     {
         protected string ActionId = "AttackAction";
         protected DateTime ActionTriggerTime;
+        protected EntityDynamic Actor;
    
         protected Action<ActionsBase, DateTime> _actionIsCompleteEvent;
 

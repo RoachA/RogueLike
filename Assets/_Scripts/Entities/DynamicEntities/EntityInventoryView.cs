@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Game.Data;
@@ -12,6 +13,11 @@ namespace Game.Entites
         [SerializeField] private Dictionary<EntityEquipSlots, ItemEntity> _equippedItems;
 
         [SerializeField] private int _inventorySize;
+
+        private void Start()
+        {
+            _equippedItems = new Dictionary<EntityEquipSlots, ItemEntity>();
+        }
 
         public void AddItemToInventory(ItemEntity item)
         {
@@ -30,6 +36,9 @@ namespace Game.Entites
         public int GetItemsDv()
         {
             var dvSum = 0;
+
+            if (_equippedItems.Count == 0)
+                return dvSum;
             
             foreach (var item in _equippedItems)
             {

@@ -20,10 +20,6 @@ namespace Game.Entites
       private readonly Color _nautralColor = Color.white;
       #endregion
 
-      public EntityDemeanor GetDemeanor()
-      {
-         return _demeanor;
-      }
 
       public override void Init(DynamicEntityScriptableData entityScriptableData)
       {
@@ -41,7 +37,12 @@ namespace Game.Entites
          SetBehaviorType(NpcScriptableData._behaviorType);
          UpdateAggroDistance(NpcScriptableData._aggroRadius);
       }
-
+      
+      public EntityDemeanor GetDemeanor()
+      {
+         return _demeanor;
+      }
+      
       protected void SetDemeanor(EntityDemeanor demeanor)
       {
          _demeanor = demeanor;

@@ -4,13 +4,12 @@ namespace Game.Entites.Actions
 {
     public sealed class MoveAction<T> : ActionsBase where T : EntityDynamic
     {
-        public T Entity;
         public TileBase TargetTile;
 
         public MoveAction(T entity, TileBase targetTile)
         {
             ActionId = "Move";
-            Entity = entity;
+            Actor = entity;
             TargetTile = targetTile;
 
             Do();
@@ -18,8 +17,10 @@ namespace Game.Entites.Actions
         
         protected override void Do()
         {
-            Entity.MoveEntityToTile(TargetTile);
-            Entity.SetOccupiedTile(TargetTile);
+            Actor.MoveEntityToTile(TargetTile);
+            Actor.SetOccupiedTile(TargetTile);
+            var floor = (TileFloor) TargetTile;
+            floor.AddEntityToTile(Actor);
             base.Do();
         }
     }

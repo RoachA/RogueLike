@@ -12,23 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91599c649ab9d93448d85281091234f1, type: 3}
   m_Name: Kurd_Npc
   m_EditorClassIdentifier: 
-  Name: Kurd Warrior
-  Description: 'A ferocious kurdish warrior with a lot of body hair and feromones. '
-  Sprite: {fileID: 1863892825, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
   _dynamicEntityStatsData:
     BaseStats:
       LVL: 5
       EXP: 5
       HP: 5
       MHP: 5
-      ATK: 5
-      AV: 5
-      MAT: 5
-      MDF: 5
-      DV: 5
-      RES: 5
-      SPD: 5
-      MOV: 5
+      STR: 5
+      STA: 5
+      DEX: 5
+      DEF: 5
+      INT: 5
+      CHR: 5
+  _dynamicEntityDefinitionData:
+    Identifier: npc
+    _entityName: 
+    Description: 
+    Sprite: {fileID: 0}
+    race: 0
+    Genders: 0
+    clan: 0
+    characterClass: 0
   _demeanor: 2
   _behaviorType: 0
   _aggroRadius: 5
