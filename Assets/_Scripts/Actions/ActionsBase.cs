@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Object = System.Object;
 
 namespace Game.Entites.Actions
 {
@@ -10,14 +11,16 @@ namespace Game.Entites.Actions
     public class ActionsBase
     {
         protected string ActionId = "AttackAction";
+        protected string ActionVerb = "";
         protected DateTime ActionTriggerTime;
         protected EntityDynamic Actor;
+        protected Object Target;
    
-        protected Action<ActionsBase, DateTime> _actionIsCompleteEvent;
+        protected Action<ActionsBase, EntityDynamic, Object, DateTime> _actionIsCompleteEvent;
 
         protected virtual void Do()
         {
-            ActionIsComplete(this);
+            ActionIsComplete(this, Actor, Target);
         }
 
         protected virtual void SetTriggerTime()
@@ -25,11 +28,11 @@ namespace Game.Entites.Actions
             ActionTriggerTime = DateTime.Now;
         }
         
-        protected virtual void ActionIsComplete<T>(T completedAction) where T : ActionsBase
+        protected virtual void ActionIsComplete<T>(T completedAction, EntityDynamic actor, Object target) where T : ActionsBase
         {
             var time = DateTime.Now;
-            Debug.Log(completedAction.ActionId + " was complete! At time: " + time);
-            _actionIsCompleteEvent?.Invoke(completedAction, time);
+            Debug.Log(actor.GetType().Name + ActionVerb + target.GetType().Name);
+            _actionIsCompleteEvent?.Invoke(completedAction, actor, target, time);
         }
     }
 }

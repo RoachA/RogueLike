@@ -108,14 +108,14 @@ namespace Game.Managers
 
                 if (canMeeleeAttack)
                 {
-                    Debug.LogError("HITS TO THE PLAYER!!");
+                    var Attack = new AttackAction<EntityDynamic>(entity, _player);
                     return;
                 }
 
                 if (tryAttackPlayer) //move towards player but shouldn't move actually.
                 {
                     entity.GetPathToTarget(_player.GetOccupiedTile());
-                    var action = new MoveAction<EntityNpc>(entity, entity._pathNodes[entity._pathNodes.Count - 1]);
+                    var action = new WalkAction<EntityNpc>(entity, entity._pathNodes[entity._pathNodes.Count - 1]);
                 }
             }
         }

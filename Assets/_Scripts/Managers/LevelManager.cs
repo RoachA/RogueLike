@@ -83,7 +83,7 @@ namespace Game.Managers
             }
             
             _cameraManager.SetCameraPosition(targetGridPos);
-            var moveAction = new MoveAction<EntityPlayer>(player, _gridManager.GetTileAtPosition(targetGridPos));
+            var moveAction = new WalkAction<EntityPlayer>(player, _gridManager.GetTileAtPosition(targetGridPos));
             _gameManager.UpdateGameState(GameManager.GameState.evaluate);
         }
 
