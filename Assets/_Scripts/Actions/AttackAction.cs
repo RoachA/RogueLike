@@ -32,13 +32,14 @@ namespace Game.Entites.Actions
             var attackerDEX = attackerStats.DEX;
             var defenderDV = Entity_B.GetInventoryView().GetItemsDv();
             var defenderDex = Entity_B.GetStats().DEX;
+            var attackerWeapons = Entity_A.GetEquippedWeapons();
 
             if (CombatHelper.DamageHitCheck(attackerDEX, defenderDV, defenderDex))
             {
                 var attackerSTR = attackerStats.STR;
                 //get attacker PV >>>
                 //get defender AV >>>
-                var appliedDmg = CombatHelper.DamageCalculator(2, attackerSTR, 2);
+                var appliedDmg = CombatHelper.DamageCalculator(2, attackerSTR, 2, attackerWeapons);
               
                 //todo send this damage to the target, update HP. Kill if HP<0 ;
             }

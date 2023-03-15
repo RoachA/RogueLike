@@ -17,8 +17,7 @@ namespace Game.Dice
                 roll = Random.Range(1, dice.D + 1);
                 sum += roll;
             }
-
-            Debug.Log("Die Roll : " + sum);
+            
             return sum;
         }
 
