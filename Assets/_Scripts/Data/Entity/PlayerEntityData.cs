@@ -29,7 +29,7 @@ namespace Game.Entites.Data
             definitionData._entityName = "player vakkas";
             definitionData.characterClass = classes.dallama;
             definitionData.Genders = Genders.gay;
-            definitionData.Sprite = ResourceManager.GetPlayerSprite(0);
+            definitionData.Sprite = ResourceHelper.GetPlayerSprite(0);
             return definitionData;
         }
     }

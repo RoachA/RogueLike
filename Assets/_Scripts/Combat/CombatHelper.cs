@@ -85,7 +85,7 @@ public static class CombatHelper
             RollTriplets(-2);
         }
 
-
+        //todo add base AV and PV to this equation.
         return penetrationTimes;
     }
     
@@ -109,7 +109,7 @@ public static class CombatHelper
         Vector2Int weapon_base_dmg_1 = new Vector2Int(0, 0);
         Vector2Int weapon_base_dmg_2 = new Vector2Int(0, 0);
 
-        if (attacker_weapons[0] != null)
+        if (attacker_weapons[0] != null) //todo bare hand dmg should have something.
         {
             weapon_base_dmg_1 = new Vector2Int(attacker_weapons[0].GetItemData<MeleeWeaponData>().Stats.BaseDmg.D, attacker_weapons[0].GetItemData<MeleeWeaponData>().Stats.BaseDmg.N);
         }

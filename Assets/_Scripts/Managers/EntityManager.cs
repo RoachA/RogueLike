@@ -135,7 +135,7 @@ namespace Game.Managers
         {
             if (_gridManager.CheckPosInBounds(pos.x, pos.y) == false) return;
             
-            var entityResource = Resources.Load(ResourceManager.PlayerEntityPath) as GameObject;
+            var entityResource = Resources.Load(ResourceHelper.PlayerEntityPath) as GameObject;
             var newEntityObj = Instantiate(entityResource, transform);
             
             newEntityObj.transform.localPosition =
@@ -157,7 +157,7 @@ namespace Game.Managers
         {
             if (_gridManager.CheckPosInBounds(pos.x, pos.y) == false) return;
             
-            var entityResource = Resources.Load(ResourceManager.NpcEntityPath) as GameObject;
+            var entityResource = Resources.Load(ResourceHelper.NpcEntityPath) as GameObject;
             var newEntityObj = Instantiate(entityResource, transform);
             
             //todo check z's from a const or something.

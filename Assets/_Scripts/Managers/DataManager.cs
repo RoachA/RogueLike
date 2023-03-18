@@ -24,13 +24,13 @@ namespace Game.Data
       
       public static DynamicEntityScriptableDataSet GetNpcRegistries()
       {
-         var entityResource = (Resources.LoadAll<DynamicEntityScriptableDataSet>(ResourceManager.ScriptableNpcPath));
+         var entityResource = (Resources.LoadAll<DynamicEntityScriptableDataSet>(ResourceHelper.ScriptableNpcPath));
 
          if (entityResource != null)
             return entityResource[0];
          else
          {
-            Debug.LogError("No registries found in: " + ResourceManager.ScriptableNpcPath);
+            Debug.LogError("No registries found in: " + ResourceHelper.ScriptableNpcPath);
             return null;
          }
       }

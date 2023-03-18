@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using Game.Entites.Data;
 using Game.Tiles;
 using UnityEngine;
+using Game.Managers;
+using Sirenix.OdinInspector;
+
 
 namespace Game.Entites
 {
@@ -49,7 +52,7 @@ namespace Game.Entites
             SetSprite(definition.Sprite);
         }
 
-        #region Movement
+        #region Movement----------------------------------------------------------------
         
         public virtual void MoveEntityToTile(TileBase targetTile)
         {
@@ -75,7 +78,7 @@ namespace Game.Entites
         
         #endregion
 
-        #region get-set
+        #region get-set----------------------------------------------------------------
 
         public BaseStatsData GetStats()
         {

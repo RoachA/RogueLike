@@ -16,7 +16,7 @@ namespace Game.Entites.Data
       [Button]
       private void LoadEntitiesFromResources()
       {
-         var npcDataSet = Resources.LoadAll<DynamicEntityScriptableData>(ResourceManager.ScriptableNpcPath).ToList();
+         var npcDataSet = Resources.LoadAll<DynamicEntityScriptableData>(ResourceHelper.ScriptableNpcPath).ToList();
          _npcDefinitions.Clear();
          _npcDefinitions = npcDataSet;
       }

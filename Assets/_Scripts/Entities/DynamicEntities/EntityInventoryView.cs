@@ -1,7 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Game.Data;
+using Game.Managers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Game.Entites
@@ -28,8 +28,12 @@ namespace Game.Entites
             return _equippedItems;
         }
         
-        public void InitInventory()
+        public void InitInventory(ItemEntity[] items)
         {
+            foreach (var item in items)
+            {
+                AddItemToInventory(item);
+            }
         }
 
         public int GetItemsDv()
@@ -78,6 +82,17 @@ namespace Game.Entites
             }
 
             _equippedItems.TryAdd(slot, item);
+        }
+        
+        
+        [Button]
+        public void AddItemForTest(int indexFromRegistry)
+        {
+            var registry = ResourceHelper.GetWeaponsRegistry();
+            var weaponTemplate = ResourceHelper.GetItemEntityWithData<ItemMeleeWeaponEntity>(registry.GetMeeleeWeaponDataAtIndex(0));
+            var instance = Instantiate(weaponTemplate, transform);
+            EquipItem(EntityEquipSlots.rightHand, instance);
+            instance.SetAsContained(true);
         }
     }
 }

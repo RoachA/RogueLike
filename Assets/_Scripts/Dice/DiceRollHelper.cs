@@ -12,6 +12,11 @@ namespace Game.Dice
             var sum = 0;
             var roll = 0;
             
+            if (dice.D == 0 || dice.N == 0)
+            {
+                return 0;
+            }
+            
             for (int i = 0; i < dice.N; i++)
             {
                 roll = Random.Range(1, dice.D + 1);

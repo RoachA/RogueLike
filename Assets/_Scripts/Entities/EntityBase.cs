@@ -9,14 +9,12 @@ namespace Game.Entites
    [Serializable]
    public class EntityBase : MonoBehaviour
    {
-      [SerializeField] protected String _identifier;
+      [SerializeField] protected string _identifier;
       [SerializeField] protected SpriteRenderer _spriteRenderer;
       [SerializeField] protected Sprite _corpseSprite;
       [SerializeField] protected TileBase _occupiedTile;
       [SerializeField] protected EntityType _entityType { get; set; }
       [SerializeField] private List<TileBase> _pathFindingPaths;
-
-      [Sirenix.OdinInspector.ReadOnly]
 
       protected virtual void SetSprite(Sprite sprite)
       {
