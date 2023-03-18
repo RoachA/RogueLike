@@ -2,9 +2,6 @@ using System.Collections.Generic;
 using Game.Entites.Data;
 using Game.Tiles;
 using UnityEngine;
-using Game.Managers;
-using Sirenix.OdinInspector;
-
 
 namespace Game.Entites
 {
@@ -83,6 +80,11 @@ namespace Game.Entites
         public BaseStatsData GetStats()
         {
             return _statsView.GetBaseStats();
+        }
+
+        public DynamicEntityDefinitionData GetDefinitionData()
+        {
+            return _statsView._definition;
         }
 
         public EntityInventoryView GetInventoryView()

@@ -16,7 +16,7 @@ namespace Game.Entites.Actions
         protected EntityDynamic Actor;
         protected Object Target;
    
-        public static Action<ActionsBase, EntityDynamic, Object, DateTime, string> _actionIsCompleteEvent;
+        public static Action<ActionsBase, EntityDynamic, Object, DateTime, string> _actionIsCompleteEvent; //cant allocate two times no?
 
         public ActionsBase()
         {

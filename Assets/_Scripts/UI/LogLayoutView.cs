@@ -15,10 +15,10 @@ namespace Game.UI
         }
 
         private void OnAnActionIsComplete(ActionsBase action, EntityDynamic actor, object target, DateTime time, string verb)
-        {
-           var log = Instantiate(_logEntryPrefab, _logContentContainer.transform);
+        { 
+            var log = Instantiate(_logEntryPrefab, _logContentContainer.transform);
            log.gameObject.SetActive(true);
-           log.SetText(actor.name + " " + verb + " " + target + " !");
+           log.SetText(actor.GetDefinitionData()._entityName + " " + verb + " " + target + " !");
         }
     }
 }
