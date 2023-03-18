@@ -9,7 +9,7 @@ namespace Game.Entites.Actions
         public WalkAction(T entity, TileBase targetTile)
         {
             ActionId = "Walk";
-            ActionVerb = " walks through ";
+            ActionVerb = "walks through";
             Actor = entity;
             TargetTile = targetTile;
 

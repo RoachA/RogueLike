@@ -10,17 +10,21 @@ namespace Game.Entites.Actions
     /// </summary>
     public class ActionsBase
     {
-        protected string ActionId = "AttackAction";
-        protected string ActionVerb = "";
+        public string ActionId = "AttackAction";
+        public string ActionVerb = "attacks";
         protected DateTime ActionTriggerTime;
         protected EntityDynamic Actor;
         protected Object Target;
    
-        protected Action<ActionsBase, EntityDynamic, Object, DateTime> _actionIsCompleteEvent;
+        public static Action<ActionsBase, EntityDynamic, Object, DateTime, string> _actionIsCompleteEvent;
+
+        public ActionsBase()
+        {
+        }
 
         protected virtual void Do()
         {
-            ActionIsComplete(this, Actor, Target);
+            ActionIsComplete(this, Actor, Target, ActionVerb);
         }
 
         protected virtual void SetTriggerTime()
@@ -28,11 +32,11 @@ namespace Game.Entites.Actions
             ActionTriggerTime = DateTime.Now;
         }
         
-        protected virtual void ActionIsComplete<T>(T completedAction, EntityDynamic actor, Object target) where T : ActionsBase
+        protected virtual void ActionIsComplete<T>(T completedAction, EntityDynamic actor, Object target, string actionVerb) where T : ActionsBase
         {
             var time = DateTime.Now;
             Debug.Log(actor.GetType().Name + ActionVerb + target.GetType().Name);
-            _actionIsCompleteEvent?.Invoke(completedAction, actor, target, time);
+            _actionIsCompleteEvent?.Invoke(completedAction, actor, target, time, actionVerb);
         }
     }
 }
