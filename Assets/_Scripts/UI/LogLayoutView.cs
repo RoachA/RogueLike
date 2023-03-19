@@ -22,13 +22,10 @@ namespace Game.UI
         {
             LogEntryView newLog;
             
+            
             if (_currentLogs.Count == _maxLogCount)
             {
-                foreach (var log in _currentLogs)
-                {
-                    log.transform.SetSiblingIndex(log.transform.GetSiblingIndex() == 0 ? _currentLogs.Count - 1 : log.transform.GetSiblingIndex() - 1);
-                }
-                
+                _currentLogs[0].transform.SetAsLastSibling();
                 newLog = _currentLogs[_maxLogCount - 1];
                // newLog.transform.SetSiblingIndex(_maxLogCount - 1);
             }
