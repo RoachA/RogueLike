@@ -28,8 +28,9 @@ namespace Game.Entites
                 ? gameObject.AddComponent<EntityStatsView>()
                 : GetComponent<EntityStatsView>();
 
-            _statsView.SetData(entityScriptableData);
             EntityScriptableData = entityScriptableData;
+            _statsView.SetData(entityScriptableData._dynamicEntityStatsData.BaseStats,
+                entityScriptableData._dynamicEntityDefinitionData);
 
             SetSprite(entityScriptableData._dynamicEntityDefinitionData.Sprite);
         }
