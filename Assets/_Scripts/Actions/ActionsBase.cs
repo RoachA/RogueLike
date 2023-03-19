@@ -16,7 +16,9 @@ namespace Game.Entites.Actions
         protected EntityDynamic Actor;
         protected Object Target;
    
-        public static Action<ActionsBase, EntityDynamic, Object, DateTime, string> _actionIsCompleteEvent; //cant allocate two times no?
+        //cant allocate two times no? yes I need a different solution here. there can be one action at a time. hmm. perhaps make this a list.
+        //or scatter actions through several frames... humhum. which would be more performance
+        public static Action<ActionsBase, EntityDynamic, Object, DateTime, string> _actionIsCompleteEvent;
 
         public ActionsBase()
         {

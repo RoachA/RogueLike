@@ -8,7 +8,7 @@ namespace Game.Entites
     public abstract class EntityDynamic : EntityBase
     {
         protected EntityInventoryView _inventoryView;
-        protected EntityStatsView _statsView;
+       [SerializeField] protected EntityStatsView _statsView;
         [SerializeField] protected bool _isAlive;
        
         public List<TileBase> _pathNodes;

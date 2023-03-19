@@ -26,7 +26,7 @@ namespace Game.Entites.Data
             
             definitionData.clan = Clans.gorgonian;
             definitionData.race = Races.other;
-            definitionData._entityName = "player vakkas";
+            definitionData._entityName = "PlayerX";
             definitionData.characterClass = classes.dallama;
             definitionData.Genders = Genders.gay;
             definitionData.Sprite = ResourceHelper.GetPlayerSprite(0);
