@@ -27,6 +27,21 @@ namespace Game.Managers
 
         public static Vector2 GridSize;
         
+#if UNITY_STANDALONE_OSX
+        private readonly KeyCode[] _keyCodes_osx =
+        {
+            KeyCode.Keypad0,
+            KeyCode.Keypad1,
+            KeyCode.DownArrow,
+            KeyCode.Keypad3,
+            KeyCode.LeftArrow,
+            KeyCode.W,
+            KeyCode.RightArrow,
+            KeyCode.Keypad7,
+            KeyCode.UpArrow,
+            KeyCode.Keypad9,
+        };
+#endif
         private readonly KeyCode[] _keyCodes =
         {
             KeyCode.Keypad0,
@@ -138,27 +153,49 @@ namespace Game.Managers
                 if (_lookAtActive) _levelManager.StartLookAt();
                 else _levelManager.StopLookAtTile();
             }
-            
+
             if (_currentGameState == GameState.playerTurn && _movementActive && _lookAtActive == false)
             {
-                for (int i = 0; i < _keyCodes.Length; i++)
+                if (Application.platform == RuntimePlatform.WindowsEditor ||
+                    Application.platform == RuntimePlatform.WindowsPlayer)
                 {
-                    if (Input.GetKeyDown(_keyCodes[i]))
+                    for (int i = 0; i < _keyCodes.Length; i++)
                     {
-                        if (i == 5)
+                        if (Input.GetKeyDown(_keyCodes[i]))
                         {
-                            UpdateGameState(GameState.evaluate);
+                            if (i == 5)
+                            {
+                                UpdateGameState(GameState.evaluate);
+                            }
+
+                            if (_movementVectors.TryGetValue(i, out var motionVector))
+                            {
+                                _levelManager.MovePlayerTo(motionVector);
+                            }
                         }
-                        
-                        if (_movementVectors.TryGetValue(i, out var motionVector))
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < _keyCodes_osx.Length; i++)
+                    {
+                        if (Input.GetKeyDown(_keyCodes_osx[i]))
                         {
-                            _levelManager.MovePlayerTo(motionVector);
+                            if (i == 5)
+                            {
+                                UpdateGameState(GameState.evaluate);
+                            }
+
+                            if (_movementVectors.TryGetValue(i, out var motionVector))
+                            {
+                                _levelManager.MovePlayerTo(motionVector);
+                            }
                         }
                     }
                 }
             }
-            else if (_currentGameState == GameState.playerTurn && _movementActive == false && _lookAtActive)
-            {
+            else if (_currentGameState == GameState.playerTurn && _movementActive == false && _lookAtActive) 
+                        {
                 for (int i = 0; i < _keyCodes.Length; i++)
                 {
                     if (Input.GetKeyDown(_keyCodes[i]))
