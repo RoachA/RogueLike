@@ -9,6 +9,6 @@ public class LogEntryView : MonoBehaviour
 
     public void SetText(string text)
     {
-        _text.text = ">" + text;
+        _text.text = "> " + text;
     }
 }

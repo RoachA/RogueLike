@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.Entites;
 using UnityEngine;
 using Game.Entites.Actions;
+using Game.Entites.Data;
+using Game.Tiles;
+using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -22,21 +26,40 @@ namespace Game.UI
         {
             LogEntryView newLog;
             
-            
             if (_currentLogs.Count == _maxLogCount)
             {
-                _currentLogs[0].transform.SetAsLastSibling();
-                newLog = _currentLogs[_maxLogCount - 1];
-               // newLog.transform.SetSiblingIndex(_maxLogCount - 1);
+                _logContentContainer.GetChild(0).transform.SetAsLastSibling();
+                newLog = _logContentContainer.GetChild(_logContentContainer.childCount - 1).GetComponent<LogEntryView>();
             }
             else
             {
                 newLog = Instantiate(_logEntryPrefab, _logContentContainer.transform);
                 _currentLogs.Add(newLog);
             }
-            
+
             newLog.gameObject.SetActive(true);
-            newLog.SetText(actor.GetDefinitionData()._entityName + " " + verb + " " + target + " !");
+            newLog.SetText(actor.GetDefinitionData()._entityName + " " + verb + " " + GetTypeSpecificName(target) + "!");
+        }
+
+        private string GetTypeSpecificName(object targetObj)
+        {
+           Type thisType = targetObj.GetType();
+           string result = "";
+           
+           if (thisType == typeof(TileFloor))
+           {
+              var castedObj = targetObj as TileFloor;
+              result = castedObj.GetTileType();
+           }
+
+           if (thisType == typeof(EntityDynamic) || thisType == typeof(EntityPlayer) || thisType == typeof(EntityNpc))
+           {
+               var castedObj = targetObj as EntityDynamic;
+               var definitionData = castedObj.GetDefinitionData();
+               result = definitionData._entityName;
+           }
+           
+           return result;
         }
     }
 }

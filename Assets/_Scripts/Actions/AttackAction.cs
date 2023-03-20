@@ -14,7 +14,7 @@ namespace Game.Entites.Actions
         public AttackAction(T entity_a, T entity_b)
         {
             ActionId = "AttackAction";
-            ActionVerb = " attacks ";
+            ActionVerb = "attacks";
             Entity_A = entity_a;
             Entity_B = entity_b;
 

@@ -27,7 +27,7 @@ namespace Game.Managers
 
         public static Vector2 GridSize;
         
-#if UNITY_STANDALONE_OSX
+
         private readonly KeyCode[] _keyCodes_osx =
         {
             KeyCode.Keypad0,
@@ -41,7 +41,6 @@ namespace Game.Managers
             KeyCode.UpArrow,
             KeyCode.Keypad9,
         };
-#endif
         private readonly KeyCode[] _keyCodes =
         {
             KeyCode.Keypad0,
@@ -175,7 +174,7 @@ namespace Game.Managers
                         }
                     }
                 }
-                else
+                else if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
                 {
                     for (int i = 0; i < _keyCodes_osx.Length; i++)
                     {

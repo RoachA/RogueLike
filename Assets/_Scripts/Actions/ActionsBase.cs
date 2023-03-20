@@ -10,8 +10,8 @@ namespace Game.Entites.Actions
     /// </summary>
     public class ActionsBase
     {
-        public string ActionId = "AttackAction";
-        public string ActionVerb = "attacks";
+        public string ActionId = "action base";
+        public string ActionVerb = "does";
         protected DateTime ActionTriggerTime;
         protected EntityDynamic Actor;
         protected Object Target;
