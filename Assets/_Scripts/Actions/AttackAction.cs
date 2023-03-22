@@ -1,4 +1,7 @@
 using UnityEngine;
+using System;
+using Game.Dice;
+using Game.Entites.Data;
 
 namespace Game.Entites.Actions
 {
@@ -10,6 +13,8 @@ namespace Game.Entites.Actions
     {
         public T Entity_A;
         public T Entity_B;
+        public static Action<string> LoggedMeleeAttackEvent;
+        public static Action<EntityDynamic, int> DamageDealtEvent;
         
         public AttackAction(T entity_a, T entity_b)
         {
@@ -39,8 +44,17 @@ namespace Game.Entites.Actions
                 var attackerSTR = attackerStats.STR;
                 //get attacker PV >>>
                 //get defender AV >>>
-                var appliedDmg = CombatHelper.DamageCalculator(2, attackerSTR, 2, attackerWeapons);
-              
+                
+                CombatHelper.DamageOutput appliedDmg_1 = CombatHelper.DamageCalculatorSingleMelee(2, attackerSTR, 10, attackerWeapons[0]);
+                CombatHelper.DamageOutput appliedDmg_2 = CombatHelper.DamageCalculatorSingleMelee(2, attackerSTR, 2, attackerWeapons[1], 0.5f);
+                int appliedTotalDmg = appliedDmg_1.DamageTotal + appliedDmg_2.DamageTotal;
+                
+                if (attackerWeapons[0] != null)
+                    SendAttackLog(Entity_A, Entity_B, appliedDmg_1.PenetrationTotal, appliedDmg_1.DamageTotal, attackerWeapons[0]);
+                
+                if (attackerWeapons[1] != null)
+                    SendAttackLog(Entity_A, Entity_B, appliedDmg_2.PenetrationTotal, appliedDmg_2.DamageTotal, attackerWeapons[1]);
+                
                 //todo send this damage to the target, update HP. Kill if HP<0 ;
             }
             else
@@ -50,7 +64,55 @@ namespace Game.Entites.Actions
 
             Actor = Entity_A;
             Target = Entity_B;
-            base.Do();
+        }
+
+        public void SendAttackLog(EntityDynamic attacker, EntityDynamic defender, int penetrationTimes, int damageOutput, ItemMeleeWeaponEntity weaponItem)
+        {
+            MeleeWeaponData weaponData = weaponItem.GetItemData<MeleeWeaponData>();
+            Game.Dice.Dice weaponDmg = weaponData.Stats.BaseDmg;
+            string wpnDmg = DiceRollHelper.GetDiceAsString(weaponDmg);
+            string penetrationTimesString = "(x" + penetrationTimes.ToString() + ")";
+            string hitText = " hits ";
+            string missText = " misses ";
+
+            switch (penetrationTimes)
+            {
+                case 1:
+                    penetrationTimesString = "<color=\"yellow\">" + penetrationTimesString + "</color>";
+                    break;
+                case 2:
+                    penetrationTimesString = "<color=\"orange\">" + penetrationTimesString + "</color>";
+                    break;
+                case >=3:
+                    penetrationTimesString = "<color=\"purple\">" + penetrationTimesString + "</color>";
+                    break;
+                default:
+                    penetrationTimesString = penetrationTimesString;
+                    break;
+            }
+           
+            string attackerName = "<color=\"red\">" + attacker.GetDefinitionData()._entityName + "</color>";
+            string defenderName = "<color=\"red\">" + defender.GetDefinitionData()._entityName + "</color>";
+
+            if (attacker.GetType() == typeof(EntityPlayer))
+            {
+                attackerName = "<color=\"green\">You</color>";
+                hitText = " hit ";
+                missText = " miss ";
+            }
+            
+            if (defender.GetType() == typeof(EntityPlayer))
+                defenderName = "<color=\"green\">you</color>";
+
+            string finalOutput = attackerName + missText + defenderName;
+
+            if (penetrationTimes > 0)
+            {
+                finalOutput = attackerName + hitText + defenderName + " " + penetrationTimesString + " for " + damageOutput + " damage with a " +
+                           weaponData._itemName + " ->" + weaponData.Stats.ArmorPenetration + " " + wpnDmg + "!";
+            }
+            
+            LoggedMeleeAttackEvent?.Invoke(finalOutput);
         }
     }
 }

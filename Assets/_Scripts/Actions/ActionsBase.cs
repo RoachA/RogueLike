@@ -26,7 +26,6 @@ namespace Game.Entites.Actions
 
         protected virtual void Do()
         {
-            ActionIsComplete(this, Actor, Target, ActionVerb);
         }
 
         protected virtual void SetTriggerTime()

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -53,6 +54,11 @@ namespace Game.Dice
 
             Debug.Log("DRM: " + sum);
             return sum;
+        }
+
+        public static string GetDiceAsString(Dice dice)
+        {
+            return dice.N + "d" + dice.D;
         }
     }
 

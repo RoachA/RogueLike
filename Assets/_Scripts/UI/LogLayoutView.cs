@@ -6,7 +6,6 @@ using UnityEngine;
 using Game.Entites.Actions;
 using Game.Entites.Data;
 using Game.Tiles;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -19,10 +18,11 @@ namespace Game.UI
         private List<LogEntryView> _currentLogs = new List<LogEntryView>();
         private void Start()
         {
-            ActionsBase._actionIsCompleteEvent += OnAnActionIsComplete;
+            //ActionsBase._actionIsCompleteEvent += OnAnActionIsComplete;
+            AttackAction<EntityDynamic>.LoggedMeleeAttackEvent += OnMeleeAttackOccured;
         }
-
-        private void OnAnActionIsComplete(ActionsBase action, EntityDynamic actor, object target, DateTime time, string verb)
+        
+        private void AddLogEntry(string logEntry)
         {
             LogEntryView newLog;
             
@@ -38,7 +38,7 @@ namespace Game.UI
             }
 
             newLog.gameObject.SetActive(true);
-            newLog.SetText(actor.GetDefinitionData()._entityName + " " + verb + " " + GetTypeSpecificName(target) + "!");
+            newLog.SetText(logEntry);
         }
 
         private string GetTypeSpecificName(object targetObj)
@@ -60,6 +60,11 @@ namespace Game.UI
            }
            
            return result;
+        }
+        
+        private void OnMeleeAttackOccured(string combatLog)
+        {
+            AddLogEntry(combatLog);
         }
     }
 }
