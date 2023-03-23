@@ -14,6 +14,7 @@ namespace Game.Entites.Actions
         public T Entity_A;
         public T Entity_B;
         public static Action<string> LoggedMeleeAttackEvent;
+        public static Action<EntityDynamic, Vector2Int> AttackHappenedEvent;
         public static Action<EntityDynamic, int> DamageDealtEvent;
         
         public AttackAction(T entity_a, T entity_b)
@@ -33,11 +34,15 @@ namespace Game.Entites.Actions
             //first check hit chance
             //todo these parts are a bit annoying to rewrite for each offensive skill.. maybe could use a moderator class to have it easier. idk. 
             //or a method here in attack action class would be inherited from other classes of offense. ?
+            
+            AttackHappenedEvent?.Invoke(Entity_A, Entity_B.GetEntityPos());
+            
             var attackerStats = Entity_A.GetStats();
             var attackerDEX = attackerStats.DEX;
             var defenderDV = Entity_B.GetInventoryView().GetItemsDv();
             var defenderDex = Entity_B.GetStats().DEX;
             var attackerWeapons = Entity_A.GetEquippedWeapons();
+            int appliedTotalDmg = 0;
 
             if (CombatHelper.DamageHitCheck(attackerDEX, defenderDV, defenderDex))
             {
@@ -47,7 +52,7 @@ namespace Game.Entites.Actions
                 
                 CombatHelper.DamageOutput appliedDmg_1 = CombatHelper.DamageCalculatorSingleMelee(2, attackerSTR, 10, attackerWeapons[0]);
                 CombatHelper.DamageOutput appliedDmg_2 = CombatHelper.DamageCalculatorSingleMelee(2, attackerSTR, 2, attackerWeapons[1], 0.5f);
-                int appliedTotalDmg = appliedDmg_1.DamageTotal + appliedDmg_2.DamageTotal;
+                appliedTotalDmg = appliedDmg_1.DamageTotal + appliedDmg_2.DamageTotal;
                 
                 if (attackerWeapons[0] != null)
                     SendAttackLog(Entity_A, Entity_B, appliedDmg_1.PenetrationTotal, appliedDmg_1.DamageTotal, attackerWeapons[0]);
@@ -64,6 +69,14 @@ namespace Game.Entites.Actions
 
             Actor = Entity_A;
             Target = Entity_B;
+
+            if (appliedTotalDmg > 0)
+                ApplyDamageTo(Entity_B, appliedTotalDmg);
+        }
+
+        public void ApplyDamageTo(EntityDynamic target, int dmg)
+        {
+            DamageDealtEvent?.Invoke(target, dmg);
         }
 
         public void SendAttackLog(EntityDynamic attacker, EntityDynamic defender, int penetrationTimes, int damageOutput, ItemMeleeWeaponEntity weaponItem)

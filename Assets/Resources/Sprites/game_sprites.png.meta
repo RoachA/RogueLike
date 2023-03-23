@@ -49,7 +49,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -22779,7 +22779,7 @@ TextureImporter:
     nameFileIdTable:
       colored_packed_311: -2024476805
       colored_packed_327: -138182065
-      colored_packed_418: 2097097193
+      colored_packed_850: -248637757
       colored_packed_685: 2088378150
       colored_packed_474: -278230868
       colored_packed_204: 20989146
@@ -22901,10 +22901,10 @@ TextureImporter:
       colored_packed_930: 2068198748
       colored_packed_762: -1151867806
       colored_packed_899: -1369922022
-      colored_packed_863: -770520478
+      colored_packed_140: -17265933
       colored_packed_52: 104518074
       colored_packed_231: 1901802568
-      colored_packed_140: -17265933
+      colored_packed_863: -770520478
       colored_packed_940: 1593614072
       colored_packed_610: -1788910127
       colored_packed_1021: -305912397
@@ -23854,7 +23854,7 @@ TextureImporter:
       colored_packed_271: 1026590287
       colored_packed_1076: -660567303
       colored_packed_395: -1047722040
-      colored_packed_850: -248637757
+      colored_packed_418: 2097097193
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

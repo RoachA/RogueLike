@@ -63,14 +63,12 @@ namespace Game.Managers
             
 
             if (_gridManager.CheckTileIfHasEntity(targetGridPos.x, targetGridPos.y, out var entity))
-            { //entity doesn't register itself to the tile! npc problem
+            { 
+                //entity doesn't register itself to the tile! npc problem
                 if (entity.GetType() != typeof(EntityNpc)) return;
                 var npc = (EntityNpc) entity;
                 if (npc.GetDemeanor() != EntityDemeanor.hostile) return;
-                
-                Debug.Log("Tile at " + targetGridPos + " has an entity type of : " + entity.name);
-                Debug.Log("Combat starts!");
-                
+
                 var attack = new AttackAction<EntityDynamic>(player, (EntityDynamic) entity);
                 _gameManager.UpdateGameState(GameManager.GameState.evaluate);
                 return;

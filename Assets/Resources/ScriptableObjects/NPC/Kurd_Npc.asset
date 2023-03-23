@@ -28,7 +28,7 @@ MonoBehaviour:
     Identifier: npc
     _entityName: Dalyarak
     Description: "anan\u0131n am\u0131 ya"
-    Sprite: {fileID: 375384065, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+    Sprite: {fileID: -1603074986, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
     race: 0
     Genders: 0
     clan: 0

@@ -1,4 +1,5 @@
 using System;
+using Game.Entites.Actions;
 using Game.Entites.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -12,7 +13,6 @@ namespace Game.Entites
 
         private EntityDynamic _entity;
         public static Action<EntityDynamic> _entityDiesEvent;
-        public static Action<EntityDynamic, int> _entityHPUpdatedEvent;
 
         public void SetData(DynamicEntityScriptableData statsScriptableData)
         {
@@ -37,17 +37,21 @@ namespace Game.Entites
         }
         
         [Button]
-        public void AddHp(int amount)
+        public bool AddHp(int amount)
         {
             if (amount + _stats.BaseStats.HP > _stats.BaseStats.MHP)
                 _stats.BaseStats.HP = _stats.BaseStats.MHP;
 
             _stats.BaseStats.HP += amount;
-            _entityHPUpdatedEvent?.Invoke(_entity, amount);
 
-            //it is either one inheritor or the other
+            //todo here is a bit weird.
             if (_stats.BaseStats.HP <= 0)
+            {
                 _entityDiesEvent?.Invoke(_entity.GetType() == typeof(EntityNpc) ? _entity as EntityNpc : _entity as EntityPlayer);
+                _entity.SetAliveState(false);
+            }
+
+            return _entity.GetAliveStatus();
         }
         
         public int GetMaxHp()

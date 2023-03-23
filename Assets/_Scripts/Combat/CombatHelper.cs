@@ -82,8 +82,7 @@ public static class CombatHelper
             tripletHits = RollTriplets(-2);
             if (tripletHits > 0) penetrationTimes++;
         }
-
-        Debug.LogError("penetration times! :  " + penetrationTimes);
+        
         //todo add base AV and PV to this equation.
         return penetrationTimes;
     }

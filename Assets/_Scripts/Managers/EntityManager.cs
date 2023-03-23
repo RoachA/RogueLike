@@ -58,12 +58,11 @@ namespace Game.Managers
         private void SetSubscriptions()
         {
             EntityStatsView._entityDiesEvent += OnEntityDies;
-            EntityStatsView._entityHPUpdatedEvent += OnEntityHpChanges;
         }
+        
         private void ReleaseSubscriptions()
         {
             EntityStatsView._entityDiesEvent -= OnEntityDies;
-            EntityStatsView._entityHPUpdatedEvent -= OnEntityHpChanges;
         }
 
         #region getters

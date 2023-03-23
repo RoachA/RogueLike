@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Game.Entites;
 using UnityEngine;
 using Game.Entites.Actions;
-using Game.Entites.Data;
 using Game.Tiles;
 
 namespace Game.UI
@@ -20,6 +18,7 @@ namespace Game.UI
         {
             //ActionsBase._actionIsCompleteEvent += OnAnActionIsComplete;
             AttackAction<EntityDynamic>.LoggedMeleeAttackEvent += OnMeleeAttackOccured;
+            EntityStatsView._entityDiesEvent += OnEntityDies;
         }
         
         private void AddLogEntry(string logEntry)
@@ -65,6 +64,11 @@ namespace Game.UI
         private void OnMeleeAttackOccured(string combatLog)
         {
             AddLogEntry(combatLog);
+        }
+        
+        private void OnEntityDies(EntityDynamic entity)
+        {
+            AddLogEntry(entity.GetDefinitionData()._entityName + " dies!");
         }
     }
 }
