@@ -17,7 +17,7 @@ namespace Game.UI
         private void Start()
         {
             //ActionsBase._actionIsCompleteEvent += OnAnActionIsComplete;
-            AttackAction<EntityDynamic>.LoggedMeleeAttackEvent += OnMeleeAttackOccured;
+            MeleeAttackAction<EntityDynamic>.LoggedMeleeAttackEvent += OnMeleeAttackOccured;
             EntityStatsView._entityDiesEvent += OnEntityDies;
         }
         

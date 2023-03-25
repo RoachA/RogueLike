@@ -16,8 +16,6 @@ public static class CombatHelper
         var attackerAASum = DiceRollHelper.RollRegularDice(new Dice(20, 1)) + attacker_dex; //++ any hitbonus? laters.
         
         bool hitLands = attackerAASum > defenderDvSum;
-        Debug.LogWarning(hitLands ? "hit lands!" : "miss!");
-
         return hitLands;
     }
     
@@ -33,7 +31,6 @@ public static class CombatHelper
         const int rolls = 3;
         const int pvConstSubtract = 2;
         var avRollTotal = 0;
-        var pvOutput = 0;
         var AvDice = new Dice(defender_av, 1);
         var penetrationTimes = 0;
         var tripletHits = 0;

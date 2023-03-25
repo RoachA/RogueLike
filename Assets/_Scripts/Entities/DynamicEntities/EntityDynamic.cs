@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace Game.Entites
 {
+    //todo STUDY INTERFACES IMPLEMENT I=DAMAGABLE, 
     public abstract class EntityDynamic : EntityBase
     {
         protected EntityInventoryView _inventoryView;
@@ -21,8 +22,8 @@ namespace Game.Entites
 
         protected void Start()
         {
-            AttackAction<EntityDynamic>.DamageDealtEvent += OnReceiveDamage;
-            AttackAction<EntityDynamic>.AttackHappenedEvent += OnAttack;
+            MeleeAttackAction<EntityDynamic>.DamageDealtEvent += OnReceiveDamage;
+            MeleeAttackAction<EntityDynamic>.AttackHappenedEvent += OnAttack;
         }
 
         protected void OnDestroy()
@@ -159,8 +160,8 @@ namespace Game.Entites
 
         private void RemoveListeners()
         {
-            AttackAction<EntityDynamic>.DamageDealtEvent -= OnReceiveDamage;
-            AttackAction<EntityDynamic>.AttackHappenedEvent -= OnAttack;  
+            MeleeAttackAction<EntityDynamic>.DamageDealtEvent -= OnReceiveDamage;
+            MeleeAttackAction<EntityDynamic>.AttackHappenedEvent -= OnAttack;  
         }
         
         #endregion

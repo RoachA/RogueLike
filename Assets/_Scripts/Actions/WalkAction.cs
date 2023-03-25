@@ -2,7 +2,7 @@ using Game.Tiles;
 
 namespace Game.Entites.Actions
 {
-    public sealed class WalkAction<T> : ActionsBase where T : EntityDynamic
+    public sealed class WalkAction<T> : IAction where T : EntityDynamic
     {
         public TileBase TargetTile;
 

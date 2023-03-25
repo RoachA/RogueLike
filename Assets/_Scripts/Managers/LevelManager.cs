@@ -69,7 +69,7 @@ namespace Game.Managers
                 var npc = (EntityNpc) entity;
                 if (npc.GetDemeanor() != EntityDemeanor.hostile) return;
 
-                var attack = new AttackAction<EntityDynamic>(player, (EntityDynamic) entity);
+                var attack = new MeleeAttackAction<EntityDynamic>(player, (EntityDynamic) entity);
                 _gameManager.UpdateGameState(GameManager.GameState.evaluate);
                 return;
             }

@@ -9,25 +9,23 @@ namespace Game.Entites.Actions
     /// Any melee attack falls into this category.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class AttackAction<T> : ActionsBase where T : EntityDynamic
+    public class MeleeAttackAction<T> where T : EntityDynamic
     {
         public T Entity_A;
         public T Entity_B;
         public static Action<string> LoggedMeleeAttackEvent;
         public static Action<EntityDynamic, Vector2Int> AttackHappenedEvent;
         public static Action<EntityDynamic, int> DamageDealtEvent;
-        
-        public AttackAction(T entity_a, T entity_b)
+
+        public MeleeAttackAction(T entity_a, T entity_b)
         {
-            ActionId = "AttackAction";
-            ActionVerb = "attacks";
             Entity_A = entity_a;
             Entity_B = entity_b;
 
             Do();
         }
 
-        protected override void Do()
+        public void Do()
         {
             //todo do a guaranteed hit check here: >> if target has specific afflictions such as stuck, overburdened etc.
             //todo can add bonus damage for attacking from behind. but this also requires implementation to show what direction an entity looks.
@@ -66,9 +64,6 @@ namespace Game.Entites.Actions
             {
                 Debug.Log("Attack misses!");
             }
-
-            Actor = Entity_A;
-            Target = Entity_B;
 
             if (appliedTotalDmg > 0)
                 ApplyDamageTo(Entity_B, appliedTotalDmg);

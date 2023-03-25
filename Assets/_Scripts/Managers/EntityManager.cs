@@ -107,7 +107,7 @@ namespace Game.Managers
 
                 if (canMeeleeAttack)
                 {
-                    var Attack = new AttackAction<EntityDynamic>(entity, _player);
+                    var Attack = new MeleeAttackAction<EntityDynamic>(entity, _player);
                     return;
                 }
 
