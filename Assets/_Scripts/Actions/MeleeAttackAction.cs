@@ -9,10 +9,13 @@ namespace Game.Entites.Actions
     /// Any melee attack falls into this category.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class MeleeAttackAction<T> where T : EntityDynamic
+    public class MeleeAttackAction<T> : IAction where T : EntityDynamic
     {
         public T Entity_A;
         public T Entity_B;
+        private DateTime _actionTriggerTime;
+        private EntityDynamic _actor;
+        private object _target;
         public static Action<string> LoggedMeleeAttackEvent;
         public static Action<EntityDynamic, Vector2Int> AttackHappenedEvent;
         public static Action<EntityDynamic, int> DamageDealtEvent;
@@ -23,6 +26,24 @@ namespace Game.Entites.Actions
             Entity_B = entity_b;
 
             Do();
+        }
+
+        public string ActionId { get; set; }
+        public string ActionVerb { get; set; }
+        DateTime IAction.ActionTriggerTime
+        {
+            get => _actionTriggerTime;
+            set => _actionTriggerTime = value;
+        }
+        EntityDynamic IAction.Actor
+        {
+            get => _actor;
+            set => _actor = value;
+        }
+        object IAction.Target
+        {
+            get => _target;
+            set => _target = value;
         }
 
         public void Do()

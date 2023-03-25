@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 using Object = System.Object;
 
 namespace Game.Entites.Actions
@@ -20,7 +19,7 @@ namespace Game.Entites.Actions
         //or scatter actions through several frames... humhum. which would be more performance
         public static Action<IAction, EntityDynamic, Object, DateTime, string> _actionIsCompleteEvent;
 
-        protected void Do();
+        public void Do();
         
         protected void ActionIsComplete<T>(T completedAction, EntityDynamic actor, Object target, string actionVerb) where T : IAction
         {
