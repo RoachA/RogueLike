@@ -26,6 +26,7 @@ namespace Game.Managers
 
         private Game.Managers.GameManager _gameManager;
         private bool _lookAtActive = false;
+        private bool _useActive = false;
 
         void Awake()
         {
@@ -92,17 +93,45 @@ namespace Game.Managers
 
             var currentCursorPos = _cursor.GetCurrentCursorPos();
             _cursor.MoveCursorTo(target + currentCursorPos);
-            _cursor.SetCursorState(true);
             _cameraManager.SetCameraPosition(target + currentCursorPos);
             Debug.Log(_gridManager.GetTileData(target + currentCursorPos));
         }
 
+        public void UseAtTile(Vector2Int target)
+        {
+            if (_useActive == false)
+                return; 
+            
+            /// todo without telepathy it can be used only on player's tile or adjecents.
+            var playerPos = _entityManager.GetPlayerEntity().GetEntityPos();
+            _cursor.MoveCursorTo(target + playerPos);
+            _cursor.SetCursorState(true);
+        }
+
         public void StartLookAt()
         {
+            _cursor.SetCursorMode(SelectionCursorView.CursorMode.interest);
             _lookAtActive = true;
             var posInit = _entityManager.GetPlayerEntity().GetEntityPos();
             _cursor.SetCursorState(true);
             _cursor.MoveCursorTo(posInit);
+        }
+
+        public void StartUseAt()
+        {
+            _cursor.SetCursorMode(SelectionCursorView.CursorMode.use);
+            _useActive = true;
+            var PosInit = _entityManager.GetPlayerEntity().GetEntityPos();
+            _cursor.SetCursorState(true);
+            _cursor.MoveCursorTo(PosInit);
+        }
+
+        public void StopUseAt()
+        {
+            var posInit = _entityManager.GetPlayerEntity().GetEntityPos();
+            _cursor.SetCursorState(false);
+            _cursor.MoveCursorTo(posInit);
+            _useActive = false;
         }
 
         public void StopLookAtTile()

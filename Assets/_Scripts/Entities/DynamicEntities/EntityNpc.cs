@@ -91,7 +91,7 @@ namespace Game.Entites
 
          if (_pathNodes.Count == 0 || _pathNodes == null)
          {
-            Debug.LogWarning("entity cannot find a way to reach its destination!");
+           // Debug.LogWarning("entity cannot find a way to reach its destination!");
             return;
          }
          

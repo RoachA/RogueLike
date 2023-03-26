@@ -24,6 +24,7 @@ namespace Game.Managers
         private GameState _currentGameState;
         private bool _movementActive = true;
         private bool _lookAtActive = false;
+        private bool _useActive = false;
 
         public static Vector2 GridSize;
         
@@ -61,6 +62,7 @@ namespace Game.Managers
             {2, new Vector2Int(0, -1)},
             {3, new Vector2Int(1, -1)},
             {4, new Vector2Int(-1, 0)},
+            {5, new Vector2Int(0, 0)},
             {6, new Vector2Int(1, 0)},
             {7, new Vector2Int(-1, 1)},
             {8, new Vector2Int(0, 1)},
@@ -139,13 +141,17 @@ namespace Game.Managers
 
 #region INPUT-GAMELOOP
 
-        //todo if else if etc a bit ugly.
+        //TODO HERE NEEDS URGENT REFACTOR!
+        //NEEDS SOME PROPER INPUT MANAGER OF SORTS. 
+        // CURSOR ACTIVE MODE SHOULD BE A GLOBAL FUNCTION BUT ACTIVE STATE SHOUDLD DEFINE WHAT CURSOR DOES
+        //CURRENTLY WE IMPLEMENT SAME MOTION STUFFS IN TWO SEPARETE METHODS IN LEVEL MANAGER.
+        //THIS IS STUPıd.!
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.KeypadEnter)) //todo here may cause issues if other conditions come.
+            if (_currentGameState == GameState.playerTurn && Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.KeypadEnter) && _useActive == false) //todo here may cause issues if other conditions come.
             {
                 _levelManager.UpdateLevelState(); // todo delete laters this is for test
-                
+                _useActive = false;
                 _lookAtActive = !_lookAtActive;
                 _movementActive = !_movementActive;
                 
@@ -153,6 +159,17 @@ namespace Game.Managers
                 else _levelManager.StopLookAtTile();
             }
 
+            if (_currentGameState == GameState.playerTurn && Input.GetKeyDown(KeyCode.Space) && _lookAtActive == false)
+            {
+                _levelManager.UpdateLevelState(); 
+                _useActive = !_useActive;
+                _lookAtActive = false;
+                _movementActive = !_movementActive;
+                
+                if (_useActive) _levelManager.StartUseAt();
+                else _levelManager.StopUseAt();
+            }
+            
             if (_currentGameState == GameState.playerTurn && _movementActive && _lookAtActive == false)
             {
                 if (Application.platform == RuntimePlatform.WindowsEditor ||
@@ -174,7 +191,7 @@ namespace Game.Managers
                         }
                     }
                 }
-                else if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
+                else if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor && _movementActive)
                 {
                     for (int i = 0; i < _keyCodes_osx.Length; i++)
                     {
@@ -193,8 +210,8 @@ namespace Game.Managers
                     }
                 }
             }
-            else if (_currentGameState == GameState.playerTurn && _movementActive == false && _lookAtActive) 
-                        {
+            else if (_currentGameState == GameState.playerTurn && _movementActive == false && _lookAtActive && _useActive == false) 
+            {
                 for (int i = 0; i < _keyCodes.Length; i++)
                 {
                     if (Input.GetKeyDown(_keyCodes[i]))
@@ -206,6 +223,29 @@ namespace Game.Managers
                     }
                 }
             }
+            else if (_currentGameState == GameState.playerTurn && _lookAtActive == false && _useActive && _movementActive == false)
+            {
+                for (int i = 0; i < _keyCodes.Length; i++)
+                {
+                    if (Input.GetKeyDown(_keyCodes[i]))
+                    {
+                        if (_movementVectors.TryGetValue(i, out var motionVector))
+                        {
+                            _levelManager.UseAtTile(motionVector);
+                        }
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        
+                    }
+                }
+            }
+        }
+
+        private void PlayerUse()
+        {
+            
         }
 
         [BoxGroup("debug")]

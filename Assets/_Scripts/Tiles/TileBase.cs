@@ -42,6 +42,11 @@ namespace Game.Tiles
             return IsWalkable;
         }
 
+        public virtual void SetWalkable(bool isWalkable)
+        {
+            IsWalkable = isWalkable;
+        }
+
         public virtual Vector2Int GetTilePosId()
         {
             return _tilePosId;
