@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 using Game.Managers;
+using Sirenix.OdinInspector.Editor;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -273,6 +274,12 @@ namespace Game
 					{
 						generator.Run();
 					}
+				}
+				
+				if (GUILayout.Button("quick generate"))
+				{
+					generator.Generate();
+					generator.Run();
 				}
 			}
 

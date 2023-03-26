@@ -4,7 +4,8 @@ using UnityEditor;
 #endif
 using System.Collections.Generic;
 
-public class Training : MonoBehaviour{
+public class Training : MonoBehaviour
+{
 	public int gridsize = 1;
 	public int width = 12;
 	public int depth = 12;
@@ -59,7 +60,8 @@ public class Training : MonoBehaviour{
 		#endif
 	}
 
-	public string NeighborXML(){
+	public string NeighborXML()
+	{
 		Dictionary<UnityEngine.Object,int> counts = new Dictionary<UnityEngine.Object,int>();
 		string res = "<set>\n  <tiles>\n";
 		for (int i = 0; i < tiles.Length; i++){

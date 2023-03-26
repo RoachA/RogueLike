@@ -5,11 +5,15 @@
 	</tiles>
 <neighbors>  <neighbor left="Tiles/TileFloor 0" right="Tiles/TileFloor 0"/>
   <neighbor left="Tiles/TileFloor 1" right="Tiles/TileFloor 1"/>
-  <neighbor left="Tiles/TileFloor 1" right="Tiles/TileWall 1"/>
   <neighbor left="Tiles/TileFloor 0" right="Tiles/TileWall 0"/>
-  <neighbor left="Tiles/TileWall 1" right="Tiles/TileFloor 1"/>
   <neighbor left="Tiles/TileWall 0" right="Tiles/TileFloor 0"/>
   <neighbor left="Tiles/TileWall 1" right="Tiles/TileWall 1"/>
+  <neighbor left="Tiles/TileFloor 1" right="Tiles/TileWall 1"/>
   <neighbor left="Tiles/TileWall 0" right="Tiles/TileWall 0"/>
+  <neighbor left="Tiles/TileWall 1" right="Tiles/TileFloor 1"/>
+  <neighbor left="Tiles/TileFloor 1" right="Tiles/TileFloor 0"/>
+  <neighbor left="Tiles/TileFloor 0" right="Tiles/TileFloor 3"/>
+  <neighbor left="Tiles/TileFloor 3" right="Tiles/TileWall 0"/>
+  <neighbor left="Tiles/TileFloor 0" right="Tiles/TileWall 1"/>
 	</neighbors>
 </set>

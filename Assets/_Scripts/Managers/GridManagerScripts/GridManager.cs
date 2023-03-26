@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Tiles;
@@ -5,9 +6,11 @@ using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
 using Game.Entites;
+using UnityEngine;
 
 namespace Game.Managers
 {
+   [Serializable]
    public class GridData
    {
       public int Seed;
@@ -72,6 +75,7 @@ namespace Game.Managers
          _levelGenerator.training = _trainingTemplates[_selectedIndex];
          SetCurrentGridData(data);
          _levelGenerator.SetGridData(data);
+         _levelGenerator.Clear();
          _levelGenerator.Generate();
          _levelGenerator.Run();
 
