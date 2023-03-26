@@ -54,7 +54,7 @@ PrefabInstance:
     - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -975920995, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+      objectReference: {fileID: -1235668345, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
     - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -93,9 +93,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsWalkable: 1
   _spriteVariants:
-  - {fileID: -975920995, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
-  - {fileID: -103674833, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
-  - {fileID: -244875904, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+  - {fileID: -1235668345, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
+  - {fileID: -1687041892, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
+  - {fileID: 1548987511, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
+  - {fileID: 1935086805, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
+  - {fileID: -1593347260, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
+  - {fileID: -1505101701, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
   _spriteRenderer: {fileID: 7029349495824940232}
   _tilePosId: {x: 0, y: 0}
   _tileTypeName: Floor

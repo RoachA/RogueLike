@@ -52,9 +52,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
+      propertyPath: m_Size.x
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
+      propertyPath: m_Size.y
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1067743762, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+      objectReference: {fileID: -1461526595, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
     - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -65,6 +73,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
+      propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2677916929969758866, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
@@ -93,9 +105,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsWalkable: 0
   _spriteVariants:
-  - {fileID: 1067743762, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
-  - {fileID: -511180180, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
-  - {fileID: 16231413, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+  - {fileID: -1461526595, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
+  - {fileID: -691628094, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
+  - {fileID: 322839578, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
+  - {fileID: -1163783506, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
   _spriteRenderer: {fileID: 7029349495824940232}
   _tilePosId: {x: 0, y: 0}
   _tileTypeName: Wall
