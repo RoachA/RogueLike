@@ -18,10 +18,18 @@ namespace Game.Managers
             cpuTurn,
         }
 
+        public enum PlayerModes
+        {
+            normal,
+            look,
+            use,
+        }
+
         public static event Action<GameState> OnGameStateChanged;
       
         private LevelManager _levelManager;
         private GameState _currentGameState;
+        private PlayerModes _currentMode;
         private bool _movementActive = true;
         private bool _lookAtActive = false;
         private bool _useActive = false;
@@ -88,6 +96,16 @@ namespace Game.Managers
             return _currentGameState;
         }
 
+        public void SetPlayerMode(PlayerModes mode)
+        {
+            _currentMode = mode;
+        }
+
+        public PlayerModes GetPlayerMode()
+        {
+            return _currentMode;
+        }
+
         public void UpdateGameState(GameState newState)
         {
             _currentGameState = newState;
@@ -148,29 +166,37 @@ namespace Game.Managers
         //THIS IS STUPıd.!
         private void Update()
         {
-            if (_currentGameState == GameState.playerTurn && Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.KeypadEnter) && _useActive == false) //todo here may cause issues if other conditions come.
+            //todo here may cause issues if other conditions come.
+            if (_currentGameState == GameState.playerTurn && Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.KeypadEnter)) 
             {
-                _levelManager.UpdateLevelState(); // todo delete laters this is for test
-                _useActive = false;
-                _lookAtActive = !_lookAtActive;
-                _movementActive = !_movementActive;
-                
-                if (_lookAtActive) _levelManager.StartLookAt();
-                else _levelManager.StopLookAtTile();
+                if (_currentMode == PlayerModes.look)
+                    return;
+               // _levelManager.UpdateLevelState();
+                SetPlayerMode(PlayerModes.look);
+                _levelManager.StartLookAt();
             }
 
-            if (_currentGameState == GameState.playerTurn && Input.GetKeyDown(KeyCode.Space) && _lookAtActive == false)
+            if (_currentGameState == GameState.playerTurn && Input.GetKeyDown(KeyCode.Space))
             {
-                _levelManager.UpdateLevelState(); 
-                _useActive = !_useActive;
-                _lookAtActive = false;
-                _movementActive = !_movementActive;
+                if (_currentMode == PlayerModes.use)
+                {
+                    Debug.Log("Player uses item here.");
+                    ResetToNormalMode();
+                    return;
+                }
                 
-                if (_useActive) _levelManager.StartUseAt();
-                else _levelManager.StopUseAt();
+                _levelManager.UpdateLevelState();
+                SetPlayerMode(PlayerModes.use);
+                _levelManager.StartUseAt();
+            }
+
+            if (_currentGameState == GameState.playerTurn && _currentMode != PlayerModes.normal && Input.GetKeyDown(KeyCode.Escape))
+            {
+                ResetToNormalMode();
             }
             
-            if (_currentGameState == GameState.playerTurn && _movementActive && _lookAtActive == false)
+            ///movement related situations
+            if (_currentGameState == GameState.playerTurn && _currentMode == PlayerModes.normal)
             {
                 if (Application.platform == RuntimePlatform.WindowsEditor ||
                     Application.platform == RuntimePlatform.WindowsPlayer)
@@ -191,7 +217,8 @@ namespace Game.Managers
                         }
                     }
                 }
-                else if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor && _movementActive)
+                else if (Application.platform == RuntimePlatform.OSXPlayer ||
+                         Application.platform == RuntimePlatform.OSXEditor)
                 {
                     for (int i = 0; i < _keyCodes_osx.Length; i++)
                     {
@@ -210,44 +237,32 @@ namespace Game.Managers
                     }
                 }
             }
-            else if (_currentGameState == GameState.playerTurn && _movementActive == false && _lookAtActive && _useActive == false) 
-            {
-                for (int i = 0; i < _keyCodes.Length; i++)
-                {
-                    if (Input.GetKeyDown(_keyCodes[i]))
-                    {
-                        if (_movementVectors.TryGetValue(i, out var motionVector))
-                        {
-                            _levelManager.LookAtTile(motionVector);
-                        }
-                    }
-                }
-            }
-            else if (_currentGameState == GameState.playerTurn && _lookAtActive == false && _useActive && _movementActive == false)
-            {
-                for (int i = 0; i < _keyCodes.Length; i++)
-                {
-                    if (Input.GetKeyDown(_keyCodes[i]))
-                    {
-                        if (_movementVectors.TryGetValue(i, out var motionVector))
-                        {
-                            _levelManager.UseAtTile(motionVector);
-                        }
-                    }
-
-                    if (Input.GetKeyDown(KeyCode.Space))
-                    {
-                        
-                    }
-                }
-            }
-        }
-
-        private void PlayerUse()
-        {
             
+            if (_currentGameState == GameState.playerTurn && _currentMode != PlayerModes.normal)
+            {
+                for (int i = 0; i < _keyCodes.Length; i++)
+                {
+                    if (Input.GetKeyDown(_keyCodes[i]))
+                    {
+                        if (_movementVectors.TryGetValue(i, out var motionVector))
+                        {
+                            if (_currentMode == PlayerModes.look)
+                                _levelManager.LookAtTile(motionVector);
+                            
+                            if (_currentMode == PlayerModes.use)
+                                _levelManager.UseAtTile(motionVector);
+                        }
+                    }
+                }
+            }
         }
 
+        private void ResetToNormalMode()
+        {
+            SetPlayerMode(PlayerModes.normal);
+            _levelManager.ResetCursor();
+        }
+        
         [BoxGroup("debug")]
         [Button]
         public void RollDice(Dice.Dice dice)

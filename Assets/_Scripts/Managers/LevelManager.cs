@@ -2,7 +2,6 @@ using Game.Data;
 using Game.Tiles;
 using Game.Entites;
 using Game.Entites.Actions;
-using Game.Entites.Data;
 using UnityEngine;
 
 namespace Game.Managers
@@ -25,8 +24,6 @@ namespace Game.Managers
         
 
         private Game.Managers.GameManager _gameManager;
-        private bool _lookAtActive = false;
-        private bool _useActive = false;
 
         void Awake()
         {
@@ -88,30 +85,27 @@ namespace Game.Managers
 
         public void LookAtTile(Vector2Int target)
         {
-            if (_lookAtActive == false)
+            if (_gameManager.GetPlayerMode() != GameManager.PlayerModes.look)
                 return;
-
+            
             var currentCursorPos = _cursor.GetCurrentCursorPos();
             _cursor.MoveCursorTo(target + currentCursorPos);
             _cameraManager.SetCameraPosition(target + currentCursorPos);
-            Debug.Log(_gridManager.GetTileData(target + currentCursorPos));
         }
 
+        /// todo without telepathy it can be used only on player's tile or adjecents.
         public void UseAtTile(Vector2Int target)
         {
-            if (_useActive == false)
+            if (_gameManager.GetPlayerMode() != GameManager.PlayerModes.use)
                 return; 
             
-            /// todo without telepathy it can be used only on player's tile or adjecents.
             var playerPos = _entityManager.GetPlayerEntity().GetEntityPos();
             _cursor.MoveCursorTo(target + playerPos);
-            _cursor.SetCursorState(true);
         }
 
         public void StartLookAt()
         {
             _cursor.SetCursorMode(SelectionCursorView.CursorMode.interest);
-            _lookAtActive = true;
             var posInit = _entityManager.GetPlayerEntity().GetEntityPos();
             _cursor.SetCursorState(true);
             _cursor.MoveCursorTo(posInit);
@@ -120,27 +114,16 @@ namespace Game.Managers
         public void StartUseAt()
         {
             _cursor.SetCursorMode(SelectionCursorView.CursorMode.use);
-            _useActive = true;
             var PosInit = _entityManager.GetPlayerEntity().GetEntityPos();
             _cursor.SetCursorState(true);
             _cursor.MoveCursorTo(PosInit);
         }
-
-        public void StopUseAt()
+        
+        public void ResetCursor()
         {
             var posInit = _entityManager.GetPlayerEntity().GetEntityPos();
             _cursor.SetCursorState(false);
-            _cursor.MoveCursorTo(posInit);
-            _useActive = false;
-        }
-
-        public void StopLookAtTile()
-        {
-            var posInit = _entityManager.GetPlayerEntity().GetEntityPos();
-            _cursor.SetCursorState(false);
-            _cursor.MoveCursorTo(posInit);
             _cameraManager.SetCameraPosition(posInit);
-            _lookAtActive = false;
         }
 
         public TileBase GetTileAt(int cellX, int cellY)
