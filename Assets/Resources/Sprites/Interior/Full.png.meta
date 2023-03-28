@@ -31923,7 +31923,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Full_1335
+      name: door_1_close
       rect:
         serializedVersion: 2
         x: 150
@@ -31944,7 +31944,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Full_1336
+      name: door_1_open
       rect:
         serializedVersion: 2
         x: 160
@@ -32044,7 +32044,6 @@ TextureImporter:
       Full_1430: 1470171656
       Full_434: 1504990626
       Full_1334: -1971325486
-      Full_1335: 1846937476
       Full_986: 909942203
       Full_1093: -670100763
       Full_1257: -1412250952
@@ -32058,10 +32057,10 @@ TextureImporter:
       Full_1486: 486379814
       Full_818: -1163899177
       Full_1112: 1212213122
-      Full_586: -1364895950
       Full_258: -1838364557
       Full_1475: 222567688
       Full_601: -808136611
+      Full_586: -1364895950
       Full_908: 1221100675
       Full_119: -1150405521
       Full_539: -1478120101
@@ -32250,6 +32249,7 @@ TextureImporter:
       Full_1363: -1604840864
       Full_583: -1166726541
       Full_876: 519770058
+      door_1_open: 760016877
       Full_1303: -1163946277
       Full_535: -1861285079
       Full_732: 2077673200
@@ -32641,11 +32641,10 @@ TextureImporter:
       Full_1274: -1568913824
       Full_62: 1351761385
       Full_576: -1706047310
-      Full_1336: 760016877
+      Full_1161: -1782403170
       Full_1381: -1282469937
       Full_648: -607318838
       Full_1325: -663871565
-      Full_1161: -1782403170
       Full_1027: -1393719460
       Full_915: 1607570661
       Full_373: -845954628
@@ -32657,9 +32656,9 @@ TextureImporter:
       Full_1286: 1328272618
       Full_1359: 1773762558
       Full_280: 1785435435
-      Full_693: -34153434
       Full_1467: 1244526178
       Full_405: -726767427
+      Full_693: -34153434
       Full_130: 101762064
       Full_87: -1325709791
       Full_1427: -415530899
@@ -32732,6 +32731,7 @@ TextureImporter:
       Full_424: 90748092
       Full_459: 1518640278
       Full_1242: -1954808056
+      door_1_close: 1846937476
       Full_1155: -734568782
       Full_268: 1478692066
       Full_96: 605041367
