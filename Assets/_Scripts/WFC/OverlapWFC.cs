@@ -1,7 +1,9 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using Game.Entites;
 using Game.Tiles;
 using Unity.VisualScripting;
 using UnityEngine.Rendering.Universal;
@@ -39,6 +41,7 @@ namespace Game
 		public GameObject output;
 		private Transform group;
 		private bool undrawn = true;
+		public bool hasBorder = false;
 
 		public static bool IsPrefabRef(UnityEngine.Object o)
 		{
@@ -121,6 +124,7 @@ namespace Game
 
 			if (output == null)
 			{
+				//TODO OPTIMIZE THIS
 				Transform ot = transform.Find("output-overlap");
 				if (ot != null)
 				{
@@ -184,12 +188,106 @@ namespace Game
 			if (model.Run(seed, iterations))
 			{
 				Draw();
+
+				if (hasBorder)
+				{
+					AddBorders();
+				}
 			}
 		}
 
 		public GameObject GetTile(int x, int y)
 		{
 			return rendering[x, y];
+		}
+
+		private void AddBorders()
+		{
+			///Todo something goes terribly wrong here
+
+			var borderTiles = GetBorderTilesToList();
+
+			TileWall trainingWallRegistry = null;
+
+			foreach (var tileType in training.tiles)
+			{
+				if (tileType == null)
+					continue;
+				
+				if (tileType is GameObject)
+				{
+					trainingWallRegistry = tileType.GetComponentInChildren<TileWall>();
+					
+					if (trainingWallRegistry == null)
+						continue;
+					
+					if (trainingWallRegistry.GetType() == typeof(TileWall))
+						break;
+				}
+			}
+			
+			if (trainingWallRegistry == null)
+				return;
+
+			var parent = group.transform;
+
+		
+			for (var i = 0; i < borderTiles.Count; i++)
+			{
+				var borderTile = borderTiles[i];
+				var borderTilePosId = borderTile.GetTilePosId();
+				var borderTileTransform = borderTile.transform;
+				var newTile = Instantiate(trainingWallRegistry.gameObject, parent);
+				newTile.transform.localPosition = borderTileTransform.localPosition;
+				newTile.transform.rotation = borderTileTransform.rotation;
+				var newTileBaseComponent = newTile.GetComponent<TileBase>();
+				newTileBaseComponent.SetTilePosId(borderTilePosId.x, borderTilePosId.y);
+				newTileBaseComponent.Init(new TileBase.TileCoords {Pos = new Vector2Int(newTileBaseComponent.GetTilePosId().x, newTileBaseComponent.GetTilePosId().y)});
+				newTile.name = "border tile";
+			}
+
+			///TODO rendering also must be replaced damn it.
+			ReplaceBorderTiles(borderTiles);
+		}
+
+		private void ReplaceBorderTiles( List<TileBase> borderTiles)
+		{
+			foreach (var borderTile in borderTiles)
+			{
+				var tileToReplace = Tiles.FirstOrDefault(tile => tile.GetTilePosId() == borderTile.GetTilePosId());
+				DestroyImmediate(tileToReplace);
+				tileToReplace = borderTile;
+			}
+		}
+
+		private List<TileBase> GetBorderTilesToList()
+		{
+			List<TileBase> borderTiles = new List<TileBase>();
+
+			foreach (var tile in Tiles)
+			{
+				if (CheckIfBorderTile(tile))
+				 borderTiles.Add(tile);
+			}
+
+			return borderTiles;
+		}
+
+		private bool CheckIfBorderTile(TileBase tile)
+		{
+			if (tile.GetTilePosId().x == 0)
+				return true;
+				
+			if (tile.GetTilePosId().y == 0 && tile.GetTilePosId().x != 0)
+				return true;
+				
+			if (tile.GetTilePosId().x == width - 1)
+				return true;
+				
+			if (tile.GetTilePosId().y == height - 1)
+				return true;
+
+			return false;
 		}
 
 		public void Draw()

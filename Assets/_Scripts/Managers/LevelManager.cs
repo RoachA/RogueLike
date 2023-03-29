@@ -19,10 +19,7 @@ namespace Game.Managers
         
         [Header("Views")]
         [SerializeField] private SelectionCursorView _cursor; // todo can be instantiated instead.
-
-        [Header("Debug")] [SerializeField] private Vector2Int _levelSize = new Vector2Int(50, 50);
         
-
         private Game.Managers.GameManager _gameManager;
 
         void Awake()
@@ -42,9 +39,8 @@ namespace Game.Managers
 
         public void CreateLevel()
         {
-            GridData tmpGridMapData = new GridData(new Vector2Int(30, 30));
-            _gridManager.GenerateLevelGrid(tmpGridMapData);
-            _cameraManager.SetMapSize(tmpGridMapData.GridSize);
+            _gridManager.GenerateLevelGrid();
+            _cameraManager.SetMapSize(new Vector2Int(16, 16));
             
             // todo make a proper entity spawner in entity manager! with parameters etc
             _entityManager.InstantiatePlayerEntity(new Vector2Int(2, 2), DataManager.GenerateStarterPlayerData());

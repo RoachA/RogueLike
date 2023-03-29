@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3bfd75d64c47cf4c8bc12f0e8b6499a, type: 3}
+  m_Name: interior_small
+  m_EditorClassIdentifier: 
+  LevelIdentifier: small_interior_1
+  PatternIndex: 1
+  Dimensions:
+    Seed: 0
+    GridSize: {x: 16, y: 16}
+  Width: 16
+  Height: 16
+  N: 3
+  PeriodicInput: 1
+  PeriodicOutput: 1
+  Symmetry: 5
+  Foundation: 0
+  Type: 0
+  HasBorders: 1

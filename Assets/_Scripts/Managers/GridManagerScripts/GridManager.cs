@@ -38,7 +38,10 @@ namespace Game.Managers
       public Dictionary<Vector2Int, TileBase> _registeredTiles;
 
       public static GridManager Instance;
-      private GridData _currentGridData;
+
+      [Header("Level Data")]
+      [SerializeField] private LevelBlueprint _levelBlueprint;
+
 
       void Awake()
       {
@@ -70,11 +73,9 @@ namespace Game.Managers
       [PropertyOrder(4)]
       [GUIColor(0.9f, 1, 0.9f)]
       [Button("Generate Level")]
-      public void GenerateLevelGrid(GridData data)
+      public void GenerateLevelGrid()
       {
-         _levelGenerator.training = _trainingTemplates[_selectedIndex];
-         SetCurrentGridData(data);
-         _levelGenerator.SetGridData(data);
+         SetGridData();
          _levelGenerator.Clear();
          _levelGenerator.Generate();
          _levelGenerator.Run();
@@ -83,16 +84,38 @@ namespace Game.Managers
          CacheNeighboursOfEachTile();
       }
 
-      public GridData GetCurrentGridData()
+      private void SetGridData()
       {
-         return _currentGridData;
+         //validate the data
+         if (_levelBlueprint == null)
+         {
+            Debug.LogError("No blueprints to read from!");
+            return;
+         }
+         
+         if (_levelBlueprint.Dimensions.GridSize.x == 0 || _levelBlueprint.Dimensions.GridSize.y == 0)
+         {
+            Debug.LogError("Grid size is 0,0 ! Cannot generate a level with this blueprint!");
+            return;
+         }
+
+         if (_levelBlueprint.N == 0)
+         {
+            Debug.LogError("sample dimension is 0 N , cannot generate a level with this saple size!");
+            return;
+         }
+
+         //use data
+         _levelGenerator.training = _trainingTemplates[_levelBlueprint.PatternIndex];
+         _levelGenerator.SetGridData(_levelBlueprint.Dimensions);
+         _levelGenerator.N = _levelBlueprint.N;
+         _levelGenerator.periodicInput = _levelBlueprint.PeriodicInput;
+         _levelGenerator.periodicOutput = _levelBlueprint.PeriodicOutput;
+         _levelGenerator.foundation = _levelBlueprint.Foundation;
+         _levelGenerator.symmetry = _levelBlueprint.Symmetry;
+         _levelGenerator.hasBorder = _levelBlueprint.HasBorders;
       }
 
-      private void SetCurrentGridData(GridData data)
-      {
-         _currentGridData = data;
-      }
-      
       private void CacheNeighboursOfEachTile()
       {
          foreach (var tile in _registeredTiles)
