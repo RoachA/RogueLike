@@ -114,6 +114,7 @@ namespace Game.Managers
                 if (tryAttackPlayer) //move towards player but shouldn't move actually.
                 {
                     entity.GetPathToTarget(_player.GetOccupiedTile());
+                    //todo check if there is a found path! >> if not don't walk.
                     var action = new WalkAction<EntityNpc>(entity, entity._pathNodes[entity._pathNodes.Count - 1]);
                 }
             }

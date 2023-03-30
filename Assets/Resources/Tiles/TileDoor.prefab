@@ -53,11 +53,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Size.x
-      value: 1.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Size.y
-      value: 1.25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Sprite
@@ -103,11 +103,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea6f756c1eacee4e830b3a34836736e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsWalkable: 1
+  IsWalkable: 0
   _spriteVariants: []
   _spriteRenderer: {fileID: 7029349495824940232}
   _tilePosId: {x: 0, y: 0}
   _tileTypeName: Door
+  _entitiesOnTile: []
   _closedDoors:
   - {fileID: 1846937476, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
   _openDoors:

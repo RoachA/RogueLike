@@ -55,8 +55,8 @@ namespace Game.Managers
             var player = _entityManager.GetPlayerEntity();
             var targetGridPos = player.GetEntityPos() + direction;
             
-
-            if (_gridManager.CheckTileIfHasEntity(targetGridPos.x, targetGridPos.y, out var entity))
+            //Checks Walkability States
+            if (_gridManager.CheckTileIfHasEntity(targetGridPos.x, targetGridPos.y, out var entity)) //todo this should be moved to walk action
             { 
                 //entity doesn't register itself to the tile! npc problem
                 if (entity.GetType() != typeof(EntityNpc)) return;
@@ -68,11 +68,20 @@ namespace Game.Managers
                 return;
             }
             
-            if (_gridManager.CheckTileIfWalkable(targetGridPos.x, targetGridPos.y) == false)
+            if (_gridManager.CheckTileIfWalkable(targetGridPos.x, targetGridPos.y) == false) //todo this should be moved to walk action
             {
                 //grid is inaccessible anyway
                 return;
             }
+
+            /*var tile = _gridManager.GetTile(targetGridPos.x, targetGridPos.y);
+            if (tile.GetType() == typeof(TileDoor))
+            {
+                var door = (TileDoor) tile;
+                if (door.CheckIfLocked())
+                    Debug.Log("this door is locked!");
+                return;
+            }*/
             
             _cameraManager.SetCameraPosition(targetGridPos);
             var moveAction = new WalkAction<EntityPlayer>(player, _gridManager.GetTileAtPosition(targetGridPos));

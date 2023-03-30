@@ -88,8 +88,11 @@ namespace Game.Entites
          Handles.Label(_targetLabelPos, _detectedDistance.ToString());
 
          Gizmos.color = Color.green;
+         
+         if(_pathNodes == null)
+            return;
 
-         if (_pathNodes.Count == 0 || _pathNodes == null)
+         if (_pathNodes.Count == 0)
          {
            // Debug.LogWarning("entity cannot find a way to reach its destination!");
             return;
