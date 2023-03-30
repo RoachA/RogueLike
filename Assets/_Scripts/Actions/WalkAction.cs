@@ -47,7 +47,7 @@ namespace Game.Entites.Actions
         {
             _actor.MoveEntityToTile(TargetTile);
             _actor.SetOccupiedTile(TargetTile);
-            var floor = (TileFloor) TargetTile;
+            var floor = (TileFloor) TargetTile; //todo doorlar sıçıyor
             floor.AddEntityToTile(_actor);
             
             _target = TargetTile;

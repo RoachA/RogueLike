@@ -1,16 +1,10 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using Game.Entites;
 using Game.Tiles;
 using Unity.VisualScripting;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.UI;
 using Game.Managers;
-using Sirenix.OdinInspector.Editor;
-
+using TileBase = Game.Tiles.TileBase;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -36,7 +30,7 @@ namespace Game
 		public int iterations = 0;
 		public bool incremental = false;
 		public OverlappingModel model = null;
-		public GameObject[,] rendering;
+		public GameObject[,] rendering; // todo this is appareantly only used during initial generation... can I replace this? remove this etc?
 		public List<TileBase> Tiles;
 		public GameObject output;
 		private Transform group;
@@ -195,17 +189,12 @@ namespace Game
 				}
 			}
 		}
-
-		public GameObject GetTile(int x, int y)
-		{
-			return rendering[x, y];
-		}
-
+		
 		private void AddBorders()
 		{
 			///Todo something goes terribly wrong here
 
-			var borderTiles = GetBorderTilesToList();
+			var borderTiles = GetBorderTilesToDictionary();
 
 			TileWall trainingWallRegistry = null;
 
@@ -231,43 +220,48 @@ namespace Game
 
 			var parent = group.transform;
 
-		
-			for (var i = 0; i < borderTiles.Count; i++)
+			foreach (var tile in borderTiles) // todo in the end this still contains the first sampled tiles! that is why
 			{
-				var borderTile = borderTiles[i];
-				var borderTilePosId = borderTile.GetTilePosId();
-				var borderTileTransform = borderTile.transform;
+				var borderTilePosId = tile.Value.GetTilePosId();
+				var borderTileTransform = tile.Value.transform;
+				
 				var newTile = Instantiate(trainingWallRegistry.gameObject, parent);
 				newTile.transform.localPosition = borderTileTransform.localPosition;
 				newTile.transform.rotation = borderTileTransform.rotation;
+				
 				var newTileBaseComponent = newTile.GetComponent<TileBase>();
 				newTileBaseComponent.SetTilePosId(borderTilePosId.x, borderTilePosId.y);
-				newTileBaseComponent.Init(new TileBase.TileCoords {Pos = new Vector2Int(newTileBaseComponent.GetTilePosId().x, newTileBaseComponent.GetTilePosId().y)});
-				newTile.name = "border tile";
+				newTileBaseComponent.Init(new TileBase.TileCoords {Pos = new Vector2Int(borderTilePosId.x, borderTilePosId.y)});
+				newTile.name = "border tile_" + borderTilePosId.x + "_" + borderTilePosId.y;
+				Destroy(Tiles[tile.Key].gameObject);
+				Tiles[tile.Key] = newTileBaseComponent;
 			}
 
 			///TODO rendering also must be replaced damn it.
-			ReplaceBorderTiles(borderTiles);
+			//ReplaceBorderTiles(borderTiles);
 		}
 
-		private void ReplaceBorderTiles( List<TileBase> borderTiles)
+		private void ReplaceBorderTiles(Dictionary<int, TileBase> newTiles)
 		{
-			foreach (var borderTile in borderTiles)
+			for (var i = 0; i < Tiles.Count; i++)
 			{
-				var tileToReplace = Tiles.FirstOrDefault(tile => tile.GetTilePosId() == borderTile.GetTilePosId());
-				DestroyImmediate(tileToReplace);
-				tileToReplace = borderTile;
+				if (newTiles.TryGetValue(i, out var newTile))
+				{
+					Destroy(Tiles[i].gameObject);
+					Tiles[i] = newTile;
+				}
 			}
 		}
 
-		private List<TileBase> GetBorderTilesToList()
+		private Dictionary<int, TileBase> GetBorderTilesToDictionary()
 		{
-			List<TileBase> borderTiles = new List<TileBase>();
+			Dictionary<int, TileBase> borderTiles = new Dictionary<int, TileBase>();
 
 			foreach (var tile in Tiles)
 			{
+				int index = Tiles.IndexOf(tile);
 				if (CheckIfBorderTile(tile))
-				 borderTiles.Add(tile);
+					borderTiles.Add(index, tile);
 			}
 
 			return borderTiles;
