@@ -20,6 +20,7 @@ namespace Game.Tiles
         [Button("Use Door")]
         public bool TryDoorOpen()
         {
+            ///todo activate deactivate the shadow caster! will be cool
             if (_isLocked)
             {
                 return true;
