@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Entites;
+using Game.Interfaces;
 using Game.Managers;
 using Random = UnityEngine.Random;
 
@@ -15,7 +16,7 @@ namespace Game.Tiles
         [SerializeField] protected List<Sprite> _spriteVariants;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] protected Vector2Int _tilePosId;
-        
+        [SerializeField] protected List<EntityBase> _entitiesOnTile;
         [SerializeField] protected string _tileTypeName; // todo later on will be read from data.
 
         protected virtual void SetRandomSprite()
@@ -152,14 +153,67 @@ namespace Game.Tiles
 
             public Vector2Int Pos { get; set; }
         }
-
+        
+        #endregion
+        
+#region ENTITY_OPERATIONS
+        
         public interface ICoords 
         {
             public float GetDistance(ICoords other);
             public Vector2Int Pos { get; set; }
         }
         
-#endregion
+        public void AddEntityToTile(EntityBase entity)
+        {
+            _entitiesOnTile.Add(entity);
+        }
+
+        public void AddEntityListToTile(List<EntityBase> entities)
+        {
+            foreach (var entity in entities)
+            {
+                _entitiesOnTile.Add(entity);
+            }
+        }
+
+        /// <summary>
+        /// returns false if tile has no entities
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
+        public bool QueryForEntities(out List<EntityBase> entities)
+        {
+            if (_entitiesOnTile.Count == 0)
+            {
+                entities = null;
+                return false;
+            }
+
+            entities = _entitiesOnTile;
+            return true;
+        }
+        
+        public List<IInteractable> GetInteractables()
+        {
+            List<IInteractable> interactables = new List<IInteractable>();
+            
+            IInteractable interactable = GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                interactables.Add(interactable);
+            }
+      
+            foreach (var entity in _entitiesOnTile)
+            {
+                IInteractable interactableEntity = GetComponent<IInteractable>();
+                if (interactableEntity != null)
+                    interactables.Add(interactableEntity);
+            }
+
+            return interactables;
+        }
+        #endregion
     }
 }
 

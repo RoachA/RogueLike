@@ -8,8 +8,7 @@ namespace Game.Entites.Actions
         public TileBase TargetTile;
         private DateTime _actionTriggerTime;
         private EntityDynamic _actor;
-        private object _target;
-
+    
         public WalkAction(T entity, TileBase targetTile)
         {
             ActionId = "Walk";
@@ -32,12 +31,7 @@ namespace Game.Entites.Actions
             get => _actor;
             set => _actor = value;
         }
-        object IAction.Target
-        {
-            get => _target;
-            set => _target = value;
-        }
-        
+
         void IAction.Do()
         {
             Do();
@@ -47,10 +41,8 @@ namespace Game.Entites.Actions
         {
             _actor.MoveEntityToTile(TargetTile);
             _actor.SetOccupiedTile(TargetTile);
-            var floor = (TileFloor) TargetTile; //todo doorlar sıçıyor
+            var floor = (TileFloor) TargetTile;
             floor.AddEntityToTile(_actor);
-            
-            _target = TargetTile;
         }
     }
 }

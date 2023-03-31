@@ -1,4 +1,3 @@
-using System;
 using Game.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -16,39 +15,57 @@ namespace Game.Tiles
         private Sprite _closedDoorSprite;
         private Sprite _openDoorSprite;
         
+        public string InteractionResultLog { get; set; }
+        
         [Button("Use Door")]
-        public void OnDoorUse()
+        public bool TryDoorOpen()
         {
             if (_isLocked)
             {
-                Debug.LogWarning("the door is locked!");
-                return;
+                return true;
             }
             
             _isOpen = !_isOpen;
             SetWalkable(_isOpen);
 
             SetDoorSprite();
+            return false;
         }
-
-        private void SetDoorSprite()
-        {
-            _spriteRenderer.sprite = _isOpen ? _openDoorSprite : _closedDoorSprite;
-        }
-
+        
         public bool CheckIfLocked()
         {
-            return _isLocked && _isOpen;
+            return _isLocked && !_isOpen;
         }
-
-        public void InteractWithThis()
+        
+        public string InteractWithThis()
         {
+            var isLocked = TryDoorOpen();
+            
+            if (isLocked)
+            {
+                InteractionResultLog = "The " + _tileTypeName + " is locked and cannot be opened!";
+                //todo if lockpicking is a possibility. prompt that.
+                //todo if player uses a key or something prompt that and open the door.
+            }
+            else
+            {
+                var state = _isOpen ? " opens " : " closes ";
+                InteractionResultLog = state + "the " + _tileTypeName;
+            }
+            
+            return InteractionResultLog;
+        }
+        
+        private void SetDoorSprite()
+        {
+            _closedDoorSprite = _closedDoors[0];
+            _openDoorSprite = _openDoors[0];
+            
+            _spriteRenderer.sprite = _isOpen ? _openDoorSprite : _closedDoorSprite;
         }
 
         protected override void Start()
         {
-            _closedDoorSprite = _closedDoors[0];
-            _openDoorSprite = _openDoors[0];
             SetDoorSprite();
         }
 

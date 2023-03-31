@@ -1,5 +1,4 @@
 using System;
-using Object = System.Object;
 
 namespace Game.Entites.Actions
 {
@@ -9,20 +8,24 @@ namespace Game.Entites.Actions
     /// </summary>
     public interface IAction
     {
-        public string ActionId{ get; set; }
-        public string ActionVerb{ get; set; }
-        protected DateTime ActionTriggerTime{ get; set; }
+        public string ActionId { get; set; }
+        public string ActionVerb { get; set; }
+        protected DateTime ActionTriggerTime { get; set; } //todo replace with my own time class
         protected EntityDynamic Actor { get; set; }
-        protected Object Target{ get; set; }
-   
-        //cant allocate two times no? yes I need a different solution here. there can be one action at a time. hmm. perhaps make this a list.
-        //or scatter actions through several frames... humhum. which would be more performance
-        public static Action<IAction, EntityDynamic, Object, DateTime, string> _actionIsCompleteEvent;
 
+        /// <summary>
+        /// you can use action helper to send logs, it is better.
+        /// </summary>
         public void Do();
-        
-        protected void ActionIsComplete<T>(T completedAction, EntityDynamic actor, Object target, string actionVerb) where T : IAction
+    }
+    
+    public static class ActionHelper
+    {
+        public static Action<string> ActionLogEvent;
+
+        public static void SendActionLog(string msg)
         {
+            ActionLogEvent?.Invoke(msg);
         }
     }
 }

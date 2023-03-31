@@ -1,43 +1,10 @@
 using UnityEngine;
-using System.Collections.Generic;
 using Game.Entites;
 
 namespace Game.Tiles
 {
     public class TileFloor : TileBase
     {
-        [SerializeField] protected List<EntityBase> _entitiesOnTile;
-
-        public void AddEntityToTile(EntityBase entity)
-        {
-            _entitiesOnTile.Add(entity);
-        }
-
-        public void AddEntityListToTile(List<EntityBase> entities)
-        {
-            foreach (var entity in entities)
-            {
-                _entitiesOnTile.Add(entity);
-            }
-        }
-
-        /// <summary>
-        /// returns false if tile has no entities
-        /// </summary>
-        /// <param name="entities"></param>
-        /// <returns></returns>
-        public bool QueryForEntities(out List<EntityBase> entities)
-        {
-            if (_entitiesOnTile.Count == 0)
-            {
-                entities = null;
-                return false;
-            }
-
-            entities = _entitiesOnTile;
-            return true;
-        }
-
         public bool CheckIfHasNpc(out EntityNpc npc)
         {
             npc = null;
@@ -54,10 +21,9 @@ namespace Game.Tiles
                     return true;
                 }
             }
-            
             return false;
         }
-
+        
         /// <summary>
         /// if it finds an npc on the tile and if it is hostile, outs the npc and returns true.
         /// </summary>

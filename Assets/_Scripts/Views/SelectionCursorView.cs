@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using Unity.VisualScripting;
 using Sequence = DG.Tweening.Sequence;
 
 public class SelectionCursorView : MonoBehaviour

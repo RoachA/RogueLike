@@ -14,10 +14,11 @@ namespace Game.UI
         [SerializeField] private int _maxLogCount = 15;
 
         private List<LogEntryView> _currentLogs = new List<LogEntryView>();
+        
         private void Start()
         {
             //ActionsBase._actionIsCompleteEvent += OnAnActionIsComplete;
-            MeleeAttackAction<EntityDynamic>.LoggedMeleeAttackEvent += OnMeleeAttackOccured;
+            ActionHelper.ActionLogEvent += OnMeleeAttackOccured;
             EntityStatsView._entityDiesEvent += OnEntityDies;
         }
         

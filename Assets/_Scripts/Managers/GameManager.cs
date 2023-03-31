@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Dice;
+using Game.Entites.Actions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -181,6 +182,7 @@ namespace Game.Managers
                 if (_currentMode == PlayerModes.use)
                 {
                     Debug.Log("Player uses item here.");
+                    _levelManager.InteractWithObject();
                     ResetToNormalMode();
                     return;
                 }
@@ -193,6 +195,8 @@ namespace Game.Managers
             if (_currentGameState == GameState.playerTurn && _currentMode != PlayerModes.normal && Input.GetKeyDown(KeyCode.Escape))
             {
                 ResetToNormalMode();
+                ///check where the cursor is, get that tile, check if there is something interactable in or, or, if the tile itself is interactable.
+                //trigger use action - make I usable interface
             }
             
             ///movement related situations

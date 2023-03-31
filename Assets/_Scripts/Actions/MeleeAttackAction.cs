@@ -15,8 +15,6 @@ namespace Game.Entites.Actions
         public T Entity_B;
         private DateTime _actionTriggerTime;
         private EntityDynamic _actor;
-        private object _target;
-        public static Action<string> LoggedMeleeAttackEvent;
         public static Action<EntityDynamic, Vector2Int> AttackHappenedEvent;
         public static Action<EntityDynamic, int> DamageDealtEvent;
 
@@ -40,12 +38,7 @@ namespace Game.Entites.Actions
             get => _actor;
             set => _actor = value;
         }
-        object IAction.Target
-        {
-            get => _target;
-            set => _target = value;
-        }
-
+        
         public void Do()
         {
             //todo do a guaranteed hit check here: >> if target has specific afflictions such as stuck, overburdened etc.
@@ -80,10 +73,6 @@ namespace Game.Entites.Actions
                     SendAttackLog(Entity_A, Entity_B, appliedDmg_2.PenetrationTotal, appliedDmg_2.DamageTotal, attackerWeapons[1]);
                 
                 //todo send this damage to the target, update HP. Kill if HP<0 ;
-            }
-            else
-            {
-                Debug.Log("Attack misses!");
             }
 
             if (appliedTotalDmg > 0)
@@ -141,7 +130,7 @@ namespace Game.Entites.Actions
                            weaponData._itemName + " ->" + weaponData.Stats.ArmorPenetration + " " + wpnDmg + "!";
             }
             
-            LoggedMeleeAttackEvent?.Invoke(finalOutput);
+            ActionHelper.SendActionLog(finalOutput);
         }
     }
 }
