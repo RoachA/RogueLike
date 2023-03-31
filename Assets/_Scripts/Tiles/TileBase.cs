@@ -63,8 +63,17 @@ namespace Game.Tiles
         {
             SetRandomSprite();
         }
+        #region LIGHT
 
-#region PATHFINDING_STUFFS
+        public void SetLight()
+        {
+    
+        }
+        
+
+        #endregion
+
+        #region PATHFINDING_STUFFS
 
         public ICoords Coords;
         private bool _selected;
@@ -156,7 +165,7 @@ namespace Game.Tiles
         
         #endregion
         
-#region ENTITY_OPERATIONS
+        #region ENTITY_OPERATIONS
         
         public interface ICoords 
         {
@@ -213,6 +222,7 @@ namespace Game.Tiles
 
             return interactables;
         }
+        
         #endregion
     }
 }
