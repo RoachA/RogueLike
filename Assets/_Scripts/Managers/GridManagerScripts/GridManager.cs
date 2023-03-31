@@ -6,7 +6,6 @@ using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
 using Game.Entites;
-using Game.Interfaces;
 
 namespace Game.Managers
 {
