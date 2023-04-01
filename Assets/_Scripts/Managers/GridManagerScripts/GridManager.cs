@@ -190,6 +190,11 @@ namespace Game.Managers
          return "";
       }
 
+      public LevelBlueprint GetGridBlueprint()
+      {
+         return _levelBlueprint;
+      }
+
       public TileBase GetTileAtPosition(Vector2Int pos)
       {
          if (_registeredTiles.TryGetValue(pos, out TileBase tile))

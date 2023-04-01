@@ -189,6 +189,7 @@ namespace Game.Managers
                 
                 _levelManager.UpdateLevelState();
                 SetPlayerMode(PlayerModes.use);
+                UpdateGameState(GameState.evaluate);
                 _levelManager.StartUseAt();
             }
 
@@ -209,17 +210,14 @@ namespace Game.Managers
                     {
                         if (Input.GetKeyDown(_keyCodes[i]))
                         {
-                            if (i == 5)
-                            {
-                                UpdateGameState(GameState.evaluate);
-                            }
-
                             if (_movementVectors.TryGetValue(i, out var motionVector))
                             {
                                 _levelManager.MovePlayerTo(motionVector);
                             }
                         }
                     }
+                    
+                    UpdateGameState(GameManager.GameState.evaluate);
                 }
                 else if (Application.platform == RuntimePlatform.OSXPlayer ||
                          Application.platform == RuntimePlatform.OSXEditor)
@@ -228,17 +226,14 @@ namespace Game.Managers
                     {
                         if (Input.GetKeyDown(_keyCodes_osx[i]))
                         {
-                            if (i == 5)
-                            {
-                                UpdateGameState(GameState.evaluate);
-                            }
-
                             if (_movementVectors.TryGetValue(i, out var motionVector))
                             {
                                 _levelManager.MovePlayerTo(motionVector);
                             }
                         }
                     }
+                    
+                    UpdateGameState(GameManager.GameState.evaluate);
                 }
             }
             

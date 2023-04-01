@@ -107,12 +107,42 @@ MonoBehaviour:
   _spriteVariants: []
   _spriteRenderer: {fileID: 7029349495824940232}
   _tilePosId: {x: 0, y: 0}
-  _tileTypeName: Door
   _entitiesOnTile: []
+  _tileTypeName: Door
   _closedDoors:
   - {fileID: 1846937476, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
   _openDoors:
   - {fileID: 760016877, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
+  _shadowCaster: {fileID: 5040164653519682072}
+  _isOpen: 0
+  _isLocked: 0
+--- !u!114 &5040164653519682072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6880889013270445637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 1
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -8574
 --- !u!212 &7029349495824940232 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}

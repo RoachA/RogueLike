@@ -1,6 +1,8 @@
 using Game.Interfaces;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Game.Tiles
 {
@@ -9,6 +11,7 @@ namespace Game.Tiles
         [Header("DoorTiles")]
         [SerializeField] private Sprite[] _closedDoors;
         [SerializeField] private Sprite[] _openDoors;
+        [SerializeField] private ShadowCaster2D _shadowCaster;
 
         [SerializeField] private bool _isOpen;
         [SerializeField] private bool _isLocked;
@@ -25,7 +28,8 @@ namespace Game.Tiles
             {
                 return true;
             }
-            
+
+            _shadowCaster.enabled = !_shadowCaster.enabled;
             _isOpen = !_isOpen;
             SetWalkable(_isOpen);
 

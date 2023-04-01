@@ -22,6 +22,9 @@ namespace Game.Managers
         
         private Game.Managers.GameManager _gameManager;
 
+        [Header("Debug")]
+        [SerializeField] private float viewDistanceTest = 10f;
+
         void Awake()
         {
             Instance = this;
@@ -35,6 +38,7 @@ namespace Game.Managers
         public void UpdateLevelState()
         {
             _entityManager.PlayEntityOffense();
+            SetFieldOfVision(_entityManager.GetPlayerEntity().GetEntityPos());
         }
 
         public void CreateLevel()
@@ -46,7 +50,8 @@ namespace Game.Managers
             _entityManager.InstantiatePlayerEntity(new Vector2Int(2, 2), DataManager.GenerateStarterPlayerData());
             _cameraManager.SetCameraPosition(_entityManager.GetPlayerEntity().GetEntityPos());
             
-            _entityManager.InstantiateNpcEntity(new Vector2Int(10, 10), _entityManager.GetEntityDataWithIndex(1));
+            //todo remove npc for now
+           // _entityManager.InstantiateNpcEntity(new Vector2Int(10, 10), _entityManager.GetEntityDataWithIndex(1));
            // _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2Int(0, 0));
         }
 
@@ -85,7 +90,11 @@ namespace Game.Managers
             
             _cameraManager.SetCameraPosition(targetGridPos);
             var moveAction = new WalkAction<EntityPlayer>(player, _gridManager.GetTileAtPosition(targetGridPos));
-            _gameManager.UpdateGameState(GameManager.GameState.evaluate);
+        }
+
+        private void SetFieldOfVision(Vector2Int origin)
+        {
+            DetectionSystems.ShadowCast.ComputeVisibility(_gridManager, origin, viewDistanceTest); //todo view radius is fake for now
         }
 
         public void LookAtTile(Vector2Int target)

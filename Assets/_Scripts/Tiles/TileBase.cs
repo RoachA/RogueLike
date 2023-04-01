@@ -5,6 +5,7 @@ using System.Linq;
 using Game.Entites;
 using Game.Interfaces;
 using Game.Managers;
+using TMPro;
 using Random = UnityEngine.Random;
 
 namespace Game.Tiles
@@ -65,12 +66,18 @@ namespace Game.Tiles
         }
         #region LIGHT
 
-        public void SetLight()
+        public void SetLight(float lightVal)
         {
-    
+            if (lightVal >= 1f)
+                _spriteRenderer.color = Color.white;
+            else
+            {
+                _spriteRenderer.color = Color.black * 0.8f;
+            }
+            //_spriteRenderer.color = new Color(1 / lightVal, 1 / lightVal, 1 / lightVal, 1);
+            Debug.LogWarning(_tilePosId + " : " + lightVal);
         }
         
-
         #endregion
 
         #region PATHFINDING_STUFFS

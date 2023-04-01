@@ -1,11 +1,13 @@
 using System;
+using System.Collections.Generic;
+using Game.Managers;
 using Game.Tiles;
 using UnityEngine;
 
-namespace Game.Pathfinding
+namespace Game.DetectionSystems
 {
     //Bresenham algorithm
-    public static class LineHandler
+    public static class DetectionSystem
     {
         /// <summary>
         /// Plot the line from (x0, y0) to (x1, y10
@@ -90,7 +92,7 @@ External dependencies:
   If you lack something similar, just convert it to a pair of ints.
 */
 
-/*public static class ShadowCast 
+public static class ShadowCast 
 {
     /// <summary>
     /// Immutable class for holding coordinate transform constants.  Bulkier than a 2D
@@ -103,7 +105,8 @@ External dependencies:
         public int yx { get; private set; }
         public int yy { get; private set; }
 
-        public OctantTransform(int xx, int xy, int yx, int yy) {
+        public OctantTransform(int xx, int xy, int yx, int yy) 
+        {
             this.xx = xx;
             this.xy = xy;
             this.yx = yx;
@@ -134,14 +137,19 @@ External dependencies:
     /// Lights up cells visible from the current position.  Clear all lighting before calling.
     /// </summary>
     /// <param name="grid">The cell grid definition.</param>
-    /// <param name="gridPosn">The player's position within the grid.</param>
+    /// <param name="originPos">The player's position within the grid.</param>
     /// <param name="viewRadius">Maximum view distance; can be a fractional value.</param>
-    public static void ComputeVisibility(TileBase[] tiles, Vector2Int gridPosn, float viewRadius) {
+    public static void ComputeVisibility(GridManager grid, Vector2Int originPos, float viewRadius) 
+    {
+        foreach (var tile in grid._registeredTiles)
+        {
+            tile.Value.SetLight(0);
+        }
         //Debug.Assert(gridPosn.x >= 0 && gridPosn.x < grid.xDim);
         //Debug.Assert(gridPosn.y >= 0 && gridPosn.y < grid.yDim);
 
         // Viewer's cell is always visible.
-        tiles.SetLight(gridPosn.x, gridPosn.y, 0.0f);
+        grid.GetTileAtPosition(originPos).SetLight(1);
 
         // Cast light into cells for each of 8 octants.
         //
@@ -153,8 +161,9 @@ External dependencies:
         // NOTE: depending on the compiler, it's possible that passing the octant transform
         // values as four integers rather than an object reference would speed things up.
         // It's much tidier this way though.
-        for (int txidx = 0; txidx < _s_octantTransform.Length; txidx++) {
-            CastLight(grid, gridPosn, viewRadius, 1, 1.0f, 0.0f, _s_octantTransform[txidx]);
+        for (int txidx = 0; txidx < _s_octantTransform.Length; txidx++) 
+        {
+            CastLight(grid, originPos, viewRadius, 1, 1.0f, 0.0f, _s_octantTransform[txidx]);
         }
     }
 
@@ -163,7 +172,7 @@ External dependencies:
     /// Recursively casts light into cells.  Operates on a single octant.
     /// </summary>
     /// <param name="tile">The cell grid definition.</param>
-    /// <param name="gridPosn">The player's position within the grid.</param>
+    /// <param name="originPos">The player's position within the grid.</param>
     /// <param name="viewRadius">The view radius; can be a fractional value.</param>
     /// <param name="startColumn">Current column; pass 1 as initial value.</param>
     /// <param name="leftViewSlope">Slope of the left (upper) view edge; pass 1.0 as
@@ -173,10 +182,13 @@ External dependencies:
     /// <param name="txfrm">Coordinate multipliers for the octant transform.</param>
     ///
     /// Maximum recursion depth is (Ceiling(viewRadius)).
-    private static void CastLight(TileBase[] tile, Vector2Int gridPosn, float viewRadius,
-            int startColumn, float leftViewSlope, float rightViewSlope, OctantTransform txfrm) {
+    private static void CastLight(GridManager grid, Vector2Int originPos, float viewRadius,
+            int startColumn, float leftViewSlope, float rightViewSlope, OctantTransform txfrm) 
+    {
         //Debug.Assert(leftViewSlope >= rightViewSlope);
 
+        var data = grid.GetGridBlueprint();
+        
         // Used for distance test.
         float viewRadiusSq = viewRadius * viewRadius;
 
@@ -191,11 +203,12 @@ External dependencies:
         // of the empty cell.
         float savedRightSlope = -1;
 
-        int xDim = tile.GetTilePosId().x;
-        int yDim = tile.GetTilePosId().y;
+        int xDim = data.Dimensions.GridSize.x;
+        int yDim = data.Dimensions.GridSize.y;
 
         // Outer loop: walk across each column, stopping when we reach the visibility limit.
-        for (int currentCol = startColumn; currentCol <= viewCeiling; currentCol++) {
+        for (int currentCol = startColumn; currentCol <= viewCeiling; currentCol++) 
+        {
             int xc = currentCol;
 
             // Inner loop: walk down the current column.  We start at the top, where X==Y.
@@ -207,8 +220,8 @@ External dependencies:
             {
                 // Translate local coordinates to grid coordinates.  For the various octants
                 // we need to invert one or both values, or swap X for Y.
-                int gridX = gridPosn.x + xc * txfrm.xx + yc * txfrm.xy;
-                int gridY = gridPosn.y + xc * txfrm.yx + yc * txfrm.yy;
+                int gridX = originPos.x + xc * txfrm.xx + yc * txfrm.xy;
+                int gridY = originPos.y + xc * txfrm.yx + yc * txfrm.yy;
 
                 // Range-check the values.  This lets us avoid the slope division for blocks
                 // that are outside the grid.
@@ -257,12 +270,14 @@ External dependencies:
                 //  cell is visible, and reduce the view area as if it were a wall.  This
                 //  could reduce iteration at the corners.
                 float distanceSquared = xc * xc + yc * yc;
-                if (distanceSquared <= viewRadiusSq) 
+                var thisTile = grid.GetTileAtPosition(new Vector2Int(gridX, gridY));
+                
+                if (distanceSquared <= viewRadiusSq)
                 {
-                    tile.SetLight(gridX, gridY, distanceSquared);
+                    thisTile.SetLight(distanceSquared);
                 }
 
-                bool curBlocked = tile.IsWall(gridX, gridY);
+                bool curBlocked = thisTile.CheckIfWalkable() == false;
 
                 if (prevWasBlocked) 
                 {
@@ -292,7 +307,7 @@ External dependencies:
                         // that here.
                         if (leftBlockSlope <= leftViewSlope) 
                         {
-                            CastLight(tile, gridPosn, viewRadius, currentCol + 1,
+                            CastLight(grid, originPos, viewRadius, currentCol + 1,
                                 leftViewSlope, leftBlockSlope, txfrm);
                         }
 
@@ -314,5 +329,5 @@ External dependencies:
             }
         }
     }
-}*/
+}
 }
