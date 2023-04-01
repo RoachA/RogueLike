@@ -36,7 +36,7 @@ namespace Game.Entites.Actions
         {
           var log = _target.InteractWithThis(); // what is the interaction? what happens? is there a result? what is the result?
           log = _actor.GetDefinitionData()._entityName + log;
-          SendInteractionLog(log);
+          SendInteractionLog(log); // todo this is SUPER EXPENSIVE
         }
 
         public void SendInteractionLog(string log)

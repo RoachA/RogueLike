@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using Game.Managers;
-using Game.Tiles;
 using UnityEngine;
 
 namespace Game.DetectionSystems
@@ -19,7 +17,7 @@ namespace Game.DetectionSystems
         /// <param name="plot">The plotting function (if this returns false, the algorithm stops early)</param>
         public static void Line(int x0, int y0, int x1, int y1, PlotFunction plot)
         {
-            bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
+            bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0); // this is expensive anyway.
             if (steep)
             {
                 Swap<int>(ref x0, ref y0);
@@ -32,7 +30,7 @@ namespace Game.DetectionSystems
                 Swap<int>(ref y0, ref y1);
             }
 
-            int dX = (x1 - x0), dY = Math.Abs(y1 - y0), err = (dX / 2), ystep = (y0 < y1 ? 1 : -1), y = y0;
+            int dX = (x1 - x0), dY = Math.Abs(y1 - y0), err = (dX / 2), ystep = (y0 < y1 ? 1 : -1), y = y0; // also divisions here.
 
             for (int x = x0; x <= x1; ++x)
             {

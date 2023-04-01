@@ -14,6 +14,7 @@ namespace Game.Entites
       [SerializeField] protected int _aggroDistance;
       
       protected NpcEntityScriptableData NpcScriptableData;
+      protected bool _aggroStatus;
 
       #region debug_fields
       private readonly Color _hostileColor = Color.red;
@@ -58,12 +59,41 @@ namespace Game.Entites
       {
          _aggroDistance = distance;
       }
+
+      public bool GetCurrentAggroStatus()
+      {
+         return _aggroStatus;
+      }
       
       public bool CheckForAggro(TileBase targetTile)
       {
-         var aggro = GetDistanceToTargetTile(targetTile) <= _aggroDistance;
-         _aggroDebug = aggro;
+         var aggroRadius = NpcScriptableData._aggroRadius;
+         var aggro = GetDistanceToTargetTile(targetTile) <= aggroRadius &&
+                     CheckIfDetectsWithRay(GetEntityPos(), targetTile.GetTilePosId(), aggroRadius);
+         
+         _aggroStatus = aggro;
          return aggro;
+      }
+      
+      public static bool CheckIfDetectsWithRay(Vector2Int origin, Vector2Int target, float dist = 10)
+      {
+         RaycastHit2D hit = Physics2D.Raycast(origin, target - origin, dist);
+         Vector3 debugOrigin = new Vector3(origin.x, origin.y, 1);
+         Vector3 debugTarget = new Vector3(target.x, target.y, 1) - debugOrigin;
+         
+         if (hit.collider.CompareTag($"Player"))
+         {
+            Debug.DrawRay(debugOrigin, debugTarget, Color.green, 2);
+            return true;
+         }
+
+         if (hit.collider.CompareTag($"Wall") || hit.collider.CompareTag($"Door"))
+         {
+            Debug.DrawRay(debugOrigin, debugTarget, Color.red , 2);
+            return false;
+         }
+
+         return false;
       }
 
       public override void SetAliveState(bool isAlive)
@@ -78,18 +108,17 @@ namespace Game.Entites
       {
          GetDemeanor();
       }
-
-      private bool _aggroDebug;
+      
       private Vector3 _targetLabelPos;
       private void OnDrawGizmos()
       {
-         Gizmos.color = _aggroDebug ? new Color(1f, 0f, 0f, 0.15f) : new Color(0f, 1f, 0f, 0.1f);
-         Gizmos.DrawSphere(transform.position, _aggroDistance / 2);
+         Gizmos.color = _aggroStatus ? new Color(1f, 0f, 0f, 0.15f) : new Color(0f, 1f, 0f, 0.1f);
+         Gizmos.DrawSphere(transform.position, NpcScriptableData._aggroRadius / 2);
          Handles.Label(_targetLabelPos, _detectedDistance.ToString());
 
          Gizmos.color = Color.green;
          
-         if(_pathNodes == null)
+         if (_pathNodes == null)
             return;
 
          if (_pathNodes.Count == 0)
@@ -98,7 +127,7 @@ namespace Game.Entites
             return;
          }
          
-         for (var i = 0; i < _pathNodes.Count; i++)
+         /*for (var i = 0; i < _pathNodes.Count; i++)
          {
             var index = i;
             var node = _pathNodes[i].GetTilePosId();
@@ -108,7 +137,7 @@ namespace Game.Entites
                 nextNode = _pathNodes[index + 1].GetTilePosId();
             
             Debug.DrawLine(node.ConvertVectorToVector3(1), nextNode.ConvertVectorToVector3(0));
-         }
+         }*/
       }
 #endif
    }

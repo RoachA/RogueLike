@@ -62,7 +62,7 @@ PrefabInstance:
     - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1461526595, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
+      objectReference: {fileID: 322839578, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}
     - target: {fileID: 2006722263498498079, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -83,6 +83,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TileWall
       objectReference: {fileID: 0}
+    - target: {fileID: 2677916929969758866, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -7375794791919633858, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
@@ -91,6 +95,32 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2677916929969758866, guid: 72c38dc2d98a93341aa24076617f0d01, type: 3}
   m_PrefabInstance: {fileID: 8814682858993310935}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &1647854529606824418
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6880889013270445637}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1.25, y: 1.25}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &403611095012584982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,7 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ShadowGroup: 0
   m_ComponentVersion: 1
-  m_HasRenderer: 0
+  m_HasRenderer: 1
   m_UseRendererSilhouette: 1
   m_CastsShadows: 1
   m_SelfShadows: 1
@@ -117,7 +147,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -59954
+  m_InstanceId: 543248
 --- !u!114 &9169668773149964624
 MonoBehaviour:
   m_ObjectHideFlags: 0

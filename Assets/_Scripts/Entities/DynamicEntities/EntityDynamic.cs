@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Game.Entites.Actions;
 using Game.Entites.Data;
 using Game.Tiles;
+using UnityEditor;
 using UnityEngine;
 
 namespace Game.Entites
@@ -77,8 +78,6 @@ namespace Game.Entites
 
         public int GetDistanceToTargetTile(TileBase targetTile)
         {
-            Debug.DrawLine(new Vector3(targetTile.GetTilePosId().x, targetTile.GetTilePosId().y, 1), transform.position,
-                Color.green, 5);
             var distance = (int) Vector2Int.Distance(_occupiedTile.GetTilePosId(), targetTile.GetTilePosId());
             _detectedDistance = distance;
             return distance;
@@ -89,7 +88,7 @@ namespace Game.Entites
             _pathNodes.Clear();
             _pathNodes = Pathfinding.Pathfinding.FindPath(_occupiedTile, targetTile);
         }
-
+        
         #endregion
 
         #region get-set----------------------------------------------------------------

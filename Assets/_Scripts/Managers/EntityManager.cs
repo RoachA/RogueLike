@@ -101,7 +101,12 @@ namespace Game.Managers
                 if (entity.GetAliveStatus() == false)
                     return;
                 
-                bool tryAttackPlayer = entity.GetDemeanor() == EntityDemeanor.hostile && entity.CheckForAggro(_player.GetOccupiedTile());
+                bool tryAttackPlayer = entity.GetDemeanor() == EntityDemeanor.hostile;
+                
+                if (entity.GetCurrentAggroStatus() == false)
+                {
+                    tryAttackPlayer = entity.CheckForAggro(_player.GetOccupiedTile());
+                }
 
                 bool canMeeleeAttack = entity.GetDistanceToTargetTile(_player.GetOccupiedTile()) <= 1.42f; //hypotenuse
 

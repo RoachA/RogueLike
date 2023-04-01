@@ -51,7 +51,7 @@ namespace Game.Managers
             _cameraManager.SetCameraPosition(_entityManager.GetPlayerEntity().GetEntityPos());
             
             //todo remove npc for now
-           // _entityManager.InstantiateNpcEntity(new Vector2Int(10, 10), _entityManager.GetEntityDataWithIndex(1));
+            _entityManager.InstantiateNpcEntity(new Vector2Int(10, 10), _entityManager.GetEntityDataWithIndex(1));
            // _entityManager.InstantiateEntity(EntityBase.EntityType.npc, new Vector2Int(0, 0));
         }
 
@@ -78,15 +78,6 @@ namespace Game.Managers
                 //grid is inaccessible anyway
                 return;
             }
-
-            /*var tile = _gridManager.GetTile(targetGridPos.x, targetGridPos.y);
-            if (tile.GetType() == typeof(TileDoor))
-            {
-                var door = (TileDoor) tile;
-                if (door.CheckIfLocked())
-                    Debug.Log("this door is locked!");
-                return;
-            }*/
             
             _cameraManager.SetCameraPosition(targetGridPos);
             var moveAction = new WalkAction<EntityPlayer>(player, _gridManager.GetTileAtPosition(targetGridPos));
