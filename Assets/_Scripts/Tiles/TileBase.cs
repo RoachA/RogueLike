@@ -64,16 +64,22 @@ namespace Game.Tiles
         {
             SetRandomSprite();
         }
+        
         #region LIGHT
-
+        
         public void SetLight(float lightVal)
         {
+            var darkColor = 0.15f;
+            var multiplier = 1 - 0.005f * lightVal;
+            multiplier = multiplier < darkColor ? 0.4f : multiplier;
+            
             if (lightVal >= 1f)
-                _spriteRenderer.color = Color.white;
+                _spriteRenderer.color = new Color(multiplier, multiplier, multiplier, 1);
             else
             {
-                _spriteRenderer.color = Color.black * 0.8f;
+                _spriteRenderer.color = new Color(darkColor, darkColor, darkColor, 1);
             }
+            
             //_spriteRenderer.color = new Color(1 / lightVal, 1 / lightVal, 1 / lightVal, 1);
             Debug.LogWarning(_tilePosId + " : " + lightVal);
         }

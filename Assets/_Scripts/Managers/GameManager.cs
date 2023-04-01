@@ -140,16 +140,18 @@ namespace Game.Managers
         
         private void HandleEvaluate()
         {
+            if (GetGameState() != GameState.evaluate)
+                return;
+            
             //todo do calculations to determine who starts first, player or enemy? now start player
             Debug.Log("Evaluate...---------------------------->");
             _levelManager.UpdateLevelState();
+            
             UpdateGameState(GameState.playerTurn);
         }
 
         private void HandlePlayerTurn()
         {
-            Debug.Log("player's turn!---------------------------->");
-            
         }
 
         private void HandleCPUTurn()
@@ -184,12 +186,12 @@ namespace Game.Managers
                     Debug.Log("Player uses item here.");
                     _levelManager.InteractWithObject();
                     ResetToNormalMode();
+                    UpdateGameState(GameState.evaluate);
                     return;
                 }
                 
                 _levelManager.UpdateLevelState();
                 SetPlayerMode(PlayerModes.use);
-                UpdateGameState(GameState.evaluate);
                 _levelManager.StartUseAt();
             }
 
@@ -213,11 +215,10 @@ namespace Game.Managers
                             if (_movementVectors.TryGetValue(i, out var motionVector))
                             {
                                 _levelManager.MovePlayerTo(motionVector);
+                                UpdateGameState(GameManager.GameState.evaluate);
                             }
                         }
                     }
-                    
-                    UpdateGameState(GameManager.GameState.evaluate);
                 }
                 else if (Application.platform == RuntimePlatform.OSXPlayer ||
                          Application.platform == RuntimePlatform.OSXEditor)
@@ -229,11 +230,10 @@ namespace Game.Managers
                             if (_movementVectors.TryGetValue(i, out var motionVector))
                             {
                                 _levelManager.MovePlayerTo(motionVector);
+                                UpdateGameState(GameManager.GameState.evaluate);
                             }
                         }
                     }
-                    
-                    UpdateGameState(GameManager.GameState.evaluate);
                 }
             }
             
