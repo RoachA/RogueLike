@@ -46,6 +46,7 @@ namespace Game.Managers
             _gridManager.GenerateLevelGrid();
             _cameraManager.SetMapSize(new Vector2Int(16, 16));
             
+            //todo make it a class in entity manager or something which handles the generation >>>>>>>
             // todo make a proper entity spawner in entity manager! with parameters etc
             _entityManager.InstantiatePlayerEntity(new Vector2Int(2, 2), DataManager.GenerateStarterPlayerData());
             _cameraManager.SetCameraPosition(_entityManager.GetPlayerEntity().GetEntityPos());

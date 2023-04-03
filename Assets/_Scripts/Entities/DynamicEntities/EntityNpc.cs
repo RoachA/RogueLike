@@ -81,13 +81,13 @@ namespace Game.Entites
          Vector3 debugOrigin = new Vector3(origin.x, origin.y, 1);
          Vector3 debugTarget = new Vector3(target.x, target.y, 1) - debugOrigin;
          
-         if (hit.collider.CompareTag($"Player"))
+         if (hit.collider.CompareTag("Player"))
          {
             Debug.DrawRay(debugOrigin, debugTarget, Color.green, 2);
             return true;
          }
 
-         if (hit.collider.CompareTag($"Wall") || hit.collider.CompareTag($"Door"))
+         if (hit.collider.CompareTag("Wall") || hit.collider.CompareTag("Door"))
          {
             Debug.DrawRay(debugOrigin, debugTarget, Color.red , 2);
             return false;

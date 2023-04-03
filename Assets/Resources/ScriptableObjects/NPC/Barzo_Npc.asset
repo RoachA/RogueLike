@@ -35,4 +35,4 @@ MonoBehaviour:
     characterClass: 0
   _demeanor: 2
   _behaviorType: 0
-  _aggroRadius: 10
+  _aggroRadius: 3

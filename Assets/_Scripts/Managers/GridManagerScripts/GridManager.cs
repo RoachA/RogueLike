@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
 using Game.Entites;
+using Game.Rooms;
 
 namespace Game.Managers
 {
@@ -35,6 +36,7 @@ namespace Game.Managers
       private OverlapWFC _levelGenerator;
       private GridManagerReferences _gridManagerReferences;
       public Dictionary<Vector2Int, TileBase> _registeredTiles;
+      public List<Room> RegisteredRooms;
 
       public static GridManager Instance;
 
@@ -81,6 +83,7 @@ namespace Game.Managers
 
          RegisterTiles();
          CacheNeighboursOfEachTile();
+         RegisteredRooms = RoomsHelper.FindRooms(this, 10, 10); // after this we'll spawn items in the room and then entities.
       }
 
       private void SetGridData()

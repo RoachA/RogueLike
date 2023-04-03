@@ -5,7 +5,6 @@ using System.Linq;
 using Game.Entites;
 using Game.Interfaces;
 using Game.Managers;
-using TMPro;
 using Random = UnityEngine.Random;
 
 namespace Game.Tiles
@@ -19,6 +18,8 @@ namespace Game.Tiles
         [SerializeField] protected Vector2Int _tilePosId;
         [SerializeField] protected List<EntityBase> _entitiesOnTile;
         [SerializeField] protected string _tileTypeName; // todo later on will be read from data.
+
+        protected bool _wasMarked; // this is used for internal room detection algorithms.
 
         protected virtual void SetRandomSprite()
         {
@@ -64,6 +65,16 @@ namespace Game.Tiles
         {
             SetRandomSprite();
         }
+
+        public bool GetMarkedState()
+        {
+            return _wasMarked;
+        }
+
+        public void SetMarkedState(bool state)
+        {
+            _wasMarked = state;
+        }
         
         #region LIGHT
         
@@ -81,7 +92,7 @@ namespace Game.Tiles
             }
             
             //_spriteRenderer.color = new Color(1 / lightVal, 1 / lightVal, 1 / lightVal, 1);
-            Debug.LogWarning(_tilePosId + " : " + lightVal);
+            //Debug.LogWarning(_tilePosId + " : " + lightVal);
         }
         
         #endregion
