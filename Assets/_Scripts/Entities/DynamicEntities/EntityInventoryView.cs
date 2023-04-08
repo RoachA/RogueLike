@@ -88,8 +88,8 @@ namespace Game.Entites
         [Button]
         public void AddItemForTest(int indexFromRegistry)
         {
-            var registry = ResourceHelper.GetWeaponsRegistry();
-            var weaponTemplate = ResourceHelper.GetItemEntityWithData<ItemMeleeWeaponEntity>(registry.GetMeeleeWeaponDataAtIndex(0));
+            var registry = DataManager.GetWeaponsRegistry();
+            var weaponTemplate = DataManager.GetItemEntityWithData<ItemMeleeWeaponEntity>(registry.GetMeeleeWeaponDataAtIndex(0));
             var instance = Instantiate(weaponTemplate, transform);
             EquipItem(EntityEquipSlots.rightHand, instance);
             instance.SetAsContained(true);

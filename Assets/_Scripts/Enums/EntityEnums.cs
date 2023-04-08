@@ -70,6 +70,7 @@ namespace Game.Entites
         item = 2,
         container = 3,
     }
+    
 
     public enum ItemTypes
     {

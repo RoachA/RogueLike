@@ -83,14 +83,21 @@ namespace Game.Tiles
             var darkColor = 0.15f;
             var multiplier = 1 - 0.005f * lightVal;
             multiplier = multiplier < darkColor ? 0.4f : multiplier;
-            
+            float finalValue = 1;
+
             if (lightVal >= 1f)
-                _spriteRenderer.color = new Color(multiplier, multiplier, multiplier, 1);
+                finalValue = multiplier;
             else
-            {
-                _spriteRenderer.color = new Color(darkColor, darkColor, darkColor, 1);
-            }
+                finalValue = darkColor;
             
+
+            var finalColor = new Color(finalValue, finalValue, finalValue, 1);
+            _spriteRenderer.color = finalColor;
+            
+            foreach (var entity in _entitiesOnTile)
+            {
+                entity.SetLight(finalColor);
+            }
             //_spriteRenderer.color = new Color(1 / lightVal, 1 / lightVal, 1 / lightVal, 1);
             //Debug.LogWarning(_tilePosId + " : " + lightVal);
         }

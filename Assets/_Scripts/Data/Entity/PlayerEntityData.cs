@@ -1,5 +1,4 @@
-using Game.Managers;
-using UnityEngine;
+using Game.Data;
 
 namespace Game.Entites.Data
 {
@@ -29,7 +28,7 @@ namespace Game.Entites.Data
             definitionData._entityName = "PlayerX";
             definitionData.characterClass = classes.dallama;
             definitionData.Genders = Genders.gay;
-            definitionData.Sprite = ResourceHelper.GetPlayerSprite(0);
+            definitionData.Sprite = DataManager.GetPlayerSprite(0);
             return definitionData;
         }
     }

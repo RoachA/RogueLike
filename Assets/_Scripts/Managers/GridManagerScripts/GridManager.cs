@@ -83,7 +83,19 @@ namespace Game.Managers
 
          RegisterTiles();
          CacheNeighboursOfEachTile();
-         RegisteredRooms = RoomsHelper.FindRooms(this, 10, 10); // after this we'll spawn items in the room and then entities.
+         HandleRooms();
+      }
+
+      private void HandleRooms()
+      {
+         RegisteredRooms = RoomsHelper.FindRooms(this, 10, 10);
+
+         if (RegisteredRooms.Count > 0)
+         {
+            Room room = RegisteredRooms[0];
+            room.RoomData = _levelBlueprint.Rooms[0];
+            room.InitRoom();
+         }
       }
 
       private void SetGridData()

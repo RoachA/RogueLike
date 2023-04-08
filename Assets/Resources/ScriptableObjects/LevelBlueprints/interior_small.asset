@@ -25,4 +25,6 @@ MonoBehaviour:
   Symmetry: 5
   Foundation: 0
   Type: 0
+  Rooms:
+  - {fileID: 11400000, guid: 7825967c0cc7d1a4ab7c4910a3b01e4c, type: 2}
   HasBorders: 1

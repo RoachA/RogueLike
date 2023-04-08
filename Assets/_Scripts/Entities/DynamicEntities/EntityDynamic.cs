@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Game.Entites.Actions;
 using Game.Entites.Data;
 using Game.Tiles;
-using UnityEditor;
 using UnityEngine;
 
 namespace Game.Entites
@@ -15,6 +14,8 @@ namespace Game.Entites
         [SerializeField] protected EntityStatsView _statsView;
         [SerializeField] public DynamicEntityFeedbacks _feedbacks; //todo laters better be instantiated on start
         [SerializeField] protected bool _isAlive;
+        [SerializeField] protected Sprite _corpseSprite;
+        [SerializeField] private List<TileBase> _pathFindingPaths;
 
         public List<TileBase> _pathNodes;
 
@@ -87,6 +88,12 @@ namespace Game.Entites
         {
             _pathNodes.Clear();
             _pathNodes = Pathfinding.Pathfinding.FindPath(_occupiedTile, targetTile);
+        }
+        
+        public virtual List<TileBase> FindPathToTargetTile(TileBase tile) 
+        {
+            _pathFindingPaths = Pathfinding.Pathfinding.FindPath(_occupiedTile, tile);
+            return _pathFindingPaths;
         }
         
         #endregion

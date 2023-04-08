@@ -89,7 +89,7 @@ namespace Game.Managers
         }
 
     
-        public void DrawPathFromEntityToTargetTile(EntityBase entity, TileBase tile)
+        public void DrawPathFromEntityToTargetTile(EntityDynamic entity, TileBase tile)
         {
             entity.FindPathToTargetTile(tile);
         }

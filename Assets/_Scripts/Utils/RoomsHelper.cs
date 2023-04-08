@@ -1,17 +1,22 @@
 using System.Collections.Generic;
+using System.Linq;
+using Game.Data;
+using Game.Entites;
 using Game.Managers;
 using Game.Tiles;
 using UnityEngine;
 
 namespace Game.Rooms
 {
-    public class Room
+    public class Room : MonoBehaviour
     {
         public List<TileBase> RoomTiles;
+        public RoomTypeData RoomData;
 
-        public Room(List<TileBase> roomtiles)
+        public Room(List<TileBase> roomtiles, RoomTypeData roomData = null)
         {
             RoomTiles = roomtiles;
+            RoomData = roomData;
         }
 
         #region RoomHelpers
@@ -29,6 +34,35 @@ namespace Game.Rooms
             }
 
             return false;
+        }
+
+        public void InitRoom()
+        {
+            InstantiatePropsFromRoomData(RoomData.RoomItems);
+        }
+
+        private void InstantiatePropsFromRoomData(RoomItem[] propList)
+        {
+            var propsData = DataManager.GetAllPropData();
+            var propEntityTemplate = DataManager.GetPropEntity();
+
+            var requiredProps = propList.Where(x => propsData.Contains(x.PropData)).ToList();
+            
+            foreach (var prop in requiredProps)
+            {
+                var newProp = Instantiate(propEntityTemplate, RoomTiles[0].transform.parent);
+              
+                var propsTile = RoomTiles[Random.Range(0, RoomTiles.Count)];
+                var rndPos = propsTile.GetTilePosId();
+                
+                newProp.Data = prop.PropData;
+                newProp.InitProp();
+                newProp.SetOccupiedTile(propsTile);
+
+                newProp.transform.localPosition = new Vector3(rndPos.x, rndPos.y, 1);
+                propsTile.AddEntityToTile(newProp);
+                propsTile.SetWalkable(false);
+            }
         }
         
         public bool CheckValidity()
@@ -189,14 +223,23 @@ namespace Game.Rooms
         public static List<Room> FindRooms(GridManager grid, int startRow, int startColumn)
         {
             var foundRooms = new List<Room>();
-            Room newRoom = FloodFill(grid, startRow, startColumn);
+
+            while (SearchUnmarkedTile(grid, out var pos) == true)
+            {
+                if (FloodFill(grid, pos.x, pos.y, out var room))
+                {
+                    foundRooms.Add(room);
+                }
+            }
+            
+            Debug.LogError("Found " + foundRooms.Count + " rooms!");
             //get this new room and find rects:
-            DivideIntoRectRooms(newRoom, 3, 3);
+            //DivideIntoRectRooms(newRoom, 3, 3);
 
             return foundRooms;
         }
         
-        private static Room FloodFill(GridManager grid, int startRow, int startColumn)
+        private static bool FloodFill(GridManager grid, int startRow, int startColumn, out Room room)
         {
             //todo this method marks tiles as 'marked' so if we iterate through the grid AGAIN and start another floodFill from the next unmarked and walkable tile, 
             //todo it means we start another floodfill in another room and grab it all. This must be registered as a second Room to be fed to the rect detector.
@@ -206,9 +249,10 @@ namespace Game.Rooms
             List<TileBase> roomTiles = new List<TileBase>();
 
             var startCell = SafeStart(grid.GetTile(startRow, startColumn));
+            room = new Room(null);
 
             if (startCell == null)
-                return new Room(null);
+                return false;
             
             stack.Push(startCell);
             startCell.SetMarkedState(true);
@@ -246,33 +290,70 @@ namespace Game.Rooms
                     }
                 }
             }
-
-            foreach (var member in roomTiles) // DEBUG OPERATION
+            
+            if (roomTiles.Count < 16)
             {
-                member.transform.localScale = Vector3.one * 0.85f;
+                return false;
             }
             
-            return new Room(roomTiles);
+            /*foreach (var member in roomTiles) // DEBUG OPERATION
+            {
+                member.transform.localScale = Vector3.one * 0.85f;
+            }*/
+            
+            room = new Room(roomTiles);
+            return true;
+        }
+
+        private static bool SearchUnmarkedTile(GridManager grid, out Vector2Int umarkedTile)
+        {
+            umarkedTile = Vector2Int.zero;
+            
+            foreach (var tile in grid._registeredTiles)
+            {
+                if (tile.Value.GetMarkedState() == false && tile.Value.CheckIfWalkable())
+                {
+                    umarkedTile = tile.Value.GetTilePosId();
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         //todo kinda works but sadly
-        private static List<Room> DivideIntoRectRooms(Room room, int minX = 4, int minY = 4)
+        private static List<Room> DivideIntoRectRooms(Room floodFillRoom, int minX = 4, int minY = 4)
         {
+            //get x min
+            //iterate as follows
+            // x1 >>> y1 y2 y3 y4 stop when reaches an obstacle
+            // do the same with x2 until no xn remains
+            //n must be greater than parameter minX minY >>> if not get xn + 2 start all over again. if no more x on the grid, go last y max + 2 and start again.
+            //keep min N index for y > once xn is reached discard extra y's from each x list
+            //now you have a series of lists with columns keeping rect tiles
+            //combine all into one great list and call it a room then add to the rooms list
+            // next?
+            
+            // get the xMax of the previously registered room. iterate x++ until an unmarked floor tile is found
+            //repeat the process above.
+            
+            //go y++ find first available tile repeat the process. first y++ then x++
+            
             List<Room> rooms = new List<Room>();
             List<TileBase> rectRoomTiles = new List<TileBase>();
             List<TileBase> cachedTiles = new List<TileBase>();
             
-            var firstTileX = room.GetMinTileX();
-            var firstTileY = room.GetMinTileY();
+            var firstTileX = floodFillRoom.GetMinTileX();
+            var firstTileY = floodFillRoom.GetMinTileY();
             int xCheck = 0;
             
-            for (int i = firstTileX; i <= room.GetMaxTileX(); i++)
+            for (int i = firstTileX; i <= floodFillRoom.GetMaxTileX(); i++)
             {
                 xCheck++;
 
                 for (int j = firstTileY; j <= minY; j++)
                 {
-                    if (room.GetTileAtPos(i, j, out var tile))
+                    if (floodFillRoom.GetTileAtPos(i, j, out var tile))
                     {
                         cachedTiles.Add(tile);
                     }
@@ -301,13 +382,6 @@ namespace Game.Rooms
 
             rooms.Add(new Room(rectRoomTiles));
             return rooms;
-            //take the smallest xy tile of the room.
-            //add +minY to it and see if this tile exists.
-            //if not, move next x, try again.
-            //do until it works
-            //after it works add all the tiles to a list.
-            //try the next x and keep doing until no more x or y fit is found
-            //return the list.
         }
 
         private static TileBase SafeStart(TileBase startCell)

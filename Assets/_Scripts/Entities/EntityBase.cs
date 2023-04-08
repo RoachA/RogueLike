@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Game.Tiles;
 using UnityEngine;
 using Game.Utils;
@@ -11,14 +10,17 @@ namespace Game.Entites
    {
       [SerializeField] protected string _identifier;
       [SerializeField] protected SpriteRenderer _spriteRenderer;
-      [SerializeField] protected Sprite _corpseSprite;
       [SerializeField] protected TileBase _occupiedTile;
       [SerializeField] protected EntityType _entityType { get; set; }
-      [SerializeField] private List<TileBase> _pathFindingPaths;
 
       protected virtual void SetSprite(Sprite sprite)
       {
          _spriteRenderer.sprite = sprite;
+      }
+
+      public void SetLight(Color color)
+      {
+         _spriteRenderer.color = color;
       }
 
       public Vector2Int GetEntityPos()
@@ -45,12 +47,6 @@ namespace Game.Entites
       public void SetOccupiedTile(TileBase targetTile)
       {
          _occupiedTile = targetTile;
-      }
-      
-      public virtual List<TileBase> FindPathToTargetTile(TileBase tile) 
-      {
-         _pathFindingPaths = Pathfinding.Pathfinding.FindPath(_occupiedTile, tile);
-         return _pathFindingPaths;
       }
    }
 }

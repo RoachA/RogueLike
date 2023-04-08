@@ -68,8 +68,8 @@ namespace Game.Entites
       public bool CheckForAggro(TileBase targetTile)
       {
          var aggroRadius = NpcScriptableData._aggroRadius;
-         var aggro = GetDistanceToTargetTile(targetTile) <= aggroRadius &&
-                     CheckIfDetectsWithRay(GetEntityPos(), targetTile.GetTilePosId(), aggroRadius);
+         var aggro = GetDistanceToTargetTile(targetTile) <= aggroRadius;
+                   //  CheckIfDetectsWithRay(GetEntityPos(), targetTile.GetTilePosId(), aggroRadius);
          
          _aggroStatus = aggro;
          return aggro;
