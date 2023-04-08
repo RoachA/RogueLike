@@ -50,22 +50,65 @@ namespace Game.Rooms
             
             foreach (var prop in requiredProps)
             {
-                var newProp = Instantiate(propEntityTemplate, RoomTiles[0].transform.parent);
-              
-                var propsTile = RoomTiles[Random.Range(0, RoomTiles.Count)];
-                var rndPos = propsTile.GetTilePosId();
+                var rndCount = Random.Range(1, prop.MaxNumberOfDuplicates + 1); //at least one but max duplicates vary.
                 
-                newProp.Data = prop.PropData;
-                newProp.InitProp();
-                newProp.SetOccupiedTile(propsTile);
+                for (int i = 0; i < rndCount; i++)
+                {
+                    var newProp = Instantiate(propEntityTemplate, RoomTiles[0].transform.parent);
 
-                newProp.transform.localPosition = new Vector3(rndPos.x, rndPos.y, 1);
-                propsTile.AddEntityToTile(newProp);
-                propsTile.SetWalkable(false);
+                    TileBase rndTile = RoomTiles[Random.Range(0, RoomTiles.Count)];
+                    
+                    while (CheckTileValidity(rndTile, prop.PropData.OrientationType == PropOrientationType.WallBound) == false) //risky business
+                    {
+                        rndTile = RoomTiles[Random.Range(0, RoomTiles.Count)];
+                    }
+                    
+                    rndTile.SetWalkable(false);
+                    var rndPos = rndTile.GetTilePosId();
+                
+                    newProp.Data = prop.PropData;
+                    if (prop.PropData.AdditionalItem != null)
+                    {
+                        var child = Instantiate(prop.PropData.AdditionalItem, newProp.transform);
+                        child.transform.localPosition = Vector3.zero;
+                    }
+                    
+                    newProp.InitProp();
+                    newProp.SetOccupiedTile(rndTile);
+                    newProp.transform.position = new Vector3(rndPos.x, rndPos.y, 1);
+                    rndTile.AddEntityToTile(newProp);
+                }
             }
         }
+
+        private bool CheckTileValidity(TileBase tile, bool isWallBound)
+        {
+            var neighbours = tile.GetCardinalNeighbours();
+            bool hasNeighborWall = false;
+           
+            if (tile.CheckIfWalkable())
+            {
+                foreach (var neighbour in neighbours)
+                {
+                    if (neighbour.GetType() == typeof(TileDoor))
+                        return false;
+
+                    if (neighbour.GetType() == typeof(TileWall) && isWallBound)
+                        hasNeighborWall = true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+            if (hasNeighborWall == false && isWallBound)
+                return false;
+            
+            return true;
+        }
         
-        public bool CheckValidity()
+        public bool CheckRoomValidity()
         {
             if (RoomTiles == null) return false;
             if (RoomTiles.Count == 0) return false;
@@ -232,7 +275,6 @@ namespace Game.Rooms
                 }
             }
             
-            Debug.LogError("Found " + foundRooms.Count + " rooms!");
             //get this new room and find rects:
             //DivideIntoRectRooms(newRoom, 3, 3);
 

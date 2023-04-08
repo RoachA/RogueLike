@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: LivingRoom_1
   m_EditorClassIdentifier: 
   RoomType: 0
-  RoomItems: []
+  RoomItems:
+  - MaxNumberOfDuplicates: 0
+    PropData: {fileID: 11400000, guid: 90f52ff0b61e66d49a13130d711d36d7, type: 2}
+  - MaxNumberOfDuplicates: 0
+    PropData: {fileID: 11400000, guid: 91ea62a1905bfe64bbf77116e2b39b43, type: 2}
   floorTileTypes: []

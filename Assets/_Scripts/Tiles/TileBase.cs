@@ -135,6 +135,25 @@ namespace Game.Tiles
             Coords = coords;
         }
 
+        public List<TileBase> GetCardinalNeighbours()
+        {
+            var cardinalNeighbours = new List<TileBase>();
+
+            foreach (var neighbor in Neighbors)
+            {
+                if (neighbor.GetTilePosId() == _tilePosId + Vector2.up)
+                    cardinalNeighbours.Add(neighbor);
+                if (neighbor.GetTilePosId() == _tilePosId + Vector2.down)
+                    cardinalNeighbours.Add(neighbor);
+                if (neighbor.GetTilePosId() == _tilePosId + Vector2.right)
+                    cardinalNeighbours.Add(neighbor);
+                if (neighbor.GetTilePosId() == _tilePosId + Vector2.left)
+                    cardinalNeighbours.Add(neighbor);
+            }
+            
+            return cardinalNeighbours;
+        }
+
         public void CacheNeighbors() 
         {
             Neighbors = new List<TileBase>();

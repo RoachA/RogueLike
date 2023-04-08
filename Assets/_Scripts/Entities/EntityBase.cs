@@ -18,7 +18,7 @@ namespace Game.Entites
          _spriteRenderer.sprite = sprite;
       }
 
-      public void SetLight(Color color)
+      public virtual void SetLight(Color color)
       {
          _spriteRenderer.color = color;
       }

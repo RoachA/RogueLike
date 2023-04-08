@@ -90,10 +90,14 @@ namespace Game.Managers
       {
          RegisteredRooms = RoomsHelper.FindRooms(this, 10, 10);
 
-         if (RegisteredRooms.Count > 0)
+         for (var i = 0; i < RegisteredRooms.Count; i++)
          {
-            Room room = RegisteredRooms[0];
-            room.RoomData = _levelBlueprint.Rooms[0];
+            if (i >= _levelBlueprint.Rooms.Length)
+               return;
+            
+            var availableRoom = RegisteredRooms[i];
+            Room room = availableRoom;
+            room.RoomData = _levelBlueprint.Rooms[i];
             room.InitRoom();
          }
       }

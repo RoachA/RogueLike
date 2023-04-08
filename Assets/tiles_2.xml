@@ -1,0 +1,24 @@
+<set>
+  <tiles>
+<tile name="Tiles/TileFloor" symmetry="X" weight="1.0"/>
+<tile name="Tiles/TileWall" symmetry="X" weight="1.0"/>
+<tile name="Tiles/TileDoor" symmetry="X" weight="1.0"/>
+	</tiles>
+<neighbors>  <neighbor left="Tiles/TileFloor 0" right="Tiles/TileFloor 0"/>
+  <neighbor left="Tiles/TileFloor 1" right="Tiles/TileWall 1"/>
+  <neighbor left="Tiles/TileFloor 1" right="Tiles/TileDoor 1"/>
+  <neighbor left="Tiles/TileWall 0" right="Tiles/TileDoor 0"/>
+  <neighbor left="Tiles/TileWall 1" right="Tiles/TileFloor 1"/>
+  <neighbor left="Tiles/TileDoor 0" right="Tiles/TileWall 0"/>
+  <neighbor left="Tiles/TileDoor 1" right="Tiles/TileFloor 1"/>
+  <neighbor left="Tiles/TileWall 0" right="Tiles/TileWall 0"/>
+  <neighbor left="Tiles/TileWall 1" right="Tiles/TileWall 1"/>
+  <neighbor left="Tiles/TileFloor 1" right="Tiles/TileFloor 1"/>
+  <neighbor left="Tiles/TileFloor 0" right="Tiles/TileWall 0"/>
+  <neighbor left="Tiles/TileWall 0" right="Tiles/TileFloor 0"/>
+  <neighbor left="Tiles/TileWall 1" right="Tiles/TileDoor 1"/>
+  <neighbor left="Tiles/TileFloor 0" right="Tiles/TileDoor 0"/>
+  <neighbor left="Tiles/TileDoor 0" right="Tiles/TileFloor 0"/>
+  <neighbor left="Tiles/TileDoor 1" right="Tiles/TileWall 1"/>
+	</neighbors>
+</set>

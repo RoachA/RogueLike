@@ -14,7 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomType: 2
   RoomItems:
-  - MaxNumberOfDuplicates: 0
+  - MaxNumberOfDuplicates: 2
     PropData: {fileID: 11400000, guid: b88b370fc4ed2d34bab269033a4c03cc, type: 2}
+  - MaxNumberOfDuplicates: 2
+    PropData: {fileID: 11400000, guid: 082233debf211f946b7166d034f2d75e, type: 2}
+  - MaxNumberOfDuplicates: 1
+    PropData: {fileID: 11400000, guid: 91ea62a1905bfe64bbf77116e2b39b43, type: 2}
+  - MaxNumberOfDuplicates: 2
+    PropData: {fileID: 11400000, guid: c881c0b03a2389b4c83a579007762767, type: 2}
+  - MaxNumberOfDuplicates: 1
+    PropData: {fileID: 11400000, guid: a18da294d24c2974ca3e845dbf20e12c, type: 2}
   floorTileTypes:
   - {fileID: 1830279290, guid: 10ca15194a24dab4a82f95a9532f1a6e, type: 3}

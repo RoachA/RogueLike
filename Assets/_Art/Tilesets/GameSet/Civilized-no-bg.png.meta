@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 8
+  spritePixelsToUnits: 10
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -3321,13 +3321,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Civilized-no-bg_158
+      name: Library_2
       rect:
         serializedVersion: 2
-        x: 200
-        y: 190
-        width: 30
-        height: 20
+        x: 210
+        y: 200
+        width: 10
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3531,13 +3531,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Civilized-no-bg_168
+      name: Chair_1
       rect:
         serializedVersion: 2
-        x: 174
+        x: 193
         y: 192
-        width: 25
-        height: 12
+        width: 5
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3552,7 +3552,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Civilized-no-bg_169
+      name: Shelves_1
       rect:
         serializedVersion: 2
         x: 180
@@ -3762,13 +3762,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Civilized-no-bg_179
+      name: Library_1
       rect:
         serializedVersion: 2
-        x: 200
-        y: 160
-        width: 30
-        height: 23
+        x: 210
+        y: 170
+        width: 10
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3783,13 +3783,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Civilized-no-bg_180
+      name: Small_Bed_Table
       rect:
         serializedVersion: 2
         x: 213
-        y: 183
+        y: 181
         width: 5
-        height: 4
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4014,13 +4014,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Civilized-no-bg_191
+      name: Wardrobe_1
       rect:
         serializedVersion: 2
         x: 170
         y: 160
         width: 9
-        height: 14
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -4245,7 +4245,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Civilized-no-bg_202
+      name: Big_Table_1
       rect:
         serializedVersion: 2
         x: 181
@@ -4917,7 +4917,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Civilized-no-bg_234
+      name: TV_1
       rect:
         serializedVersion: 2
         x: 222
@@ -5253,13 +5253,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Civilized-no-bg_250
+      name: Fridge_1
       rect:
         serializedVersion: 2
         x: 201
-        y: 91
-        width: 19
-        height: 9
+        y: 90
+        width: 8
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -5295,7 +5295,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Civilized-no-bg_252
+      name: Toilette_1
       rect:
         serializedVersion: 2
         x: 223
@@ -5337,13 +5337,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Civilized-no-bg_254
+      name: Lamp_1
       rect:
         serializedVersion: 2
-        x: 200
-        y: 76
-        width: 30
-        height: 15
+        x: 223
+        y: 81
+        width: 5
+        height: 7
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -6365,6 +6365,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Civilized-no-bg_181
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 174
+        width: 6
+        height: 1
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca41e04bc798e28459d1bcc29d2d7192
+      internalID: 1301092872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -6378,7 +6399,6 @@ TextureImporter:
     nameFileIdTable:
       Civilized-no-bg_69: 1158121989
       Civilized-no-bg_2: 1629924763
-      Civilized-no-bg_202: 1041300740
       Civilized-no-bg_280: 240564907
       Civilized-no-bg_294: -932223627
       Civilized-no-bg_295: -1668832684
@@ -6402,6 +6422,7 @@ TextureImporter:
       Civilized-no-bg_249: -1957405577
       Civilized-no-bg_293: -674365054
       Civilized-no-bg_183: -1779021955
+      Wardrobe_1: -1675131243
       Civilized-no-bg_253: -1573310556
       Civilized-no-bg_24: -1233674308
       Civilized-no-bg_162: -1520305895
@@ -6422,10 +6443,10 @@ TextureImporter:
       Civilized-no-bg_195: 1423882433
       Civilized-no-bg_6: -339169704
       Civilized-no-bg_247: 334341418
-      Civilized-no-bg_168: -1377946040
+      Civilized-no-bg_216: -1202399037
       Civilized-no-bg_30: 589407227
       Civilized-no-bg_50: 1389469621
-      Civilized-no-bg_216: -1202399037
+      Civilized-no-bg_181: 1301092872
       Civilized-no-bg_132: 1390139194
       Civilized-no-bg_263: 1117484895
       Civilized-no-bg_5: -406194103
@@ -6435,10 +6456,8 @@ TextureImporter:
       Civilized-no-bg_100: -831669952
       Civilized-no-bg_121: 523832959
       Civilized-no-bg_113: -325661638
-      Civilized-no-bg_234: -709567013
       Civilized-no-bg_67: -1077776207
       Civilized-no-bg_264: -1247464893
-      Civilized-no-bg_254: 1649100578
       Civilized-no-bg_240: 1649215781
       Civilized-no-bg_58: 1082848056
       Civilized-no-bg_78: 1592219596
@@ -6449,18 +6468,15 @@ TextureImporter:
       Civilized-no-bg_36: 723061862
       Civilized-no-bg_268: -659420913
       Civilized-no-bg_75: 128307018
-      Civilized-no-bg_180: -1269297831
       Civilized-no-bg_104: 1987077005
       Civilized-no-bg_111: 1046095626
       Civilized-no-bg_120: -1776422061
       Civilized-no-bg_13: 1276794984
-      Civilized-no-bg_250: 1639530049
+      Civilized-no-bg_73: -1231765656
       Civilized-no-bg_12: -1540388761
       Civilized-no-bg_116: -662957353
-      Civilized-no-bg_73: -1231765656
-      Civilized-no-bg_179: 232639792
-      Civilized-no-bg_208: -978159670
       Civilized-no-bg_194: 448081979
+      Civilized-no-bg_208: -978159670
       Civilized-no-bg_106: 111685581
       Civilized-no-bg_235: -1073140787
       Civilized-no-bg_287: -1244455096
@@ -6491,8 +6507,7 @@ TextureImporter:
       Civilized-no-bg_292: 2010248563
       Civilized-no-bg_286: -1301306781
       Civilized-no-bg_278: -1290235266
-      Civilized-no-bg_169: 1370582670
-      Civilized-no-bg_191: -1675131243
+      Civilized-no-bg_271: 472066165
       Civilized-no-bg_122: -1337298877
       Civilized-no-bg_270: 547916088
       Civilized-no-bg_61: 285896220
@@ -6510,13 +6525,11 @@ TextureImporter:
       Civilized-no-bg_129: -1148835698
       Civilized-no-bg_124: -1709901874
       Civilized-no-bg_207: 1978759151
-      Civilized-no-bg_271: 472066165
       Civilized-no-bg_209: 817125098
       Civilized-no-bg_255: -439783969
       Civilized-no-bg_244: 1953768146
-      Civilized-no-bg_158: -1010749192
-      Civilized-no-bg_281: -1999375384
       Civilized-no-bg_248: -659611609
+      Civilized-no-bg_281: -1999375384
       Civilized-no-bg_93: -281267561
       Civilized-no-bg_154: 1445593591
       Civilized-no-bg_217: 55241342
@@ -6530,10 +6543,11 @@ TextureImporter:
       Civilized-no-bg_149: 1482098284
       Civilized-no-bg_44: -834591185
       Civilized-no-bg_185: -585760795
-      Civilized-no-bg_219: -1905802465
+      Library_2: -1010749192
       Civilized-no-bg_237: -1850746913
       Civilized-no-bg_51: -220004621
       Civilized-no-bg_223: 908295122
+      Civilized-no-bg_219: -1905802465
       Civilized-no-bg_245: 1581427812
       Civilized-no-bg_157: 1406554773
       Civilized-no-bg_150: 488598542
@@ -6541,6 +6555,7 @@ TextureImporter:
       Civilized-no-bg_206: -1488088133
       Civilized-no-bg_118: -293364799
       Civilized-no-bg_140: 1561876456
+      Toilette_1: 1681275266
       Civilized-no-bg_175: -1510741432
       Civilized-no-bg_27: -1376306332
       Civilized-no-bg_174: -1006891836
@@ -6549,12 +6564,12 @@ TextureImporter:
       Civilized-no-bg_155: -1053346457
       Civilized-no-bg_117: -869892089
       Civilized-no-bg_171: 1915819010
-      Civilized-no-bg_15: 400806873
-      Civilized-no-bg_39: 513590370
       Civilized-no-bg_201: 1134359690
+      Civilized-no-bg_15: 400806873
       Civilized-no-bg_52: -1560660125
       Civilized-no-bg_11: -800041907
       Civilized-no-bg_147: 82288077
+      Civilized-no-bg_39: 513590370
       Civilized-no-bg_77: 1613094554
       Civilized-no-bg_109: 331959664
       Civilized-no-bg_282: 1468156875
@@ -6585,6 +6600,8 @@ TextureImporter:
       Civilized-no-bg_184: 201846361
       Civilized-no-bg_267: -850531492
       Civilized-no-bg_266: 1092278919
+      Shelves_1: 1370582670
+      Small_Bed_Table: -1269297831
       Civilized-no-bg_33: -544344648
       Civilized-no-bg_66: -724950033
       Civilized-no-bg_222: 435230755
@@ -6627,6 +6644,7 @@ TextureImporter:
       Civilized-no-bg_233: -178548295
       Civilized-no-bg_97: 560434684
       Civilized-no-bg_262: -1390048808
+      Fridge_1: 1639530049
       Civilized-no-bg_163: 689815327
       Civilized-no-bg_99: -1127888574
       Civilized-no-bg_19: -1002176214
@@ -6639,22 +6657,24 @@ TextureImporter:
       Civilized-no-bg_128: 1075174490
       Civilized-no-bg_94: -1183780350
       Civilized-no-bg_187: 2075806433
+      TV_1: -709567013
       Civilized-no-bg_9: -2047329916
       Civilized-no-bg_221: -981925415
       Civilized-no-bg_28: -278088278
       Civilized-no-bg_242: -1545137064
       Civilized-no-bg_144: 927271373
       Civilized-no-bg_107: -1639494839
-      Civilized-no-bg_252: 1681275266
       Civilized-no-bg_130: -121469713
       Civilized-no-bg_269: -1921320081
       Civilized-no-bg_289: 2010972879
       Civilized-no-bg_119: 953050115
+      Chair_1: -1377946040
       Civilized-no-bg_82: 680076580
       Civilized-no-bg_25: -386131388
       Civilized-no-bg_138: -1753454194
       Bed_1: -581427339
       Civilized-no-bg_198: 607537840
+      Library_1: 232639792
       Civilized-no-bg_26: 762670226
       Civilized-no-bg_123: -1555383812
       Civilized-no-bg_55: 887115133
@@ -6662,6 +6682,7 @@ TextureImporter:
       Civilized-no-bg_127: 893949792
       Civilized-no-bg_110: 633468185
       Civilized-no-bg_80: -1572996145
+      Big_Table_1: 1041300740
       Civilized-no-bg_40: 1872333429
       Civilized-no-bg_60: -637224933
       Civilized-no-bg_148: 1051355517
@@ -6671,6 +6692,7 @@ TextureImporter:
       Civilized-no-bg_112: 1541908545
       Civilized-no-bg_96: 1555684270
       Civilized-no-bg_283: -1964345309
+      Lamp_1: 1649100578
       Civilized-no-bg_16: -939867293
       Civilized-no-bg_137: -1530775035
   spritePackingTag: 
