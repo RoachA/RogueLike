@@ -27,4 +27,5 @@ MonoBehaviour:
   Type: 0
   Rooms:
   - {fileID: 11400000, guid: 7825967c0cc7d1a4ab7c4910a3b01e4c, type: 2}
+  - {fileID: 11400000, guid: f5b7f4efbb03fba4383e0c8fdcbc7528, type: 2}
   HasBorders: 1
