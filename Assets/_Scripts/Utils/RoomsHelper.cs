@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Game.Rooms
 {
-    public class Room : MonoBehaviour
+    public class Room
     {
         public List<TileBase> RoomTiles;
         public RoomTypeData RoomData;
@@ -54,7 +54,7 @@ namespace Game.Rooms
                 
                 for (int i = 0; i < rndCount; i++)
                 {
-                    var newProp = Instantiate(propEntityTemplate, RoomTiles[0].transform.parent);
+                    var newProp = Object.Instantiate(propEntityTemplate, RoomTiles[0].transform.parent);
 
                     TileBase rndTile = RoomTiles[Random.Range(0, RoomTiles.Count)];
                     
@@ -69,7 +69,7 @@ namespace Game.Rooms
                     newProp.Data = prop.PropData;
                     if (prop.PropData.AdditionalItem != null)
                     {
-                        var child = Instantiate(prop.PropData.AdditionalItem, newProp.transform);
+                        var child = Object.Instantiate(prop.PropData.AdditionalItem, newProp.transform);
                         child.transform.localPosition = Vector3.zero;
                     }
                     

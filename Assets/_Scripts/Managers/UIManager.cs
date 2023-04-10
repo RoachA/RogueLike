@@ -5,17 +5,12 @@ namespace Game.UI
 {
    public class UIManager : MonoBehaviour
    {
-      [Header("HUDS")]
-      [SerializeField] private RightHudView _rightHud;
-      [Header("POP-UPS")]
-      [SerializeField] private PopUpBase _genericPopUp;
-      
-
+      //todo make a background fader here. this manager can control overall ui stuffs. And debug things
       [Button]
       private void OpenSignalTest()
       {
-         UIElement.OpenUiSignal?.Invoke(new PopUpBase());
-         UIElement.CloseUiSignal?.Invoke(new RightHudView());
+         UIElement.CloseUiSignal(typeof(RightHudView));
+         UIElement.OpenUiSignal(typeof(PopUpBaseView), new PopUpBaseProperties("amcık", "ne dirsen yaragim"));
       }
    }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 namespace Game.UI
 {
@@ -9,9 +10,9 @@ namespace Game.UI
         private readonly float _openPosX = 15f;
         private readonly float _closePosX = 500f;
         
-        public override void Close<T>(T uiElement)
+        public override void Close<T>(Type uiElement)
         {
-            if (GetType() != uiElement.GetType())
+            if (GetType() != uiElement)
                 return;
             
             Seq?.Kill(true);
@@ -20,9 +21,9 @@ namespace Game.UI
             Seq.Append(_rectTransform.DOAnchorPosX(_closePosX, 0.2f).SetEase(Ease.OutQuad));
         }
 
-        public override void Open<T>(T uiElement)
+        public override void Open<T, T1>(Type uiElement, T1 property)
         {
-            if (GetType() != uiElement.GetType())
+            if (GetType() != uiElement)
                 return;
             
             Seq?.Kill(true);
