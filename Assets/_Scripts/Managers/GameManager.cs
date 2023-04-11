@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game.Dice;
 using Game.Entites.Actions;
+using Game.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -173,7 +174,10 @@ namespace Game.Managers
             if (_currentGameState == GameState.playerTurn && Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.KeypadEnter)) 
             {
                 if (_currentMode == PlayerModes.look)
+                {
+                   _levelManager.ReadLookAtDataAtTile();
                     return;
+                }
                // _levelManager.UpdateLevelState();
                 SetPlayerMode(PlayerModes.look);
                 _levelManager.StartLookAt();

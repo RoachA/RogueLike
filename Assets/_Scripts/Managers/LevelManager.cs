@@ -2,6 +2,7 @@ using Game.Data;
 using Game.Tiles;
 using Game.Entites;
 using Game.Entites.Actions;
+using Game.UI;
 using UnityEngine;
 
 namespace Game.Managers
@@ -87,6 +88,13 @@ namespace Game.Managers
         private void SetFieldOfVision(Vector2Int origin)
         {
             DetectionSystems.ShadowCast.ComputeVisibility(_gridManager, origin, viewDistanceTest); //todo view radius is fake for now
+        }
+
+        public void ReadLookAtDataAtTile()
+        {
+           var targetTile = _gridManager.GetTileAtPosition(_cursor.GetCurrentCursorPos());
+           var tileDesc = targetTile.GetTileType();
+            UIElement.OpenUiSignal(typeof(PopUpBaseView), new PopUpBaseProperties(tileDesc, tileDesc));
         }
 
         public void LookAtTile(Vector2Int target)
