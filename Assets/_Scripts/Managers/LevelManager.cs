@@ -1,6 +1,7 @@
 using Game.Data;
 using Game.Tiles;
 using Game.Entites;
+using System;
 using Game.Entites.Actions;
 using Game.UI;
 using UnityEngine;
@@ -90,12 +91,41 @@ namespace Game.Managers
             DetectionSystems.ShadowCast.ComputeVisibility(_gridManager, origin, viewDistanceTest); //todo view radius is fake for now
         }
 
+        /// <summary>
+        /// Looks at tiles and entities on tiles, returns log. 
+        /// </summary>
         public void ReadLookAtDataAtTile()
         { 
             var targetTile = _gridManager.GetTileAtPosition(_cursor.GetCurrentCursorPos());
             if (targetTile.IsTileVisible() == false) return;
-            var tileDesc = targetTile.GetCurrentTileData();
             
+            if (targetTile.QueryForEntities(out var entities))
+            {
+                var targetEntity = entities[0];
+                Type entityType = targetEntity.GetType();
+                
+                if (entityType == typeof(EntityDynamic))
+                {
+                    EntityDynamic dynamicEntity = (EntityDynamic) targetEntity;
+                    var data = dynamicEntity.GetDefinitionData();
+                    //todo use a different popup type for this, it should support more info and has its own properties for this.
+                    UIElement.OpenUiSignal(typeof(PopUpBaseView), new PopUpBaseProperties(data._entityName, data.Description));
+                    return;
+                }
+                
+                if (entityType == typeof(PropEntity))
+                {
+                    PropEntity dynamicEntity = (PropEntity) targetEntity;
+                    var data = dynamicEntity.Data;
+                    //todo use a different popup type for this, it should support more info and has its own properties for this.
+                    UIElement.OpenUiSignal(typeof(PopUpBaseView), new PopUpBaseProperties(data.Identifier, data.Desc));
+                    return;
+                }
+                
+                //todo other types would be checked along the way, if no type is found check tile alone.
+            }
+            
+            var tileDesc = targetTile.GetCurrentTileData();
             UIElement.OpenUiSignal(typeof(PopUpBaseView), new PopUpBaseProperties(tileDesc.TileType.ToString() + " - " + tileDesc.TileName, tileDesc.TileDesc));
         }
 

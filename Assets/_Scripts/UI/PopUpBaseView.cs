@@ -50,11 +50,11 @@ namespace Game.UI
         
         public virtual void SetInactive()
         {
-            _popUpRect.sizeDelta = Vector2.zero;
-            _closeButton.transform.localScale = Vector3.zero;
-
             Seq?.Kill(true);
             Seq = DOTween.Sequence();
+            
+            _popUpRect.sizeDelta = Vector2.zero;
+            _closeButton.transform.localScale = Vector3.zero;
             Seq.Append(_headerTxt.DOFade(0, 0));
             Seq.Append(_infoTxt.DOFade(0, 0));
         }
@@ -97,6 +97,7 @@ namespace Game.UI
         {
             if (GetType() != uiElement)
                 return;
+            
             Seq?.Kill(true);
             Seq = DOTween.Sequence();
 
