@@ -1,6 +1,5 @@
 using Game.Interfaces;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -48,14 +47,14 @@ namespace Game.Tiles
             
             if (isLocked)
             {
-                InteractionResultLog = "The " + _tileTypeName + " is locked and cannot be opened!";
+                InteractionResultLog = "The " + "_tileTypeName" + " is locked and cannot be opened!";
                 //todo if lockpicking is a possibility. prompt that.
                 //todo if player uses a key or something prompt that and open the door.
             }
             else
             {
                 var state = _isOpen ? " opens " : " closes ";
-                InteractionResultLog = state + "the " + _tileTypeName;
+                InteractionResultLog = state + "the " + "_tileTypeName";
             }
             
             return InteractionResultLog;

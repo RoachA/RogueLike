@@ -18,6 +18,7 @@ namespace Game
 		public int gridsize = 1;
 		public int width = 20;
 		public int height = 20;
+		public TileTypeDataSet TileTypeSet;
 
 		public int seed = 0;
 
@@ -231,7 +232,7 @@ namespace Game
 				
 				var newTileBaseComponent = newTile.GetComponent<TileBase>();
 				newTileBaseComponent.SetTilePosId(borderTilePosId.x, borderTilePosId.y);
-				newTileBaseComponent.Init(new TileBase.TileCoords {Pos = new Vector2Int(borderTilePosId.x, borderTilePosId.y)});
+				newTileBaseComponent.Init(new TileBase.TileCoords {Pos = new Vector2Int(borderTilePosId.x, borderTilePosId.y)}, GetTileDataFromSet(newTileBaseComponent.GetType()));
 				newTile.name = "border tile_" + borderTilePosId.x + "_" + borderTilePosId.y;
 				Destroy(Tiles[tile.Key].gameObject);
 				Tiles[tile.Key] = newTileBaseComponent;
@@ -327,7 +328,7 @@ namespace Game
 									tile.gameObject.name = tileBase.GetType().Name + "_" + x + "_" + y;
 									tileBase.SetTilePosId(x, y);
 									Tiles.Add(tileBase);
-									tileBase.Init(new TileBase.TileCoords {Pos = new Vector2Int(x, y)});
+									tileBase.Init(new TileBase.TileCoords {Pos = new Vector2Int(x, y)}, GetTileDataFromSet(tileBase.GetType()));
 								}
 							}
 							else
@@ -344,8 +345,22 @@ namespace Game
 				return;
 			}
 		}
-	}
 
+		private List<TileTypeData> GetTileDataFromSet(Type tileBaseType)
+		{
+			TileTypeEnum type = default;
+
+			if (tileBaseType == typeof(TileFloor))
+				type = TileTypeEnum.Floor;
+			if (tileBaseType == typeof(TileWall))
+				type = TileTypeEnum.Wall;
+			if (tileBaseType == typeof(TileDoor))
+				type = TileTypeEnum.Door;
+
+			return TileTypeSet.GetTilesOfType(type);
+		}
+	}
+	
 #if UNITY_EDITOR
 	[CustomEditor(typeof(OverlapWFC))]
 	public class WFCGeneratorEditor : Editor

@@ -22830,7 +22830,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Full_1102
+      name: floor_blue_1
       rect:
         serializedVersion: 2
         x: 130
@@ -22851,7 +22851,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Full_1103
+      name: floor_red_1
       rect:
         serializedVersion: 2
         x: 140
@@ -32056,11 +32056,11 @@ TextureImporter:
       Full_239: 1991843012
       Full_1486: 486379814
       Full_818: -1163899177
-      Full_1112: 1212213122
       Full_586: -1364895950
       Full_258: -1838364557
       Full_1475: 222567688
       Full_601: -808136611
+      Full_1112: 1212213122
       Full_908: 1221100675
       Full_119: -1150405521
       Full_539: -1478120101
@@ -32266,6 +32266,7 @@ TextureImporter:
       Full_320: 137168421
       Full_188: -1237598156
       Full_504: 1908120809
+      floor_blue_1: 1188251253
       Full_739: -734256175
       Full_720: -643942390
       Full_29: 1965374802
@@ -32370,6 +32371,7 @@ TextureImporter:
       Full_1115: 1969360566
       Full_580: -761464065
       Full_1396: -1181691897
+      floor_red_1: -1899977295
       Full_882: 849230388
       Full_1515: -1201884768
       Full_209: 1011691061
@@ -32402,7 +32404,6 @@ TextureImporter:
       Full_557: -789601891
       Full_1196: 2002844292
       Full_77: 1011139435
-      Full_1102: 1188251253
       Full_91: 429164927
       Full_37: -845976051
       Full_768: 2013135513
@@ -32484,7 +32485,6 @@ TextureImporter:
       Full_234: 387411160
       Full_1046: -2103856781
       Full_1270: -1842806601
-      Full_1103: -1899977295
       Full_533: 1739585063
       Full_932: -853757674
       Full_85: -331702993

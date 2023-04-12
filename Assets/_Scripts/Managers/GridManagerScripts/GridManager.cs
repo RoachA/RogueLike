@@ -132,6 +132,7 @@ namespace Game.Managers
          _levelGenerator.foundation = _levelBlueprint.Foundation;
          _levelGenerator.symmetry = _levelBlueprint.Symmetry;
          _levelGenerator.hasBorder = _levelBlueprint.HasBorders;
+         _levelGenerator.TileTypeSet = _levelBlueprint.DefaultTileTypes;
       }
 
       private void CacheNeighboursOfEachTile()
@@ -194,19 +195,6 @@ namespace Game.Managers
          SkipToEnd:
          entity = null;
          return false;
-      }
-
-      public string GetTileData(Vector2Int target) //todo later on this will return tile data instead
-      {
-         //todo also check if tile has an entity read the entity instead
-         // > or allow player to iterate through the stack of entities and the tile
-
-         if (_registeredTiles.TryGetValue(target, out TileBase tile))
-         {
-            return tile.GetTileType();
-         }
-
-         return "";
       }
 
       public LevelBlueprint GetGridBlueprint()

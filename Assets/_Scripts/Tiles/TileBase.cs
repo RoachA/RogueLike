@@ -5,7 +5,6 @@ using System.Linq;
 using Game.Entites;
 using Game.Interfaces;
 using Game.Managers;
-using Random = UnityEngine.Random;
 
 namespace Game.Tiles
 {
@@ -13,22 +12,58 @@ namespace Game.Tiles
     public class TileBase : MonoBehaviour
     {
         [SerializeField] protected bool IsWalkable = true;
-        [SerializeField] protected List<Sprite> _spriteVariants;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] protected Vector2Int _tilePosId;
         [SerializeField] protected List<EntityBase> _entitiesOnTile;
-        [SerializeField] protected string _tileTypeName; // todo later on will be read from data.
+        [SerializeField] protected List<TileTypeData> _tileTypeData;
 
+        protected TileTypeData _currentTileData;
         protected bool _wasMarked; // this is used for internal room detection algorithms.
+        protected bool _isVisibleToPlayer;
+        
+        public virtual void Init(ICoords coords, List<TileTypeData> data) 
+        {
+            /*
+            Walkable = walkable;
+            _renderer.color = walkable ? _walkableColor.Evaluate(Random.Range(0f, 1f)) : _obstacleColor;
+            _defaultColor = _renderer.color;
+
+            OnHoverTile += OnOnHoverTile;
+            */
+            SetTileTypeData(data);
+            Coords = coords;
+            _currentTileData = data[0];
+        }
 
         protected virtual void SetRandomSprite()
         {
-            if (_spriteVariants.Count < 1)
+            if (_tileTypeData.Count < 1)
                 return;
             
-            _spriteRenderer.sprite = _spriteVariants[Random.Range(0, _spriteVariants.Count)];
+            _spriteRenderer.sprite = _tileTypeData[UnityEngine.Random.Range(0, _tileTypeData.Count)].TileSprite_A;
+        }
+        
+        protected virtual void SetSpriteWithIndex(int index)
+        {
+            if (index < 0 || index > _tileTypeData.Count)
+                return;
+
+            _spriteRenderer.sprite = _tileTypeData[index].TileSprite_A;
+        }
+        
+        public virtual void SetTileTypeData(List<TileTypeData> data, int index = 0)
+        {
+            _tileTypeData = data;
+            _currentTileData = _tileTypeData[index];
+            SetSpriteWithIndex(index);
         }
 
+        public virtual TileTypeData GetCurrentTileData()
+        {
+            return _currentTileData;
+        }
+
+        
         public virtual void SetTilePosId(int x, int y)
         {
             _tilePosId.x = x;
@@ -56,14 +91,9 @@ namespace Game.Tiles
             return _tilePosId;
         }
         
-        public virtual string GetTileType()
-        {
-            return _tileTypeName;
-        }
-
         protected virtual void Start()
         {
-            SetRandomSprite();
+            //SetRandomSprite();
         }
 
         public bool GetMarkedState()
@@ -82,15 +112,17 @@ namespace Game.Tiles
         {
             var darkColor = 0.15f;
             var multiplier = 1 - 0.005f * lightVal;
-            multiplier = multiplier < darkColor ? 0.4f : multiplier;
+            multiplier = multiplier < darkColor ? 0.3f : multiplier;
             float finalValue = 1;
+            _isVisibleToPlayer = lightVal >= 1f;
 
-            if (lightVal >= 1f)
+            if (_isVisibleToPlayer)
                 finalValue = multiplier;
             else
                 finalValue = darkColor;
-            
 
+           
+            
             var finalColor = new Color(finalValue, finalValue, finalValue, 1);
             _spriteRenderer.color = finalColor;
             
@@ -100,6 +132,11 @@ namespace Game.Tiles
             }
             //_spriteRenderer.color = new Color(1 / lightVal, 1 / lightVal, 1 / lightVal, 1);
             //Debug.LogWarning(_tilePosId + " : " + lightVal);
+        }
+
+        public bool IsTileVisible()
+        {
+            return _isVisibleToPlayer;
         }
         
         #endregion
@@ -122,19 +159,6 @@ namespace Game.Tiles
             new Vector2Int(1, 1), new Vector2Int(1, -1), new Vector2Int(-1, -1), new Vector2Int(-1, 1)
         };
         
-        public virtual void Init(ICoords coords) 
-        {
-            /*
-            Walkable = walkable;
-            _renderer.color = walkable ? _walkableColor.Evaluate(Random.Range(0f, 1f)) : _obstacleColor;
-            _defaultColor = _renderer.color;
-
-            OnHoverTile += OnOnHoverTile;
-            */
-
-            Coords = coords;
-        }
-
         public List<TileBase> GetCardinalNeighbours()
         {
             var cardinalNeighbours = new List<TileBase>();

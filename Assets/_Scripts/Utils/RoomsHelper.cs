@@ -39,6 +39,18 @@ namespace Game.Rooms
         public void InitRoom()
         {
             InstantiatePropsFromRoomData(RoomData.RoomItems);
+            SetRoomFloors();
+        }
+
+        private void SetRoomFloors()
+        {
+            var data = RoomData.FloorTileTypes;
+            var rnd = Random.Range(0, data.Count);
+            
+            foreach (var tile in RoomTiles)
+            {
+               tile.SetTileTypeData(RoomData.FloorTileTypes, rnd); 
+            }
         }
 
         private void InstantiatePropsFromRoomData(RoomItem[] propList)

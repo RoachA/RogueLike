@@ -24,6 +24,7 @@ MonoBehaviour:
   PeriodicOutput: 1
   Symmetry: 5
   Foundation: 0
+  DefaultTileTypes: {fileID: 11400000, guid: 0ae9df66c45346742bfc4336ea326388, type: 2}
   Type: 0
   Rooms:
   - {fileID: 11400000, guid: 7825967c0cc7d1a4ab7c4910a3b01e4c, type: 2}

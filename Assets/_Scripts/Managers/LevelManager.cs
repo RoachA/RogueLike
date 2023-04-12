@@ -91,10 +91,12 @@ namespace Game.Managers
         }
 
         public void ReadLookAtDataAtTile()
-        {
-           var targetTile = _gridManager.GetTileAtPosition(_cursor.GetCurrentCursorPos());
-           var tileDesc = targetTile.GetTileType();
-            UIElement.OpenUiSignal(typeof(PopUpBaseView), new PopUpBaseProperties(tileDesc, tileDesc));
+        { 
+            var targetTile = _gridManager.GetTileAtPosition(_cursor.GetCurrentCursorPos());
+            if (targetTile.IsTileVisible() == false) return;
+            var tileDesc = targetTile.GetCurrentTileData();
+            
+            UIElement.OpenUiSignal(typeof(PopUpBaseView), new PopUpBaseProperties(tileDesc.TileType.ToString() + " - " + tileDesc.TileName, tileDesc.TileDesc));
         }
 
         public void LookAtTile(Vector2Int target)

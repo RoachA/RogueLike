@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Game.Entites;
 using UnityEngine;
 using Game.Entites.Actions;
-using Game.Tiles;
 
 namespace Game.UI
 {
@@ -39,27 +37,6 @@ namespace Game.UI
 
             newLog.gameObject.SetActive(true);
             newLog.SetText(logEntry);
-        }
-
-        private string GetTypeSpecificName(object targetObj)
-        {
-           Type thisType = targetObj.GetType();
-           string result = "";
-           
-           if (thisType == typeof(TileFloor))
-           {
-              var castedObj = targetObj as TileFloor;
-              result = castedObj.GetTileType();
-           }
-
-           if (thisType == typeof(EntityDynamic) || thisType == typeof(EntityPlayer) || thisType == typeof(EntityNpc))
-           {
-               var castedObj = targetObj as EntityDynamic;
-               var definitionData = castedObj.GetDefinitionData();
-               result = definitionData._entityName;
-           }
-           
-           return result;
         }
         
         private void OnMeleeAttackOccured(string combatLog)

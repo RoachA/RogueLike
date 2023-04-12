@@ -17,11 +17,12 @@ public class LevelBlueprint : ScriptableObject
    public bool PeriodicOutput;
    public int Symmetry;
    public int Foundation;
+   public TileTypeDataSet DefaultTileTypes;
    public LevelType Type;
    public RoomTypeData[] Rooms;
    public bool HasBorders;
    
-   public LevelBlueprint(string levelIdentifier, int patternIndex, GridData dimensions, int n, bool periodicInput, bool periodicOutput, int symmetry, int foundation, bool hasBorders, LevelType levelType)
+   public LevelBlueprint(string levelIdentifier, int patternIndex, GridData dimensions, int n, bool periodicInput, bool periodicOutput, int symmetry, int foundation, bool hasBorders, LevelType levelType, TileTypeDataSet defaultTileTypes)
    {
       LevelIdentifier = levelIdentifier;
       PatternIndex = patternIndex;
@@ -33,9 +34,10 @@ public class LevelBlueprint : ScriptableObject
       Foundation = foundation;
       HasBorders = hasBorders;
       Type = levelType;
+      DefaultTileTypes = defaultTileTypes;
    }
    
-   public LevelBlueprint(string levelIdentifier, int patternIndex, GridData dimensions, int n, bool periodicInput, bool periodicOutput, int symmetry, int foundation, bool hasBorders, LevelType levelType, RoomTypeData[] rooms)
+   public LevelBlueprint(string levelIdentifier, int patternIndex, GridData dimensions, int n, bool periodicInput, bool periodicOutput, int symmetry, int foundation, bool hasBorders, LevelType levelType, RoomTypeData[] rooms, TileTypeDataSet defaultTileTypes)
    {
       LevelIdentifier = levelIdentifier;
       PatternIndex = patternIndex;
@@ -48,6 +50,7 @@ public class LevelBlueprint : ScriptableObject
       HasBorders = hasBorders;
       Type = levelType;
       Rooms = rooms;
+      DefaultTileTypes = defaultTileTypes;
    }
    
    public enum LevelType

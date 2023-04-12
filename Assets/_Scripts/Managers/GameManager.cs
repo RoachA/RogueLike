@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Game.Dice;
-using Game.Entites.Actions;
 using Game.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -202,6 +201,7 @@ namespace Game.Managers
             if (_currentGameState == GameState.playerTurn && _currentMode != PlayerModes.normal && Input.GetKeyDown(KeyCode.Escape))
             {
                 ResetToNormalMode();
+                UIElement.CloseUiSignal(typeof(PopUpBaseView));
                 ///check where the cursor is, get that tile, check if there is something interactable in or, or, if the tile itself is interactable.
                 //trigger use action - make I usable interface
             }

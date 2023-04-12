@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e9752a110ab6e74da0cf72a94fc3f1b, type: 3}
+  m_Name: indoors_1
+  m_EditorClassIdentifier: 
+  TileSetIdentifier: indoors_1
+  RegisteredFloorTypes:
+  - {fileID: 11400000, guid: 121687589dbc9e9449f8fb29651e4e2d, type: 2}
+  - {fileID: 11400000, guid: c1d88687804eefd4f938e5a3cf9ff80d, type: 2}
+  RegisteredWallTypes:
+  - {fileID: 11400000, guid: 8284285618bf293409828d0fc458b777, type: 2}
+  - {fileID: 11400000, guid: 94f6e32699df66e4f85914591c52447e, type: 2}
+  RegisteredDoorTypes:
+  - {fileID: 11400000, guid: 1bb41efe797aaf24ab61184d312e0fe5, type: 2}

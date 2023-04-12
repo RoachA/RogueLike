@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Game.Entites;
 using UnityEngine;
 
@@ -9,12 +10,13 @@ namespace Game.Rooms
     {
         public RoomTypeEnum RoomType;
         public RoomItem[] RoomItems;
-        public Sprite[] floorTileTypes;
+        public List<TileTypeData> FloorTileTypes;
 
-        public RoomTypeData(RoomTypeEnum roomType, RoomItem[] roomItems)
+        public RoomTypeData(RoomTypeEnum roomType, RoomItem[] roomItems, List<TileTypeData> floorTileTypes)
         {
             RoomType = roomType;
             RoomItems = roomItems;
+            FloorTileTypes = floorTileTypes;
         }
     }
 
