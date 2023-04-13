@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Game.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -68,13 +69,9 @@ namespace Game.Tiles
             _spriteRenderer.sprite = _isOpen ? _openDoorSprite : _closedDoorSprite;
         }
 
-        protected override void Start()
+        public override void Init(ICoords coords, List<TileTypeData> data)
         {
-            SetDoorSprite();
-        }
-
-        private void OnValidate()
-        {
+            base.Init(coords, data);
             SetDoorSprite();
         }
     }

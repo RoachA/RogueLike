@@ -145,7 +145,7 @@ namespace Game.Tiles
 
         public ICoords Coords;
         private bool _selected;
-        public List<TileBase> Neighbors { get; protected set; }
+        public List<TileBase> Neighbors;
         public float GetDistance(TileBase other) => Coords.GetDistance(other.Coords);
         public TileBase Connection { get; private set; }
         public float G { get; private set; }
@@ -176,6 +176,21 @@ namespace Game.Tiles
             }
             
             return cardinalNeighbours;
+        }
+        
+        public int CheckHowManyNeighboursAreOfType<T>() where T : TileBase
+        {
+            var count = 0;
+            
+            foreach (var neighbor in Neighbors)
+            {
+                if (neighbor is T)
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
 
         public void CacheNeighbors() 

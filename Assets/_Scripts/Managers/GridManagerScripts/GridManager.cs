@@ -7,6 +7,8 @@ using Unity.Mathematics;
 using UnityEngine;
 using Game.Entites;
 using Game.Rooms;
+using Unity.VisualScripting;
+using Game.Utils;
 
 namespace Game.Managers
 {
@@ -84,6 +86,7 @@ namespace Game.Managers
          RegisterTiles();
          CacheNeighboursOfEachTile();
          HandleRooms();
+         HandleEntrance();
       }
 
       private void HandleRooms()
@@ -100,6 +103,38 @@ namespace Game.Managers
             room.RoomData = _levelBlueprint.Rooms[i];
             room.InitRoom();
          }
+      }
+
+      private void HandleEntrance()
+      {
+         if (_levelGenerator.hasBorder == false)
+            return;
+
+         var borders = _levelGenerator.BorderTiles;
+         var rndKey = ExtensionMethods.GetRandomKey(borders);
+			
+         while (borders[rndKey].CheckHowManyNeighboursAreOfType<TileWall>() >= 3)
+         {
+            rndKey = ExtensionMethods.GetRandomKey(borders);
+         }
+         
+         ReplaceTileType<TileDoor>(borders[rndKey]);
+      }
+      
+      public void ReplaceTileType<T>(TileBase tile) where T : TileBase
+      {
+         Debug.LogError(tile.name + " was replaced!");
+			//todo replacement doesn't work this way... I need to remove the tile, instantiate the new tile and register it. all.
+         //TODO TODO TODO 
+         TileBase.ICoords coordsCache = tile.Coords;
+         Vector2Int tilePosCache = tile.GetTilePosId();
+         Destroy(tile.GetComponent<TileWall>());
+
+         tile.gameObject.AddComponent<TileDoor>();
+         tile.Init(coordsCache, _levelGenerator.GetTileDataFromSet(tile.GetType()));
+         tile.SetTilePosId(tilePosCache.x, tilePosCache.y);
+         tile.name = tile.GetType().ToString() + tile.GetTilePosId().x + "_" + tile.GetTilePosId().y + "_EXIT";
+
       }
 
       private void SetGridData()
