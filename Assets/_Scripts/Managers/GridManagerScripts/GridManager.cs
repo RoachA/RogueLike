@@ -126,6 +126,7 @@ namespace Game.Managers
          Debug.LogError(tile.name + " was replaced!");
 			//todo replacement doesn't work this way... I need to remove the tile, instantiate the new tile and register it. all.
          //TODO TODO TODO 
+         //TODO also needs a new door data flag... It must be a distinctive door. An Exit door! so interaction with it leads to new worlds.
          TileBase.ICoords coordsCache = tile.Coords;
          Vector2Int tilePosCache = tile.GetTilePosId();
          Destroy(tile.GetComponent<TileWall>());
