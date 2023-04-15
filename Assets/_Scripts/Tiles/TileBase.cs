@@ -300,6 +300,7 @@ namespace Game.Tiles
             List<IInteractable> interactables = new List<IInteractable>();
             
             IInteractable interactable = GetComponent<IInteractable>();
+            
             if (interactable != null)
             {
                 interactables.Add(interactable);
@@ -307,7 +308,7 @@ namespace Game.Tiles
       
             foreach (var entity in _entitiesOnTile)
             {
-                IInteractable interactableEntity = GetComponent<IInteractable>();
+                IInteractable interactableEntity = entity.GetComponent<IInteractable>();
                 if (interactableEntity != null)
                     interactables.Add(interactableEntity);
             }
