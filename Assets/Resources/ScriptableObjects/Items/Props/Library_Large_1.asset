@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Library_Large_1
   m_EditorClassIdentifier: 
   Identifier: LIBRARY
+  Name: Library
   Desc: A library containing books perhaps.
   InteractionType:
     InteractionType: 3

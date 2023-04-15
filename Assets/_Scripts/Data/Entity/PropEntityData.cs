@@ -9,6 +9,7 @@ namespace Game.Entites
     {
         [Header("Identification")]
         public string Identifier;
+        public string Name;
         public string Desc;
         public PropInteraction InteractionType;
         public PropOrientationType OrientationType;
@@ -19,9 +20,10 @@ namespace Game.Entites
         public float BaseValue;
         public float BaseWeight;
 
-        public PropEntityData(string identifier, string desc, PropInteraction interactionType, PropOrientationType orientationType, Sprite[] sprite, GameObject additionalItem, float baseValue, float baseWeight)
+        public PropEntityData(string identifier, string name, string desc, PropInteraction interactionType, PropOrientationType orientationType, Sprite[] sprite, GameObject additionalItem, float baseValue, float baseWeight)
         {
             Identifier = identifier;
+            Name = name;
             Desc = desc;
             InteractionType = interactionType;
             OrientationType = orientationType;

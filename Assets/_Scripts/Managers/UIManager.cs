@@ -10,7 +10,7 @@ namespace Game.UI
       private void OpenSignalTest()
       {
          UIElement.CloseUiSignal(typeof(RightHudView));
-         UIElement.OpenUiSignal(typeof(PopUpBaseView), new PopUpBaseProperties("amcık", "ne dirsen yaragim"));
+         UIElement.OpenUiSignal(typeof(PopUpBase), new PopUpBaseProperties("amcık", "ne dirsen yaragim"));
       }
    }
 

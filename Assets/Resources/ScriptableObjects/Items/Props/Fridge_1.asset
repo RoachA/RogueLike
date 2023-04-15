@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Fridge_1
   m_EditorClassIdentifier: 
   Identifier: FRIDGE_1
+  Name: Fridge
   Desc: A fridege to store food.
   InteractionType:
     InteractionType: 3

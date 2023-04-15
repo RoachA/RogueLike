@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bed_Table_1
   m_EditorClassIdentifier: 
   Identifier: BED_TABLE_1
+  Name: Small Bed Table
   Desc: A little table made of wood.
   InteractionType:
     InteractionType: 4

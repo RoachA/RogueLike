@@ -201,7 +201,8 @@ namespace Game.Managers
             if (_currentGameState == GameState.playerTurn && _currentMode != PlayerModes.normal && Input.GetKeyDown(KeyCode.Escape))
             {
                 ResetToNormalMode();
-                UIElement.CloseUiSignal(typeof(PopUpBaseView));
+                //todo needs a close all UI signal for laters.
+                UIElement.CloseUiSignal(typeof(SimplePopup));
                 ///check where the cursor is, get that tile, check if there is something interactable in or, or, if the tile itself is interactable.
                 //trigger use action - make I usable interface
             }

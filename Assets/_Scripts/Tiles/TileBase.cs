@@ -42,6 +42,11 @@ namespace Game.Tiles
             
             _spriteRenderer.sprite = _tileTypeData[UnityEngine.Random.Range(0, _tileTypeData.Count)].TileSprite_A;
         }
+
+        public Sprite GetSprite()
+        {
+            return _spriteRenderer.sprite;
+        }
         
         protected virtual void SetSpriteWithIndex(int index)
         {

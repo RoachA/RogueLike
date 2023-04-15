@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Lamp_1
   m_EditorClassIdentifier: 
   Identifier: LAMP_1
+  Name: Lamp
   Desc: A standing lamp.
   InteractionType:
     InteractionType: 0

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Wardrobe_1
   m_EditorClassIdentifier: 
   Identifier: WARDROBE_1
+  Name: Wardrobe
   Desc: A wooden wardrobe to stash clothing mostly.
   InteractionType:
     InteractionType: 3

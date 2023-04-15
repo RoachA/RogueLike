@@ -10,22 +10,24 @@ namespace Game.UI
     {
         public String Header;
         public String Info;
-        public int ButtonCount;
-
-        public PopUpBaseProperties(string header, string info, int buttonCount = 0)
+        public Sprite SpriteImage;
+        
+        public PopUpBaseProperties(string header, string info, Sprite spriteImage = null)
         {
             Header = header;
             Info = info;
-            ButtonCount = buttonCount;
+            SpriteImage = spriteImage;
         }
     }
     
-    public class PopUpBaseView : UIElement
+    public class PopUpBase : UIElement
     {
+        [SerializeField] private GameObject _container;
         [SerializeField] private RectTransform _popUpRect;
         [SerializeField] private TextMeshProUGUI _headerTxt;
         [SerializeField] private TextMeshProUGUI _infoTxt;
         [SerializeField] private Button _closeButton;
+        [SerializeField] private Image _image;
         
         private Vector2 _initRect;
         private Vector2 _initSize1;
@@ -36,7 +38,7 @@ namespace Game.UI
             
             _initRect = _popUpRect.sizeDelta;
             _initSize1 = new Vector2(_initRect.x, 50);
-            
+
             SetInactive();
         }
 
@@ -49,12 +51,26 @@ namespace Game.UI
         {
             _infoTxt.text = txt;
         }
+
+        public virtual void SetSprite(Sprite sprite)
+        {
+            _image.enabled = true;
+            
+            if (sprite == null)
+            {
+                _image.enabled = false;
+                return;
+            }
+
+            _image.sprite = sprite;
+        }
         
         public virtual void SetInactive()
         {
             Seq?.Kill(true);
             Seq = DOTween.Sequence();
             
+            _container.SetActive(false);
             _popUpRect.sizeDelta = Vector2.zero;
             _closeButton.transform.localScale = Vector3.zero;
             Seq.Append(_headerTxt.DOFade(0, 0));
@@ -85,6 +101,7 @@ namespace Game.UI
             
             Seq?.Kill(true);
             Seq = DOTween.Sequence();
+            _container.SetActive(true);
 
             Seq.Append(_popUpRect.DOSizeDelta(_initSize1, 0.1f).SetEase(Ease.OutBack));
             Seq.Append(_popUpRect.DOSizeDelta(_initRect, 0.1f).SetEase(Ease.OutBack));
@@ -92,6 +109,7 @@ namespace Game.UI
 
             Seq.Append(_headerTxt.DOFade(1, 0.1f));
             Seq.Append(_infoTxt.DOFade(1, 0.1f));
+            Seq.OnComplete(() => SetSprite(data.SpriteImage));
         }
 
 
@@ -100,6 +118,7 @@ namespace Game.UI
             if (GetType() != uiElement)
                 return;
             
+            _image.enabled = false;
             Seq?.Kill(true);
             Seq = DOTween.Sequence();
 
@@ -114,7 +133,7 @@ namespace Game.UI
         
         protected void OnClose()
         {
-            CloseUiSignal?.Invoke(typeof(PopUpBaseView));
+            CloseUiSignal?.Invoke(typeof(PopUpBase));
         }
     }
 }
