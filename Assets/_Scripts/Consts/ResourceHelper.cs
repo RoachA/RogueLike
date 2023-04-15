@@ -8,6 +8,7 @@ namespace Game.Managers
    {
       public static string EntitiesPath = "Entities";
       public static string PlayerEntityPath = "Entities/PlayerEntity";
+      public static string TilesPath = "Tiles";
       public static string NpcEntityPath = "Entities/NpcEntity";
       public static string ItemEntityPath = "Entities/ItemEntity";
       public static string PropEntityPath = "Entities/PropEntity";

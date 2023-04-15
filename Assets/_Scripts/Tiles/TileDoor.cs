@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Game.Interfaces;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Game.Tiles
 
         [SerializeField] private bool _isOpen;
         [SerializeField] private bool _isLocked;
+        [SerializeField] private bool _levelExit;
         private Sprite _closedDoorSprite;
         private Sprite _openDoorSprite;
         
@@ -34,6 +36,16 @@ namespace Game.Tiles
 
             SetDoorSprite();
             return false;
+        }
+
+        public void SetLevelExitState(bool isExit)
+        {
+            _levelExit = isExit;
+        }
+        
+        public bool GetLevelExitState()
+        {
+            return _levelExit;
         }
         
         public bool CheckIfLocked()
@@ -68,13 +80,9 @@ namespace Game.Tiles
             _spriteRenderer.sprite = _isOpen ? _openDoorSprite : _closedDoorSprite;
         }
 
-        protected override void Start()
+        public override void Init(ICoords coords, List<TileTypeData> data)
         {
-            SetDoorSprite();
-        }
-
-        private void OnValidate()
-        {
+            base.Init(coords, data);
             SetDoorSprite();
         }
     }

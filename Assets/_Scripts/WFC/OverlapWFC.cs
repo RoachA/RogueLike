@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Game.Tiles;
 using Unity.VisualScripting;
 using Game.Managers;
+using Random = System.Random;
 using TileBase = Game.Tiles.TileBase;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -32,6 +33,7 @@ namespace Game
 		public bool incremental = false;
 		public OverlappingModel model = null;
 		public GameObject[,] rendering; // todo this is appareantly only used during initial generation... can I replace this? remove this etc?
+		public Dictionary<int, TileBase> BorderTiles;
 		public List<TileBase> Tiles;
 		public GameObject output;
 		private Transform group;
@@ -193,9 +195,7 @@ namespace Game
 		
 		private void AddBorders()
 		{
-			///Todo something goes terribly wrong here
-
-			var borderTiles = GetBorderTilesToDictionary();
+			BorderTiles = GetBorderTilesToDictionary();
 
 			TileWall trainingWallRegistry = null;
 
@@ -221,7 +221,7 @@ namespace Game
 
 			var parent = group.transform;
 
-			foreach (var tile in borderTiles) // todo in the end this still contains the first sampled tiles! that is why
+			foreach (var tile in BorderTiles) // todo in the end this still contains the first sampled tiles! that is why
 			{
 				var borderTilePosId = tile.Value.GetTilePosId();
 				var borderTileTransform = tile.Value.transform;
@@ -237,23 +237,10 @@ namespace Game
 				Destroy(Tiles[tile.Key].gameObject);
 				Tiles[tile.Key] = newTileBaseComponent;
 			}
-
-			///TODO rendering also must be replaced damn it.
-			//ReplaceBorderTiles(borderTiles);
+		
+			BorderTiles = GetBorderTilesToDictionary();
 		}
-
-		private void ReplaceBorderTiles(Dictionary<int, TileBase> newTiles)
-		{
-			for (var i = 0; i < Tiles.Count; i++)
-			{
-				if (newTiles.TryGetValue(i, out var newTile))
-				{
-					Destroy(Tiles[i].gameObject);
-					Tiles[i] = newTile;
-				}
-			}
-		}
-
+		
 		private Dictionary<int, TileBase> GetBorderTilesToDictionary()
 		{
 			Dictionary<int, TileBase> borderTiles = new Dictionary<int, TileBase>();
@@ -346,7 +333,7 @@ namespace Game
 			}
 		}
 
-		private List<TileTypeData> GetTileDataFromSet(Type tileBaseType)
+		public List<TileTypeData> GetTileDataFromSet(Type tileBaseType)
 		{
 			TileTypeEnum type = default;
 
