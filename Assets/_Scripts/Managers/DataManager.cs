@@ -3,6 +3,7 @@ using System.Linq;
 using Game.Entites;
 using Game.Entites.Data;
 using Game.Managers;
+using Game.Tiles;
 using UnityEngine;
 
 namespace Game.Data
@@ -13,6 +14,26 @@ namespace Game.Data
       static DataManager()
       {
          GetNpcRegistries();
+      }
+
+      public static T GetTileResource<T>() where T : TileBase
+      {
+         Debug.Log("checking for type: " + typeof(T));
+         var tiles = Resources.LoadAll<T>(ResourceHelper.TilesPath);
+         T foundTile = null;
+
+         foreach (var tile in tiles)
+         {
+            if (tile.GetType() == typeof(T))
+               foundTile = tile;
+         }
+
+         if (foundTile == null)
+         {
+            Debug.LogError("could not find the tile asset in resources!");
+         }
+
+         return foundTile;
       }
       
       public static PlayerEntityData GenerateStarterPlayerData()

@@ -237,8 +237,8 @@ namespace Game
 				Destroy(Tiles[tile.Key].gameObject);
 				Tiles[tile.Key] = newTileBaseComponent;
 			}
-			///TODO rendering also must be replaced damn it.??
-			//ReplaceBorderTiles(borderTiles);
+		
+			BorderTiles = GetBorderTilesToDictionary();
 		}
 		
 		private Dictionary<int, TileBase> GetBorderTilesToDictionary()

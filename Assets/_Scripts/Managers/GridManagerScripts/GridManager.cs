@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Data;
 using Game.Tiles;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
 using Game.Entites;
 using Game.Rooms;
-using Unity.VisualScripting;
 using Game.Utils;
 
 namespace Game.Managers
@@ -85,12 +85,20 @@ namespace Game.Managers
 
          RegisterTiles();
          CacheNeighboursOfEachTile();
+
          HandleRooms();
-         HandleEntrance();
+         
+         if (_levelGenerator.hasBorder)
+         {
+            HandleEntrance();
+            RegisterTiles();
+            CacheNeighboursOfEachTile();
+         }
       }
 
       private void HandleRooms()
       {
+         //burada yarrag yiyoz
          RegisteredRooms = RoomsHelper.FindRooms(this, 10, 10);
 
          for (var i = 0; i < RegisteredRooms.Count; i++)
@@ -107,9 +115,6 @@ namespace Game.Managers
 
       private void HandleEntrance()
       {
-         if (_levelGenerator.hasBorder == false)
-            return;
-
          var borders = _levelGenerator.BorderTiles;
          var rndKey = ExtensionMethods.GetRandomKey(borders);
 			
@@ -118,24 +123,26 @@ namespace Game.Managers
             rndKey = ExtensionMethods.GetRandomKey(borders);
          }
          
-         ReplaceTileType<TileDoor>(borders[rndKey]);
+         ReplaceTileType<TileDoor>(borders[rndKey], "_EXIT");
       }
       
-      public void ReplaceTileType<T>(TileBase tile) where T : TileBase
+      public void ReplaceTileType<T>(TileBase tile, string suffix = "") where T : TileBase
       {
-         Debug.LogError(tile.name + " was replaced!");
-			//todo replacement doesn't work this way... I need to remove the tile, instantiate the new tile and register it. all.
-         //TODO TODO TODO 
-         //TODO also needs a new door data flag... It must be a distinctive door. An Exit door! so interaction with it leads to new worlds.
          TileBase.ICoords coordsCache = tile.Coords;
          Vector2Int tilePosCache = tile.GetTilePosId();
-         Destroy(tile.GetComponent<TileWall>());
-
-         tile.gameObject.AddComponent<TileDoor>();
-         tile.Init(coordsCache, _levelGenerator.GetTileDataFromSet(tile.GetType()));
-         tile.SetTilePosId(tilePosCache.x, tilePosCache.y);
-         tile.name = tile.GetType().ToString() + tile.GetTilePosId().x + "_" + tile.GetTilePosId().y + "_EXIT";
-
+         Transform parent = tile.transform.parent;
+         var index = _levelGenerator.Tiles.FindIndex(obj => obj.Coords == coordsCache);
+         
+         Destroy(tile.gameObject);
+         
+         var template = DataManager.GetTileResource<T>();
+         var newTileObj = Instantiate(template.gameObject, parent);
+         T newTileComponent = newTileObj.GetComponent<T>();
+         newTileComponent.transform.localPosition = new Vector3(tilePosCache.x, tilePosCache.y, 0);
+         newTileComponent.Init(coordsCache, _levelGenerator.GetTileDataFromSet(tile.GetType()));
+         newTileComponent.SetTilePosId(tilePosCache.x, tilePosCache.y);
+         newTileComponent.name = tile.GetType().ToString() + tile.GetTilePosId().x + "_" + tile.GetTilePosId().y + suffix;
+         _levelGenerator.Tiles[index] = newTileComponent;
       }
 
       private void SetGridData()
@@ -181,6 +188,9 @@ namespace Game.Managers
 
       private void RegisterTiles()
       {
+         if (_registeredTiles != null)
+            _registeredTiles.Clear();
+         
          _registeredTiles = _levelGenerator.Tiles
             .ToDictionary(t => t.GetTilePosId(), t => t);
       }
@@ -209,7 +219,7 @@ namespace Game.Managers
       {
          if (CheckPosInBounds(cellX, cellY) == false)
          {
-            Debug.LogError("The target tile doesn't exist!");
+            Debug.LogWarning("The target tile doesn't exist!");
             goto SkipToEnd;
          }
 
@@ -255,7 +265,12 @@ namespace Game.Managers
 
       public bool CheckTileIfWalkable(int cellX, int cellY)
       {
-         return GetTile(cellX, cellY).CheckIfWalkable();
+         var tile = GetTile(cellX, cellY);
+         
+         if (tile == null || tile.CheckIfWalkable() == false)
+            return false;
+         else
+            return true;
       }
 
       /// <summary>
@@ -267,7 +282,7 @@ namespace Game.Managers
       public TileBase GetTile(int cellX, int cellY)
       {
          if (CheckPosInBounds(cellX, cellY) == false)
-            Debug.LogError("tile is not within bounds!");
+            Debug.LogWarning("tile is not within bounds!");
 
          if (_registeredTiles.TryGetValue(new Vector2Int(cellX, cellY), out var tile) != false)
          {
@@ -275,7 +290,7 @@ namespace Game.Managers
          }
          else
          {
-            Debug.LogError("No tile was found at given position");
+            Debug.LogWarning("No tile was found at given position");
             return null;
          }
       }

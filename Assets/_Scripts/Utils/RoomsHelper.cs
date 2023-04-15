@@ -295,10 +295,10 @@ namespace Game.Rooms
         
         private static bool FloodFill(GridManager grid, int startRow, int startColumn, out Room room)
         {
-            //todo this method marks tiles as 'marked' so if we iterate through the grid AGAIN and start another floodFill from the next unmarked and walkable tile, 
-            //todo it means we start another floodfill in another room and grab it all. This must be registered as a second Room to be fed to the rect detector.
-            //todo rect detector would further populate the detected floods by assigning sub-rooms of rectangle form.
-            // todo then we grab those, assign context and use to spawn items.
+            // this method marks tiles as 'marked' so if we iterate through the grid AGAIN and start another floodFill from the next unmarked and walkable tile, 
+            // it means we start another floodfill in another room and grab it all. This must be registered as a second Room to be fed to the rect detector.
+            // rect detector would further populate the detected floods by assigning sub-rooms of rectangle form.
+            // then we grab those, assign context and use to spawn items.
             Stack<TileBase> stack = new Stack<TileBase>();
             List<TileBase> roomTiles = new List<TileBase>();
 

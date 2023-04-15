@@ -10,11 +10,13 @@ namespace Game.UI
     {
         public String Header;
         public String Info;
+        public int ButtonCount;
 
-        public PopUpBaseProperties(string header, string info)
+        public PopUpBaseProperties(string header, string info, int buttonCount = 0)
         {
             Header = header;
             Info = info;
+            ButtonCount = buttonCount;
         }
     }
     

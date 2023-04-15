@@ -15,6 +15,7 @@ namespace Game.Tiles
 
         [SerializeField] private bool _isOpen;
         [SerializeField] private bool _isLocked;
+        [SerializeField] private bool _levelExit;
         private Sprite _closedDoorSprite;
         private Sprite _openDoorSprite;
         
@@ -35,6 +36,16 @@ namespace Game.Tiles
 
             SetDoorSprite();
             return false;
+        }
+
+        public void SetLevelExitState(bool isExit)
+        {
+            _levelExit = isExit;
+        }
+        
+        public bool GetLevelExitState()
+        {
+            return _levelExit;
         }
         
         public bool CheckIfLocked()

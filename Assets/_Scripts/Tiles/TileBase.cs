@@ -195,6 +195,9 @@ namespace Game.Tiles
 
         public void CacheNeighbors() 
         {
+            if (Neighbors != null)
+                Neighbors.Clear();
+            
             Neighbors = new List<TileBase>();
 
             foreach (var tile in Dirs.Select(dir => GridManager.Instance.GetTileAtPosition(Coords.Pos + dir)).Where(tile => tile != null)) 
