@@ -21,5 +21,6 @@ namespace Game.Managers
       public static string ItemEntityTemplate = "/ItemEntity";
       public static string MeeleeItemEntity = "/MeeleeWeaponEntity";
       public static string PropsDataPath = "ScriptableObjects/Items/Props";
+      public static string WearableItemsData = "ScriptableObjects/Items/Wearables";
    }
 }

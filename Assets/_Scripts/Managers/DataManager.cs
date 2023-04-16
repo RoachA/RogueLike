@@ -114,5 +114,16 @@ namespace Game.Data
          Debug.LogError("No prob entity was found in resources!");
          return null;
       }
+
+      public static List<WearableItemData> GetWearableItems()
+      {
+         var wearableItems = Resources.LoadAll<WearableItemData>(ResourceHelper.WearableItemsData).ToList();
+         
+         if (wearableItems.Count != 0)
+            return wearableItems;
+         
+         Debug.LogError("No wearables were found!");
+         return null;
+      }
    }
 }

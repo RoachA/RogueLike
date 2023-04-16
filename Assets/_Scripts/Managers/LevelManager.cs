@@ -82,7 +82,7 @@ namespace Game.Managers
                 if (_gridManager.GetTile(playerPos.x, playerPos.y).GetType() == typeof(TileDoor))
                 {
                     UIElement.OpenUiSignal(typeof(PopUpBase),
-                        new PopUpBaseProperties("Want to leave the room?", "you will leave."));
+                        new SimplePopupProperties("Want to leave the room?", "you will leave."));
                 }
                 
                 return;
@@ -115,7 +115,7 @@ namespace Game.Managers
                     EntityDynamic dynamicEntity = (EntityDynamic) targetEntity;
                     var data = dynamicEntity.GetDefinitionData();
                     //todo use a different popup type for this, it should support more info and has its own properties for this.
-                    UIElement.OpenUiSignal(typeof(SimplePopup), new PopUpBaseProperties(data._entityName, data.Description, dynamicEntity.GetSprite()));
+                    UIElement.OpenUiSignal(typeof(SimplePopup), new SimplePopupProperties(data._entityName, data.Description, dynamicEntity.GetSprite()));
                     return;
                 }
                 
@@ -124,7 +124,7 @@ namespace Game.Managers
                     PropEntity propEntity = (PropEntity) targetEntity;
                     var data = propEntity.Data;
                     //todo use a different popup type for this, it should support more info and has its own properties for this.
-                    UIElement.OpenUiSignal(typeof(SimplePopup), new PopUpBaseProperties(data.Name, data.Desc, propEntity.GetSprite()));
+                    UIElement.OpenUiSignal(typeof(SimplePopup), new SimplePopupProperties(data.Name, data.Desc, propEntity.GetSprite()));
                     return;
                 }
                 
@@ -132,7 +132,7 @@ namespace Game.Managers
             }
             
             var tileDesc = targetTile.GetCurrentTileData();
-            UIElement.OpenUiSignal(typeof(SimplePopup), new PopUpBaseProperties(tileDesc.TileType.ToString() + " - " + tileDesc.TileName, tileDesc.TileDesc, targetTile.GetSprite()));
+            UIElement.OpenUiSignal(typeof(SimplePopup), new SimplePopupProperties(tileDesc.TileType.ToString() + " - " + tileDesc.TileName, tileDesc.TileDesc, targetTile.GetSprite()));
         }
 
         public void LookAtTile(Vector2Int target)

@@ -145,7 +145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3006959042043936166}
   - component: {fileID: 4385470691971334379}
-  - component: {fileID: 2818958136259324727}
+  - component: {fileID: 1487962959}
   m_Layer: 0
   m_Name: Generic_Popup
   m_TagString: Untagged
@@ -182,7 +182,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3063766400665924647}
   m_CullTransparentMesh: 1
---- !u!114 &2818958136259324727
+--- !u!114 &1487962959
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3063766400665924647}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8cbe8312dda75143ae2fcce538994e6, type: 3}
+  m_Script: {fileID: 11500000, guid: bb345fbce68fe9f4ab4c4f220312dab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _container: {fileID: 6767619407696539072}
@@ -199,6 +199,7 @@ MonoBehaviour:
   _headerTxt: {fileID: 4395918524350257760}
   _infoTxt: {fileID: 4496639733473712776}
   _closeButton: {fileID: 8684011228638213100}
+  _buttons: []
   _image: {fileID: 4482927761358977660}
 --- !u!1 &6767619407696539072
 GameObject:

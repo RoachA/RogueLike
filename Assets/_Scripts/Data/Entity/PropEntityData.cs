@@ -1,5 +1,6 @@
 using System;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Entites
@@ -11,7 +12,7 @@ namespace Game.Entites
         public string Identifier;
         public string Name;
         public string Desc;
-        public PropInteraction InteractionType;
+        public string InteractionFeedback;
         public PropOrientationType OrientationType;
         [Header("Looks")]
         public Sprite[] Sprite;
@@ -20,12 +21,12 @@ namespace Game.Entites
         public float BaseValue;
         public float BaseWeight;
 
-        public PropEntityData(string identifier, string name, string desc, PropInteraction interactionType, PropOrientationType orientationType, Sprite[] sprite, GameObject additionalItem, float baseValue, float baseWeight)
+        public PropEntityData(string identifier, string interactionFeedback, string name, string desc, PropOrientationType orientationType, Sprite[] sprite, GameObject additionalItem, float baseValue, float baseWeight)
         {
             Identifier = identifier;
             Name = name;
             Desc = desc;
-            InteractionType = interactionType;
+            InteractionFeedback = interactionFeedback;
             OrientationType = orientationType;
             Sprite = sprite;
             AdditionalItem = additionalItem;
@@ -33,46 +34,10 @@ namespace Game.Entites
             BaseWeight = baseWeight;
         }
     }
-
-    [Serializable]
-    public class PropInteraction
-    {
-        public PropInteractionType InteractionType;
-        [ShowIf("InteractionType", PropInteractionType.FuncFeedback)]
-        public string[] TxtFeedbacks;
-        [ShowIf("InteractionType", PropInteractionType.FuncContainer)]
-        public int ContainerSize;
-        
-        public PropInteraction(PropInteractionType interactionType)
-        {
-            InteractionType = interactionType;
-        }
-        
-        public PropInteraction(PropInteractionType interactionType, string[] txtFeedbacks)
-        {
-            InteractionType = interactionType;
-            TxtFeedbacks = txtFeedbacks;
-        }
-        
-        public PropInteraction(PropInteractionType interactionType, int containerSize)
-        {
-            InteractionType = interactionType;
-            ContainerSize = containerSize;
-        }
-    }
-
+    
     public enum PropOrientationType
     {
         WallBound,
         Free,
-    }
-
-    public enum PropInteractionType
-    {
-        FuncSwitch,
-        FuncFeedback,
-        FuncInterface,
-        FuncContainer,
-        FuncNone,
     }
 }

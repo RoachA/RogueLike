@@ -29,7 +29,8 @@ namespace Game.UI
             _seq = DOTween.Sequence();
 
             transform.localScale = Vector3.one;
-            _seq.Append(transform.DOScale(Vector3.one * 0.8f, 0.15f).SetLoops(1, LoopType.Yoyo).SetEase(Ease.InBounce));
+            _seq.Append(transform.DOScale(Vector3.one * 0.95f, 0.15f).SetEase(Ease.OutBack)
+                .OnComplete(() => transform.localScale = Vector3.one));
         }
 
         protected virtual void SetKeyboardInput()
