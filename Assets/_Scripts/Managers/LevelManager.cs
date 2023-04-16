@@ -79,10 +79,10 @@ namespace Game.Managers
             if (_gridManager.CheckTileIfWalkable(targetGridPos.x, targetGridPos.y) == false) //todo this should be moved to walk action
             {
                 var playerPos = player.GetEntityPos();
+                
                 if (_gridManager.GetTile(playerPos.x, playerPos.y).GetType() == typeof(TileDoor))
                 {
-                    UIElement.OpenUiSignal(typeof(PopUpBase),
-                        new SimplePopupProperties("Want to leave the room?", "you will leave."));
+                    UIElement.OpenUiSignal(typeof(SimplePopup), new SimplePopupProperties("Want to leave the room?", "you will leave."));
                 }
                 
                 return;
