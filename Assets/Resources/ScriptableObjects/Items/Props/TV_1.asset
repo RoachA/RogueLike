@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TV_1
   m_EditorClassIdentifier: 
   Identifier: WARDROBE_1
+  Name: TV
   Desc: A cable TV.
   InteractionType:
     InteractionType: 0

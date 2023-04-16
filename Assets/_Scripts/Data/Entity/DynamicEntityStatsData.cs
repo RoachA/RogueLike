@@ -33,7 +33,7 @@ namespace Game.Entites.Data
         public int STR; // Strength
         public int STA; // Stamina
         public int DEX; // Dexterity
-        public int DEF; // Physc Def
+        public int DEF; // Physc Def // replace!
         public int INT; // Intelligence
         public int CHR; // Charisma
 

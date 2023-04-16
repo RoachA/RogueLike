@@ -13,12 +13,9 @@ MonoBehaviour:
   m_Name: Fridge_1
   m_EditorClassIdentifier: 
   Identifier: FRIDGE_1
+  Name: Fridge
   Desc: A fridege to store food.
-  InteractionType:
-    InteractionType: 3
-    TxtFeedbacks:
-    - You lie on the bed!
-    ContainerSize: 20
+  InteractionFeedback: ' opens the fridge.'
   OrientationType: 0
   Sprite:
   - {fileID: 1639530049, guid: d19e9391981cda8428b0788ceb8bacea, type: 3}

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bed_Wood_1
   m_EditorClassIdentifier: 
   Identifier: BED_WOOD_1
+  Name: Wood Framed Bed
   Desc: A comfy bed with wood frame.
   InteractionType:
     InteractionType: 1

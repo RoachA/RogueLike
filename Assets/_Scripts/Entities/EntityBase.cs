@@ -13,6 +13,11 @@ namespace Game.Entites
       [SerializeField] protected TileBase _occupiedTile;
       [SerializeField] protected EntityType _entityType { get; set; }
 
+      public Sprite GetSprite()
+      {
+         return _spriteRenderer.sprite;
+      }
+
       protected virtual void SetSprite(Sprite sprite)
       {
          _spriteRenderer.sprite = sprite;

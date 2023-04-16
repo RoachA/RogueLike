@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Round_Table
   m_EditorClassIdentifier: 
   Identifier: ROUND_TABLE_1
+  Name: Round Table
   Desc: A round table, suitable for having dinner on.
   InteractionType:
     InteractionType: 4

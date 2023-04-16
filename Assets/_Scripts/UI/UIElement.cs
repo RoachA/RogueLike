@@ -79,5 +79,8 @@ namespace Game.UI
     /// </summary>
     public class UIProperties
     {
+        public UIProperties()
+        {
+        }
     }
 }

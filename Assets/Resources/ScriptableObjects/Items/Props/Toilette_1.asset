@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Toilette_1
   m_EditorClassIdentifier: 
   Identifier: TOILETTE_1
+  Name: Toilet
   Desc: A ceramic toilette.
   InteractionType:
     InteractionType: 2
