@@ -58,13 +58,13 @@ namespace Game.Entites
         {
             var equippedWeapons = new ItemMeleeWeaponEntity[2];
             
-            if (_equippedItems.TryGetValue(EntityEquipSlots.rightHand, out ItemEntity equippedItem_r))
+            if (_equippedItems.TryGetValue(EntityEquipSlots.RightHand, out ItemEntity equippedItem_r))
             {
                 if (equippedItem_r.GetType() == typeof(ItemMeleeWeaponEntity))
                     equippedWeapons[0] = (ItemMeleeWeaponEntity) equippedItem_r;
             }
             
-            if (_equippedItems.TryGetValue(EntityEquipSlots.leftHand, out ItemEntity equippedItem_l))
+            if (_equippedItems.TryGetValue(EntityEquipSlots.LeftHand, out ItemEntity equippedItem_l))
             {
                 if (equippedItem_l.GetType() == typeof(ItemMeleeWeaponEntity))
                     equippedWeapons[1] = (ItemMeleeWeaponEntity) equippedItem_l;
@@ -91,7 +91,7 @@ namespace Game.Entites
             var registry = DataManager.GetWeaponsRegistry();
             var weaponTemplate = DataManager.GetItemEntityWithData<ItemMeleeWeaponEntity>(registry.GetMeeleeWeaponDataAtIndex(0));
             var instance = Instantiate(weaponTemplate, transform);
-            EquipItem(EntityEquipSlots.rightHand, instance);
+            EquipItem(EntityEquipSlots.RightHand, instance);
             instance.SetAsContained(true);
         }
     }

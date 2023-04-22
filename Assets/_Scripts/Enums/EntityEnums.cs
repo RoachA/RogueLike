@@ -53,14 +53,14 @@ namespace Game.Entites
 
     public enum EntityEquipSlots
     {
-        head = 0,
-        body = 1,
-        leftHand = 2,
-        rightHand = 3,
-        back = 4,
-        legs = 5,
-        feet = 6,
-        face = 7,
+        Head = 0,
+        Body = 1,
+        LeftHand = 2,
+        RightHand = 3,
+        Back = 4,
+        Legs = 5,
+        Feet = 6,
+        Face = 7,
     }
 
     public enum EntityType
