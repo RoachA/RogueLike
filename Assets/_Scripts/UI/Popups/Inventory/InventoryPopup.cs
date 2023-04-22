@@ -15,6 +15,10 @@ namespace Game.UI
     
     public class InventoryPopup : UIElement
     {
+        [Header("Equip References")]
+        [SerializeField] private GameObject _equippedInfoContainer;
+        [SerializeField] private List<EquipSlotView> _equipSlots;
+        
         public override void Open<T, T1>(Type uiType, T1 property)
         {
             base.Open<T, T1>(uiType, property);

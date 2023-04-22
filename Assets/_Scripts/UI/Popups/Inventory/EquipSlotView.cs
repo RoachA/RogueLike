@@ -10,6 +10,7 @@ namespace Game.UI
   public class EquipSlotView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
   {
     [SerializeField] private EntityEquipSlots _slot;
+    [SerializeField] private Button _button;
     [SerializeField] private Image _itemView;
     [SerializeField] private Image _frame;
     [SerializeField] private TextMeshProUGUI _labelTxt;
@@ -37,6 +38,7 @@ namespace Game.UI
 
     private void SetItemView()
     {
+      _button.onClick.AddListener(OnButtonClicked);
       _labelTxt.text = _slot.ToString();
       _itemView.sprite = null;
     }
@@ -44,6 +46,11 @@ namespace Game.UI
     private void Update()
     {
       SetLineConnection();
+    }
+
+    private void OnButtonClicked()
+    {
+      //todo popup for the item info and interaction options.
     }
 
     private void SetSelectedState(bool isSelected)
