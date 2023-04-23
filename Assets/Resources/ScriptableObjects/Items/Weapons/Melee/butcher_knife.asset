@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b95773aa86003634d95fcd3b3340d7b2, type: 3}
-  m_Name: basic_knife
+  m_Name: butcher_knife
   m_EditorClassIdentifier: 
   _itemType: 0
-  _itemIdentifier: basic_knife
-  _itemSprite: {fileID: -1591548105, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
-  _itemName: Knife
-  _itemDesc: A basic household knife
+  _itemIdentifier: cleaver
+  _itemSprite: {fileID: -1555483448, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+  _itemName: Cleaver
+  _itemDesc: A sharp butcher's cleaver
   _baseValue: 10
   _durability: 100
   Stats:
-    ArmorPenetration: 1
+    ArmorPenetration: 2
     BaseDmg:
-      D: 2
+      D: 4
       N: 1

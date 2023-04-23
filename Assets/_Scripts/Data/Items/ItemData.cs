@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class ItemData : ScriptableObject
 {
-    [SerializeField] public ItemTypes _itemType;
+    [SerializeField] public InventoryItemTypes _itemType;
     [SerializeField] public string _itemIdentifier;
-    [SerializeField] public string _itemName;
     [SerializeField] public Sprite _itemSprite;
+    [SerializeField] public string _itemName;
+    [SerializeField] public string _itemDesc;
     [SerializeField] public float _baseValue;
     [SerializeField] public int _durability;
 }

@@ -46,7 +46,7 @@ namespace Game.Entites
         gorgonian = 2,
     }
 
-    public enum classes
+    public enum Classes
     {
         dallama = 0,
     }
@@ -72,18 +72,15 @@ namespace Game.Entites
     }
     
 
-    public enum ItemTypes
+    public enum InventoryItemTypes
     {
-        meeleeWeapons = 0,
-        rangedWeapons = 1,
-        wearable = 2,
-        consumable = 3,
-        throwable = 4,
-        misc = 5,
-        readable = 6,
-        currency = 7,
-        tool = 8,
-        furniture = 9,
+        MeleeWeapons,
+        RangedWeapons,
+        Gears,
+        Tools,
+        Consumable,
+        Books,
+        Misc,
     }
 
     public enum DamageTypes

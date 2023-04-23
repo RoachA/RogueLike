@@ -26,7 +26,7 @@ namespace Game.Entites.Data
             definitionData.clan = Clans.gorgonian;
             definitionData.race = Races.other;
             definitionData._entityName = "PlayerX";
-            definitionData.characterClass = classes.dallama;
+            definitionData.characterClass = Classes.dallama;
             definitionData.Genders = Genders.gay;
             definitionData.Sprite = DataManager.GetPlayerSprite(0);
             return definitionData;

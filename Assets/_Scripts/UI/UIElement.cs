@@ -8,7 +8,9 @@ namespace Game.UI
     {
         public static Action<Type, UIProperties> OpenUiSignal; 
         public static Action<Type> CloseUiSignal;
+        public static Action<Type> CloseIfUiIsOpenSignal;
         protected Sequence Seq;
+        protected bool IsOpen;
         
         public void OnDestroy()
         {
@@ -41,6 +43,7 @@ namespace Game.UI
             
             OpenUiSignal += Open<UIElement, UIProperties>;
             CloseUiSignal += Close<UIElement>;
+            CloseIfUiIsOpenSignal += CloseIfOpen<UIElement>;
         }
         
         /// <summary>
@@ -52,10 +55,20 @@ namespace Game.UI
         /// <typeparam name="T1"></typeparam>
         public virtual void Open<T, T1>(Type uiType, T1 property) where T : UIElement where T1 : UIProperties
         {
+            IsOpen = true;
         }
         
         public virtual void Close<T>(Type uiType) where T : UIElement
         {
+            IsOpen = false;
+        }
+        
+        public virtual void CloseIfOpen<T>(Type uiType) where T : UIElement
+        {
+            if (uiType == this.GetType())
+            {
+                Close<T>(uiType);
+            }
         }
     }
     

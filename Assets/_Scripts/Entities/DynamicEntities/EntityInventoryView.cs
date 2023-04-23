@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Game.Data;
-using Game.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -16,6 +15,8 @@ namespace Game.Entites
         private void Start()
         {
             _equippedItems = new Dictionary<EntityEquipSlots, ItemEntity>();
+            _inventoryItems = new List<ItemEntity>();
+            AddItemForTest();
         }
 
         public void AddItemToInventory(ItemEntity item)
@@ -83,16 +84,36 @@ namespace Game.Entites
 
             _equippedItems.TryAdd(slot, item);
         }
+
+        public List<ItemEntity> GetInventoryItemsData()
+        {
+            List<ItemEntity> inventoryItems = new List<ItemEntity>();
+
+            foreach (var item in _inventoryItems)
+            {
+                inventoryItems.Add(item);
+            }
+
+            return inventoryItems;
+        }
         
-        
+        //todo here is a problem. we actually do not need entities for inventory right?
         [Button]
-        public void AddItemForTest(int indexFromRegistry)
+        public void AddItemForTest(int indexFromRegistry = 0)
         {
             var registry = DataManager.GetWeaponsRegistry();
             var weaponTemplate = DataManager.GetItemEntityWithData<ItemMeleeWeaponEntity>(registry.GetMeeleeWeaponDataAtIndex(0));
+            var weaponTemplate2 = DataManager.GetItemEntityWithData<ItemMeleeWeaponEntity>(registry.GetMeeleeWeaponDataAtIndex(1));
             var instance = Instantiate(weaponTemplate, transform);
             EquipItem(EntityEquipSlots.RightHand, instance);
-            instance.SetAsContained(true);
+            instance.SetAsContained(false);
+            
+            for (int i = 0; i < 4; i++)
+            { 
+                var instance2 = Instantiate(weaponTemplate2, transform);
+                instance2.SetAsContained(true);
+                _inventoryItems.Add(instance2);  
+            }
         }
     }
 }

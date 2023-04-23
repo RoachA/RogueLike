@@ -24,6 +24,7 @@ namespace Game.Managers
             normal,
             look,
             use,
+            uiUsage,
         }
 
         public static event Action<GameState> OnGameStateChanged;
@@ -198,11 +199,26 @@ namespace Game.Managers
                 _levelManager.StartUseAt();
             }
 
+            if (_currentGameState == GameState.playerTurn && _currentMode == PlayerModes.normal &&
+                Input.GetKeyDown(KeyCode.Tab))
+            {
+                var properties = new InventoryUIProperties(_levelManager.GetPlayerInventory());
+              
+                UIElement.OpenUiSignal(typeof(InventoryPopup), properties);
+                UIElement.CloseIfUiIsOpenSignal(typeof(RightHudView));
+                SetPlayerMode(PlayerModes.uiUsage);
+            }
+
             if (_currentGameState == GameState.playerTurn && _currentMode != PlayerModes.normal && Input.GetKeyDown(KeyCode.Escape))
             {
                 ResetToNormalMode();
                 //todo needs a close all UI signal for laters.
-                UIElement.CloseUiSignal(typeof(SimplePopup));
+                UIElement.CloseIfUiIsOpenSignal(typeof(SimplePopup));
+                UIElement.CloseIfUiIsOpenSignal(typeof(InventoryPopup));
+                UIElement.CloseIfUiIsOpenSignal(typeof(ContainerPopup));
+                
+                UIElement.OpenUiSignal(typeof(RightHudView), new UIProperties());
+
                 ///check where the cursor is, get that tile, check if there is something interactable in or, or, if the tile itself is interactable.
                 //trigger use action - make I usable interface
             }

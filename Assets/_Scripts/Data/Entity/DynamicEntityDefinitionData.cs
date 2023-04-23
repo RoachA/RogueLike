@@ -14,7 +14,7 @@ namespace Game.Entites.Data
         [PropertyOrder(-1)] public Races race;
         [PropertyOrder(-1)] public Genders Genders;
         [PropertyOrder(-1)] public Clans clan;
-        [PropertyOrder(-1)] public classes characterClass;
+        [PropertyOrder(-1)] public Classes characterClass;
 
         public DynamicEntityDefinitionData()
         {

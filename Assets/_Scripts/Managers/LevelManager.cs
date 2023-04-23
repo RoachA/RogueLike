@@ -2,6 +2,7 @@ using Game.Data;
 using Game.Tiles;
 using Game.Entites;
 using System;
+using System.Collections.Generic;
 using Game.Entites.Actions;
 using Game.UI;
 using UnityEngine;
@@ -187,6 +188,11 @@ namespace Game.Managers
             if (interactionItems.Count == 0) return;
 
             var interaction = new InteractAction<EntityDynamic>(_entityManager.GetPlayerEntity(), interactionItems[0]); //get the first item for now to test.
+        }
+
+        public List<ItemEntity> GetPlayerInventory()
+        {
+           return _entityManager.GetPlayerEntity().GetInventoryView().GetInventoryItemsData();
         }
 
         public TileBase GetTileAt(int cellX, int cellY)
