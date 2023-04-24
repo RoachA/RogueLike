@@ -1,10 +1,8 @@
 using Game.Tiles;
 using UnityEngine;
-using Game.Utils;
-
-namespace Game.Entites
+namespace Game.Data
 {
-    public class StaticEntityBase : MonoBehaviour
+    public class ItemBase : Object
     {
         [SerializeField] protected string _identifier;
         [SerializeField] protected TileBase _occupiedTile;
@@ -22,7 +20,7 @@ namespace Game.Entites
         
         public void SetEntityPos(TileBase targetTile)
         {
-            transform.localPosition = targetTile.GetTilePosId().ConvertVectorToVector3(0);
+            //transform.localPosition = targetTile.GetTilePosId().ConvertVectorToVector3(0);
             SetOccupiedTile(targetTile);
         }
         

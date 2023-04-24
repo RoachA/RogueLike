@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.Data;
 using Game.Entites;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,7 +26,7 @@ namespace Game.UI
             InventoryItemView.RequestInventoryLayoutUpdateEvent += UpdateLayout; 
         }
 
-        public void Init(List<ItemEntity> items)
+        public void Init(List<IInventoryItem> items)
         {
             //register categories to dictionary if null
             if (_registeredCategories == null)
@@ -50,7 +51,7 @@ namespace Game.UI
             }
         }
 
-        private void RegisterItemsToInventory(List<ItemEntity> items)
+        private void RegisterItemsToInventory(List<IInventoryItem> items)
         {
             //todo check how many views already exist. reuse if any blank. don't delete.
             foreach (var item in items)

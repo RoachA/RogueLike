@@ -7,29 +7,29 @@ namespace Game.Entites
 {
     public class EntityInventoryView : MonoBehaviour
     {
-        [SerializeField] List<ItemEntity> _inventoryItems;
-        [SerializeField] private Dictionary<EntityEquipSlots, ItemEntity> _equippedItems;
+        [SerializeField] List<IInventoryItem> _inventoryItems;
+        [SerializeField] private Dictionary<EntityEquipSlots, IInventoryItem> _equippedItems;
 
         [SerializeField] private int _inventorySize;
 
         private void Start()
         {
-            _equippedItems = new Dictionary<EntityEquipSlots, ItemEntity>();
-            _inventoryItems = new List<ItemEntity>();
+            _equippedItems = new Dictionary<EntityEquipSlots, IInventoryItem>();
+            _inventoryItems = new List<IInventoryItem>();
             AddItemForTest();
         }
 
-        public void AddItemToInventory(ItemEntity item)
+        public void AddItemToInventory(Item item)
         {
             _inventoryItems.Add(item);
         }
 
-        public Dictionary<EntityEquipSlots, ItemEntity> GetEquippedItems()
+        public Dictionary<EntityEquipSlots, IInventoryItem> GetEquippedItems()
         {
             return _equippedItems;
         }
         
-        public void InitInventory(ItemEntity[] items)
+        public void InitInventory(Item[] items)
         {
             foreach (var item in items)
             {
@@ -46,7 +46,7 @@ namespace Game.Entites
             
             foreach (var item in _equippedItems)
             {
-                if (item.Value.GetType() == typeof(ItemWearableEntity))
+                if (item.Value.GetType() == typeof(IInventoryItem))
                 {
                     dvSum += item.Value.GetItemData<WearableItemData>().Stats.DV;
                 }
@@ -55,28 +55,28 @@ namespace Game.Entites
             return dvSum;
         }
 
-        public ItemMeleeWeaponEntity[] GetEquippedWeapons()
+        public ItemMeleeWeapon[] GetEquippedWeapons()
         {
-            var equippedWeapons = new ItemMeleeWeaponEntity[2];
+            var equippedWeapons = new ItemMeleeWeapon[2];
             
-            if (_equippedItems.TryGetValue(EntityEquipSlots.RightHand, out ItemEntity equippedItem_r))
+            if (_equippedItems.TryGetValue(EntityEquipSlots.RightHand, out IInventoryItem equippedItem_r))
             {
-                if (equippedItem_r.GetType() == typeof(ItemMeleeWeaponEntity))
-                    equippedWeapons[0] = (ItemMeleeWeaponEntity) equippedItem_r;
+                if (equippedItem_r.GetType() == typeof(ItemMeleeWeapon))
+                    equippedWeapons[0] = equippedItem_r as ItemMeleeWeapon;
             }
             
-            if (_equippedItems.TryGetValue(EntityEquipSlots.LeftHand, out ItemEntity equippedItem_l))
+            if (_equippedItems.TryGetValue(EntityEquipSlots.LeftHand, out IInventoryItem equippedItem_l))
             {
-                if (equippedItem_l.GetType() == typeof(ItemMeleeWeaponEntity))
-                    equippedWeapons[1] = (ItemMeleeWeaponEntity) equippedItem_l;
+                if (equippedItem_l.GetType() == typeof(ItemMeleeWeapon))
+                    equippedWeapons[1] = equippedItem_l as ItemMeleeWeapon;
             }
 
             return equippedWeapons;
         }
         
-        public void EquipItem(EntityEquipSlots slot, ItemEntity item)
+        public void EquipItem(EntityEquipSlots slot, IInventoryItem item)
         {
-            if (_equippedItems.TryGetValue(slot, out ItemEntity equippedItem))
+            if (_equippedItems.TryGetValue(slot, out IInventoryItem equippedItem))
             {
                 _inventoryItems.Add(equippedItem);
                 //todo after this check if the character is encumbered. if so, don't let him walk etc.
@@ -85,9 +85,9 @@ namespace Game.Entites
             _equippedItems.TryAdd(slot, item);
         }
 
-        public List<ItemEntity> GetInventoryItemsData()
+        public List<IInventoryItem> GetInventoryItemsData()
         {
-            List<ItemEntity> inventoryItems = new List<ItemEntity>();
+            List<IInventoryItem> inventoryItems = new List<IInventoryItem>();
 
             foreach (var item in _inventoryItems)
             {
@@ -102,17 +102,16 @@ namespace Game.Entites
         public void AddItemForTest(int indexFromRegistry = 0)
         {
             var registry = DataManager.GetWeaponsRegistry();
-            var weaponTemplate = DataManager.GetItemEntityWithData<ItemMeleeWeaponEntity>(registry.GetMeeleeWeaponDataAtIndex(0));
-            var weaponTemplate2 = DataManager.GetItemEntityWithData<ItemMeleeWeaponEntity>(registry.GetMeeleeWeaponDataAtIndex(1));
-            var instance = Instantiate(weaponTemplate, transform);
-            EquipItem(EntityEquipSlots.RightHand, instance);
-            instance.SetAsContained(false);
+            MeleeWeaponData weaponTemplate = registry.GetMeeleeWeaponDataAtIndex(0);
+            MeleeWeaponData weaponTemplate2 = registry.GetMeeleeWeaponDataAtIndex(1);
+            var weapon = new ItemMeleeWeapon(weaponTemplate, false);
             
+           EquipItem(EntityEquipSlots.RightHand, weapon);
+
             for (int i = 0; i < 4; i++)
-            { 
-                var instance2 = Instantiate(weaponTemplate2, transform);
-                instance2.SetAsContained(true);
-                _inventoryItems.Add(instance2);  
+            {
+                var item = new ItemMeleeWeapon(weaponTemplate2, true);
+                _inventoryItems.Add(item);  
             }
         }
     }

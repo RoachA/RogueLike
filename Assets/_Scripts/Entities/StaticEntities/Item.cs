@@ -1,20 +1,25 @@
 using UnityEngine;
 
-namespace Game.Entites
+namespace Game.Data
 {
-    public class ItemEntity : StaticEntityBase
+    public interface IInventoryItem
+    {
+        public T GetItemData<T>() where T : ItemData;
+    }
+    
+    public class Item : ItemBase, IInventoryItem
     {
         [Header("Data")]
         [SerializeField] protected ItemData _itemData;
         [SerializeField] protected bool _isContained = true;
 
-        public ItemEntity(ItemEntity init)
+        public Item(Item init)
         {
             _itemData = init._itemData;
             _isContained = init._isContained;
         }
 
-        protected ItemEntity()
+        protected Item()
         {
         }
 

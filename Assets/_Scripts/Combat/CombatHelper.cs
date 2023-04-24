@@ -1,6 +1,5 @@
+using Game.Data;
 using Game.Dice;
-using Game.Entites;
-using Game.Entites.Data;
 using UnityEngine;
 
 /// <summary>
@@ -88,7 +87,7 @@ public static class CombatHelper
     /// DONT USE FOR NOW xxxxxxxxxxxxxxxxxxxxxx
     /// </summary>
     /// <returns></returns>
-    public static int DamageCalculatorDualMelee(int defender_av, int attacker_str, int attacker_pv, ItemMeleeWeaponEntity[] attacker_weapons)
+    public static int DamageCalculatorDualMelee(int defender_av, int attacker_str, int attacker_pv, ItemMeleeWeapon[] attacker_weapons)
     {
         const float secondHandDmgReduction = 0.5f;
      
@@ -117,7 +116,7 @@ public static class CombatHelper
         return dmg_output;
     }
     
-    public static DamageOutput DamageCalculatorSingleMelee(int defender_av, int attacker_str, int attacker_pv, ItemMeleeWeaponEntity attacker_weapons, float multiplier = 1)
+    public static DamageOutput DamageCalculatorSingleMelee(int defender_av, int attacker_str, int attacker_pv, ItemMeleeWeapon attacker_weapons, float multiplier = 1)
     {
         //get defenders armor value >> all equipped AV, additonal AV if any <auras etc>, shield bonus AV
         //get attackers penetration value >> comes from str and weapon bonus 

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Game.Entites.Data;
+using Game.Data;
 using Game.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;

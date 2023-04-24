@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Game.Data;
 using Game.Entites.Actions;
 using Game.Entites.Data;
 using Game.Tiles;
@@ -115,12 +116,12 @@ namespace Game.Entites
             return _inventoryView;
         }
 
-        public Dictionary<EntityEquipSlots, ItemEntity> GetEquippedItems()
+        public Dictionary<EntityEquipSlots, IInventoryItem> GetEquippedItems()
         {
             return _inventoryView.GetEquippedItems();
         }
 
-        public ItemMeleeWeaponEntity[] GetEquippedWeapons()
+        public ItemMeleeWeapon[] GetEquippedWeapons()
         {
             return _inventoryView.GetEquippedWeapons();
         }

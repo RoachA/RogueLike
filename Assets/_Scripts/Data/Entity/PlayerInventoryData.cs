@@ -2,8 +2,11 @@ using System.Collections.Generic;
 using Game.Entites;
 using UnityEngine;
 
-public class PlayerInventoryData : MonoBehaviour
+namespace Game.Data
 {
-    public List<ItemEntity> InventoryItems;
-    public Dictionary<EntityEquipSlots, ItemEntity> _equippedItems;
+    public class PlayerInventoryData : MonoBehaviour
+    {
+        public List<Item> InventoryItems;
+        public Dictionary<EntityEquipSlots, Item> _equippedItems;
+    }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
+using Game.Data;
 using Game.Dice;
-using Game.Entites.Data;
 
 namespace Game.Entites.Actions
 {
@@ -84,7 +84,7 @@ namespace Game.Entites.Actions
             DamageDealtEvent?.Invoke(target, dmg);
         }
 
-        public void SendAttackLog(EntityDynamic attacker, EntityDynamic defender, int penetrationTimes, int damageOutput, ItemMeleeWeaponEntity weaponItem)
+        public void SendAttackLog(EntityDynamic attacker, EntityDynamic defender, int penetrationTimes, int damageOutput, ItemMeleeWeapon weaponItem)
         {
             MeleeWeaponData weaponData = weaponItem.GetItemData<MeleeWeaponData>();
             Game.Dice.Dice weaponDmg = weaponData.Stats.BaseDmg;

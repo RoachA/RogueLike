@@ -83,26 +83,11 @@ namespace Game.Data
          return registry[0]; //todo only the first registry for now.
       }
 
-      public static ItemEntity GetItemEntityTemplate()
+      /*public static ItemEntity GetItemEntityTemplate()
       {
          var itemTemplate = Resources.Load<ItemEntity>(ResourceHelper.EntitiesPath + ResourceHelper.ItemEntityTemplate);
          return itemTemplate;
-      }
-      
-      public static ItemEntity GetItemEntityWithData<T>(ItemData data) where T : ItemEntity
-      {
-         string itemPath = "";
-
-         if (typeof(T) == typeof(ItemMeleeWeaponEntity))
-            itemPath = ResourceHelper.MeeleeItemEntity;
-         
-         if (typeof(T) == typeof(ItemEntity))
-            itemPath = ResourceHelper.ItemEntityPath;
-         
-         var itemTemplate = Resources.Load<T>(ResourceHelper.EntitiesPath + itemPath);
-         itemTemplate.SetItemData(data);
-         return itemTemplate;
-      }
+      }*/
       
       public static PropEntity GetPropEntity()
       {

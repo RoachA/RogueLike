@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Game.Data;
 using Game.Entites;
 
 namespace Game.UI

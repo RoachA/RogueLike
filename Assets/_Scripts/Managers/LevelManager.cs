@@ -190,7 +190,7 @@ namespace Game.Managers
             var interaction = new InteractAction<EntityDynamic>(_entityManager.GetPlayerEntity(), interactionItems[0]); //get the first item for now to test.
         }
 
-        public List<ItemEntity> GetPlayerInventory()
+        public List<IInventoryItem> GetPlayerInventory()
         {
            return _entityManager.GetPlayerEntity().GetInventoryView().GetInventoryItemsData();
         }

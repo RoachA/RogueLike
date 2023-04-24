@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
+using Game.Data;
 using UnityEngine;
-using Game.Entites;
 
 namespace Game.UI
 {
     public class InventoryUIProperties : UIProperties
     {
-        public List<ItemEntity> Items;
+        public List<IInventoryItem> Items;
         
-        public InventoryUIProperties(List<ItemEntity> items)
+        public InventoryUIProperties(List<IInventoryItem> items)
         {
             Items = items;
         }
