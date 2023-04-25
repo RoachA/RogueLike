@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using Game.Data;
 using Game.Entites;
@@ -20,6 +20,7 @@ namespace Game.UI
         [SerializeField] private List<InventoryCategoryView> _categories;
         
         private Dictionary<InventoryItemTypes, InventoryCategoryView> _registeredCategories;
+        private Dictionary<Guid, IInventoryItem> _registeredInventoryItems;
         
         void Start()
         {

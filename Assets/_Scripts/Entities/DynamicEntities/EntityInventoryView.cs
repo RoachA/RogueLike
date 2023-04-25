@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Game.Data;
 using Sirenix.OdinInspector;
@@ -22,21 +23,28 @@ namespace Game.Entites
         public void AddItemToInventory(Item item)
         {
             _inventoryItems.Add(item);
+            item.Init(item);
         }
-
         public Dictionary<EntityEquipSlots, IInventoryItem> GetEquippedItems()
         {
             return _equippedItems;
         }
-        
-        public void InitInventory(Item[] items)
+
+        [Button]
+        private void DebugInventoryItems()
         {
-            foreach (var item in items)
+            foreach (var item in _inventoryItems)
             {
-                AddItemToInventory(item);
+                Debug.Log(item.GetType() + " is in inventory"); 
+            }
+
+            foreach (var item in _equippedItems)
+            {
+                var typed = item.Value as ItemMeleeWeapon;
+                Debug.Log(typed.name + " is equipped in the slot " + item.Key); 
             }
         }
-
+        
         public int GetItemsDv()
         {
             var dvSum = 0;
@@ -78,7 +86,7 @@ namespace Game.Entites
         {
             if (_equippedItems.TryGetValue(slot, out IInventoryItem equippedItem))
             {
-                _inventoryItems.Add(equippedItem);
+                AddItemToInventory(equippedItem as Item);
                 //todo after this check if the character is encumbered. if so, don't let him walk etc.
             }
 
@@ -111,7 +119,7 @@ namespace Game.Entites
             for (int i = 0; i < 4; i++)
             {
                 var item = new ItemMeleeWeapon(weaponTemplate2, true);
-                _inventoryItems.Add(item);  
+                AddItemToInventory(item);  
             }
         }
     }

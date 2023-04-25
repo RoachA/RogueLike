@@ -33,6 +33,7 @@ namespace Game.UI
         [SerializeField] private Button _lookButton;
         [SerializeField] private Button _equipButton;
         [SerializeField] private Button _dropButton;
+        [SerializeField] private Button _useButton; //todo replace equip with this if the object is usable/consumable
         
         [Header("View Parameters")]
         [SerializeField] private Vector3 _idleSize;
@@ -90,6 +91,35 @@ namespace Game.UI
             _dropButton.gameObject.SetActive(isSelected);
 
             _isSelected = isSelected;
+        }
+
+        private void SetSubscriptions()
+        {
+            _lookButton.onClick.AddListener(OnLookClicked);
+            _dropButton.onClick.AddListener(OnDropClicked);
+            _equipButton.onClick.AddListener(OnEquipClicked);
+        }
+        
+        private void BreakSubscriptions()
+        {
+            _lookButton.onClick.RemoveListener(OnLookClicked);
+            _dropButton.onClick.RemoveListener(OnDropClicked);
+            _equipButton.onClick.RemoveListener(OnEquipClicked);
+        }
+        
+        private void OnEquipClicked()
+        {
+            //todo - if the equip slot is free directly equip this and remove from inventory
+            //todo - if the equip slot is not free replace that item with this item and update inventory
+            
+        }
+
+        private void OnDropClicked()
+        {
+        }
+
+        private void OnLookClicked()
+        {
         }
 
         public void OnPointerClick(PointerEventData eventData)

@@ -202,7 +202,7 @@ namespace Game.Managers
             if (_currentGameState == GameState.playerTurn && _currentMode == PlayerModes.normal &&
                 Input.GetKeyDown(KeyCode.Tab))
             {
-                var properties = new InventoryUIProperties(_levelManager.GetPlayerInventory());
+                var properties = new InventoryUIProperties(_levelManager.GetPlayerInventory(), _levelManager.GetPlayersEquippedItems());
               
                 UIElement.OpenUiSignal(typeof(InventoryPopup), properties);
                 UIElement.CloseIfUiIsOpenSignal(typeof(RightHudView));

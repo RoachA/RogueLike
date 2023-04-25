@@ -6,6 +6,7 @@ namespace Game.Data
         {
             _itemData = data;
             _isContained = isContained;
+            GenerateHashId();
         }
     }
 }

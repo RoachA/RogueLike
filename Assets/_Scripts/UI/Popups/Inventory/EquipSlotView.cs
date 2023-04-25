@@ -1,4 +1,5 @@
 using System;
+using Game.Data;
 using Game.Entites;
 using TMPro;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace Game.UI
 {
   public class EquipSlotView : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
   {
-    [SerializeField] private EntityEquipSlots _slot;
+    [SerializeField] public EntityEquipSlots Slot;
     [SerializeField] private Button _button;
     [SerializeField] private Image _itemView;
     [SerializeField] private Image _frame;
@@ -23,23 +24,21 @@ namespace Game.UI
     [Header("Interaction Parameters Label")]
     [SerializeField] private Color _labelIdleColor;
     [SerializeField] private Color _labelSelectedColor;
-
-    private void Start()
-    {
-      InitEquipSlotView(); //debug
-    }
-
-    public void InitEquipSlotView()
+    
+    public void InitEquipSlotView(ItemData item = null)
     {
       SetLineConnection();
       SetItemView();
       SetSelectedState(false);
+      
+      if (item != null)
+        _itemView.sprite = item._itemSprite;
     }
 
     private void SetItemView()
     {
       _button.onClick.AddListener(OnButtonClicked);
-      _labelTxt.text = _slot.ToString();
+      _labelTxt.text = Slot.ToString();
       _itemView.sprite = null;
     }
 

@@ -1,22 +1,28 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game.Data
 {
-    public interface IInventoryItem
+    public interface IInventoryItem : IEquatable<IInventoryItem>
     {
+        public Guid Id { get; set; }
+
         public T GetItemData<T>() where T : ItemData;
     }
     
     public class Item : ItemBase, IInventoryItem
     {
+        public Guid Id { get; set; }
         [Header("Data")]
         [SerializeField] protected ItemData _itemData;
         [SerializeField] protected bool _isContained = true;
 
-        public Item(Item init)
+        public void Init(Item item)
         {
-            _itemData = init._itemData;
-            _isContained = init._isContained;
+            _itemData = item._itemData;
+            _isContained = item._isContained;
+            GenerateHashId();
         }
 
         protected Item()
@@ -48,6 +54,22 @@ namespace Game.Data
             }
             
             return (T) _itemData;
+        }
+
+        protected void GenerateHashId()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        public bool Equals(IInventoryItem other)
+        {
+            if (other == null) return false;
+            return (this.Id == other.Id);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

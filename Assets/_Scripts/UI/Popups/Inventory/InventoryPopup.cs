@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
 using Game.Data;
+using Game.Entites;
 using UnityEngine;
 
 namespace Game.UI
 {
     public class InventoryUIProperties : UIProperties
     {
-        public List<IInventoryItem> Items;
+        public List<IInventoryItem> InventoryItems;
+        public Dictionary<EntityEquipSlots, IInventoryItem> EquippedItems;
         
-        public InventoryUIProperties(List<IInventoryItem> items)
+        public InventoryUIProperties(List<IInventoryItem> inventoryItems, Dictionary<EntityEquipSlots, IInventoryItem> equippedItems)
         {
-            Items = items;
+            InventoryItems = inventoryItems;
+            EquippedItems = equippedItems;
         }
     }
     
@@ -36,7 +39,8 @@ namespace Game.UI
                 _inventoryPanel.gameObject.SetActive(true);
                 _equippedItemsPanel.gameObject.SetActive(true);
                 
-                _inventoryPanel.Init(data.Items);
+                _inventoryPanel.Init(data.InventoryItems);
+                _equippedItemsPanel.Init(data.EquippedItems);
 
                 _inventoryPanel.UpdateLayout();
             }

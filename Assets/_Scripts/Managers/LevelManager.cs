@@ -195,6 +195,11 @@ namespace Game.Managers
            return _entityManager.GetPlayerEntity().GetInventoryView().GetInventoryItemsData();
         }
 
+        public Dictionary<EntityEquipSlots, IInventoryItem> GetPlayersEquippedItems()
+        {
+            return _entityManager.GetPlayerEntity().GetEquippedItems();
+        }
+
         public TileBase GetTileAt(int cellX, int cellY)
         {
            return _gridManager.GetTile(cellX, cellY);
