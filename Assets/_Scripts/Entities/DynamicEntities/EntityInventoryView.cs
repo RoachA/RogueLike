@@ -23,10 +23,14 @@ namespace Game.Entites
         public void AddItemToInventory(Item item)
         {
             _inventoryItems.Add(item);
-            item.Init(item);
         }
+        
         public Dictionary<EntityEquipSlots, IInventoryItem> GetEquippedItems()
         {
+            if (_equippedItems == null) return default;
+            
+            if (_equippedItems.Count == 0) return default;
+            
             return _equippedItems;
         }
 
@@ -41,7 +45,7 @@ namespace Game.Entites
             foreach (var item in _equippedItems)
             {
                 var typed = item.Value as ItemMeleeWeapon;
-                Debug.Log(typed.name + " is equipped in the slot " + item.Key); 
+                Debug.Log(item.Value.GetType().Name + " is equipped in the slot " + item.Key); 
             }
         }
         
@@ -82,7 +86,7 @@ namespace Game.Entites
             return equippedWeapons;
         }
         
-        public void EquipItem(EntityEquipSlots slot, IInventoryItem item)
+        public void EquipItem<T>(EntityEquipSlots slot, T item) where T : IInventoryItem
         {
             if (_equippedItems.TryGetValue(slot, out IInventoryItem equippedItem))
             {
@@ -93,7 +97,7 @@ namespace Game.Entites
             _equippedItems.TryAdd(slot, item);
         }
 
-        public List<IInventoryItem> GetInventoryItemsData()
+        public List<IInventoryItem> GetInventoryItems()
         {
             List<IInventoryItem> inventoryItems = new List<IInventoryItem>();
 
@@ -112,13 +116,13 @@ namespace Game.Entites
             var registry = DataManager.GetWeaponsRegistry();
             MeleeWeaponData weaponTemplate = registry.GetMeeleeWeaponDataAtIndex(0);
             MeleeWeaponData weaponTemplate2 = registry.GetMeeleeWeaponDataAtIndex(1);
-            var weapon = new ItemMeleeWeapon(weaponTemplate, false);
+            Item weapon = new Item(weaponTemplate, false);
             
            EquipItem(EntityEquipSlots.RightHand, weapon);
 
             for (int i = 0; i < 4; i++)
             {
-                var item = new ItemMeleeWeapon(weaponTemplate2, true);
+                Item item = new Item(weaponTemplate2, true);
                 AddItemToInventory(item);  
             }
         }

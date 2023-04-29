@@ -15,6 +15,7 @@ namespace Game.UI
         public void Init(Dictionary<EntityEquipSlots, IInventoryItem> equippedItems)
         {
             EquippedItems = equippedItems;
+            UpdateSlotViews();
         }
 
         public void UpdateSlotViews()
@@ -23,6 +24,9 @@ namespace Game.UI
             {
                 foreach (var item in EquippedItems)
                 {
+                    if (ReferenceEquals(item.Value, null))
+                        Debug.LogError("Item was garbage collected?");
+                    
                     if (view != null && item.Value != null && view.Slot == item.Key)
                         view.InitEquipSlotView(item.Value.GetItemData<ItemData>());
                 }

@@ -2,7 +2,7 @@ using Game.Tiles;
 using UnityEngine;
 namespace Game.Data
 {
-    public class ItemBase : Object
+    public class ItemBase
     {
         [SerializeField] protected string _identifier;
         [SerializeField] protected TileBase _occupiedTile;

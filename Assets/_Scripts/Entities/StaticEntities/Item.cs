@@ -18,17 +18,17 @@ namespace Game.Data
         [SerializeField] protected ItemData _itemData;
         [SerializeField] protected bool _isContained = true;
 
-        public void Init(Item item)
+        public Item(ItemData data, bool isContained)
         {
-            _itemData = item._itemData;
-            _isContained = item._isContained;
+            _itemData = data;
+            _isContained = isContained;
             GenerateHashId();
         }
 
-        protected Item()
+        public Item()
         {
         }
-
+        
         public void SetAsContained(bool isContained)
         {
             _isContained = isContained;

@@ -192,7 +192,7 @@ namespace Game.Managers
 
         public List<IInventoryItem> GetPlayerInventory()
         {
-           return _entityManager.GetPlayerEntity().GetInventoryView().GetInventoryItemsData();
+           return _entityManager.GetPlayerEntity().GetInventoryView().GetInventoryItems();
         }
 
         public Dictionary<EntityEquipSlots, IInventoryItem> GetPlayersEquippedItems()
