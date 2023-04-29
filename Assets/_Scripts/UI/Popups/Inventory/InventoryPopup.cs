@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using Game.Data;
 using Game.Entites;
+using Game.Managers;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game.UI
 {
@@ -22,57 +24,65 @@ namespace Game.UI
     {
         [SerializeField] private InventoryManagementPanel _inventoryPanel;
         [SerializeField] private EquippedItemsManagementPanel _equippedItemsPanel;
+        [SerializeField] private Button _closeBtn;
+
+        private GameManager _gameManager;
         
         public override void Init<T>(T uiProperties = default)
         {
             base.Init(uiProperties);
             GetReferences();
-            SetInactive();
+            SetState(false);
         }
 
         public override void Open<T, T1>(Type uiType, T1 property)
         {
             base.Open<T, T1>(uiType, property);
+            _closeBtn.onClick.AddListener(OnClose);
             
             if (property is InventoryUIProperties data)
             {
-                _inventoryPanel.gameObject.SetActive(true);
-                _equippedItemsPanel.gameObject.SetActive(true);
+                SetState(true);
                 
                 _inventoryPanel.Init(data.InventoryItems);
                 _equippedItemsPanel.Init(data.EquippedItems);
 
                 _inventoryPanel.UpdateLayout();
+                _gameManager = GameManager.Instance;
             }
+        }
+
+        private void OnClose()
+        {
+            _closeBtn.onClick.RemoveListener(OnClose);
+            UIElement.CloseUiSignal(typeof(InventoryPopup));
         }
 
         public override void Close<T>(Type uiElement)
         {
             _inventoryPanel.ResetViewsForDisabling();
             base.Close<T>(uiElement);
-            SetInactive();
+            SetState(false);
+            _gameManager.ResetToNormalMode();
         }
 
         private void GetReferences()
         {
-            
         }
 
         private void LoadInventoryView()
         {
-            
         }
 
         private void LoadEquippedItemView()
         {
-            
         }
         
-        public virtual void SetInactive()
+        public virtual void SetState(bool state)
         {
-            _inventoryPanel.gameObject.SetActive(false);
-            _equippedItemsPanel.gameObject.SetActive(false);
+            _inventoryPanel.gameObject.SetActive(state);
+            _equippedItemsPanel.gameObject.SetActive(state);
+            _closeBtn.gameObject.SetActive(state);
         }
-
     }
 }

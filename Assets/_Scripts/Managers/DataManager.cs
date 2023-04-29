@@ -100,9 +100,9 @@ namespace Game.Data
          return null;
       }
 
-      public static List<WearableItemData> GetWearableItems()
+      public static List<WearableItemDefinitionData> GetWearableItems()
       {
-         var wearableItems = Resources.LoadAll<WearableItemData>(ResourceHelper.WearableItemsData).ToList();
+         var wearableItems = Resources.LoadAll<WearableItemDefinitionData>(ResourceHelper.WearableItemsData).ToList();
          
          if (wearableItems.Count != 0)
             return wearableItems;

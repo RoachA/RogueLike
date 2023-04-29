@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Game.Data
@@ -8,19 +7,19 @@ namespace Game.Data
     {
         public Guid Id { get; set; }
 
-        public T GetItemData<T>() where T : ItemData;
+        public T GetItemData<T>() where T : ItemDefinitionData;
     }
     
     public class Item : ItemBase, IInventoryItem
     {
         public Guid Id { get; set; }
         [Header("Data")]
-        [SerializeField] protected ItemData _itemData;
+        [SerializeField] protected ItemDefinitionData ItemDefinitionData;
         [SerializeField] protected bool _isContained = true;
 
-        public Item(ItemData data, bool isContained)
+        public Item(ItemDefinitionData definitionData, bool isContained)
         {
-            _itemData = data;
+            ItemDefinitionData = definitionData;
             _isContained = isContained;
             GenerateHashId();
         }
@@ -40,20 +39,20 @@ namespace Game.Data
             return _isContained;
         }
         
-        public void SetItemData(ItemData data)
+        public void SetItemData(ItemDefinitionData definitionData)
         {
-            _itemData = data;
+            ItemDefinitionData = definitionData;
         }
         
-        public T GetItemData<T>() where T : ItemData
+        public T GetItemData<T>() where T : ItemDefinitionData
         {
-            if (_itemData == null)
+            if (ItemDefinitionData == null)
             {
                 Debug.LogError("no item data was found in this entity!");
                 return null;
             }
             
-            return (T) _itemData;
+            return (T) ItemDefinitionData;
         }
 
         protected void GenerateHashId()

@@ -8,12 +8,12 @@ namespace Game.Entites
     public class ContainerEntityData : PropEntityData
     {
         public int ContainerSize;
-        public List<ItemData> ContainedItems;
+        public List<ItemDefinitionData> ContainedItems;
         public ContainerTypes ContainerType;
 
         public ContainerEntityData(string identifier, string name, string desc, PropOrientationType orientationType,
             Sprite[] sprite, GameObject additionalItem, float baseValue, float baseWeight, int containerSize,
-            List<ItemData> containedItems, ContainerTypes containerType, string interactionFeedback) : base(identifier, interactionFeedback, name, desc, orientationType, sprite, additionalItem, baseValue,
+            List<ItemDefinitionData> containedItems, ContainerTypes containerType, string interactionFeedback) : base(identifier, interactionFeedback, name, desc, orientationType, sprite, additionalItem, baseValue,
             baseWeight)
         {
             ContainerSize = containerSize;

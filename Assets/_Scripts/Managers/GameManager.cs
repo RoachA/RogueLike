@@ -213,10 +213,7 @@ namespace Game.Managers
             {
                 ResetToNormalMode();
                 //todo needs a close all UI signal for laters.
-                UIElement.CloseIfUiIsOpenSignal(typeof(SimplePopup));
-                UIElement.CloseIfUiIsOpenSignal(typeof(InventoryPopup));
-                UIElement.CloseIfUiIsOpenSignal(typeof(ContainerPopup));
-                
+
                 UIElement.OpenUiSignal(typeof(RightHudView), new UIProperties());
 
                 ///check where the cursor is, get that tile, check if there is something interactable in or, or, if the tile itself is interactable.
@@ -277,10 +274,14 @@ namespace Game.Managers
             }
         }
 
-        private void ResetToNormalMode()
+        public void ResetToNormalMode()
         {
             SetPlayerMode(PlayerModes.normal);
             _levelManager.ResetCursor();
+            
+            UIElement.CloseIfUiIsOpenSignal(typeof(SimplePopup));
+            UIElement.CloseIfUiIsOpenSignal(typeof(InventoryPopup));
+            UIElement.CloseIfUiIsOpenSignal(typeof(ContainerPopup));
         }
         
         [BoxGroup("debug")]

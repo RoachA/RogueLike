@@ -9,10 +9,10 @@ namespace Game.UI
 {
     public class ContainerPopupProperties : UIProperties
     {
-        public List<ItemData> ContainedItemsList;
+        public List<ItemDefinitionData> ContainedItemsList;
         public PropEntityData PropData;
 
-        public ContainerPopupProperties(List<ItemData> containedItemsList, PropEntityData propData)
+        public ContainerPopupProperties(List<ItemDefinitionData> containedItemsList, PropEntityData propData)
         {
             ContainedItemsList = containedItemsList;
             PropData = propData;
@@ -52,7 +52,7 @@ namespace Game.UI
             _storeItemBtn.onClick.RemoveListener(OnStoreItem);
         }
 
-        private void SetContainerViews(List<ItemData> items)
+        private void SetContainerViews(List<ItemDefinitionData> items)
         {
             var availabeCount = _availableTemplates.Count;
             var neededCount = items.Count;

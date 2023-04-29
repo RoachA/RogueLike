@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Game.Data
 {
     [CreateAssetMenu(fileName = "WEARABLE_DATA", menuName = "Item Data/Wearable Data", order = 1)]
-    public class WearableItemData : ItemData
+    public class WearableItemDefinitionData : ItemDefinitionData
     {
         public WearableItemStats Stats;
         

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Game.Data;
 using Sirenix.OdinInspector;
@@ -60,7 +59,7 @@ namespace Game.Entites
             {
                 if (item.Value.GetType() == typeof(IInventoryItem))
                 {
-                    dvSum += item.Value.GetItemData<WearableItemData>().Stats.DV;
+                    dvSum += item.Value.GetItemData<WearableItemDefinitionData>().Stats.DV;
                 }
             }
             
@@ -114,15 +113,15 @@ namespace Game.Entites
         public void AddItemForTest(int indexFromRegistry = 0)
         {
             var registry = DataManager.GetWeaponsRegistry();
-            MeleeWeaponData weaponTemplate = registry.GetMeeleeWeaponDataAtIndex(0);
-            MeleeWeaponData weaponTemplate2 = registry.GetMeeleeWeaponDataAtIndex(1);
-            Item weapon = new Item(weaponTemplate, false);
+            MeleeWeaponDefinitionData weaponDefinitionTemplate = registry.GetMeeleeWeaponDataAtIndex(0);
+            MeleeWeaponDefinitionData weaponDefinitionTemplate2 = registry.GetMeeleeWeaponDataAtIndex(1);
+            Item weapon = new Item(weaponDefinitionTemplate, false);
             
            EquipItem(EntityEquipSlots.RightHand, weapon);
 
             for (int i = 0; i < 4; i++)
             {
-                Item item = new Item(weaponTemplate2, true);
+                Item item = new Item(weaponDefinitionTemplate2, true);
                 AddItemToInventory(item);  
             }
         }

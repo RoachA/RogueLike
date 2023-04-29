@@ -18,13 +18,13 @@ namespace Game.UI
 
         [Header("Inventory Categories")]
         [SerializeField] private List<InventoryCategoryView> _categories;
-        
+
         private Dictionary<InventoryItemTypes, InventoryCategoryView> _registeredCategories;
         private Dictionary<Guid, IInventoryItem> _registeredInventoryItems;
-        
+
         void Start()
         {
-            InventoryItemView.RequestInventoryLayoutUpdateEvent += UpdateLayout; 
+            InventoryItemView.RequestInventoryLayoutUpdateEvent += UpdateLayout;
         }
 
         public void Init(List<IInventoryItem> items)
@@ -33,16 +33,26 @@ namespace Game.UI
             if (_registeredCategories == null)
             {
                 _registeredCategories = new Dictionary<InventoryItemTypes, InventoryCategoryView>();
-                
+
                 foreach (var category in _categories)
                 {
                     _registeredCategories.Add(category.GetCategoryType(), category);
                 }
             }
-            
+
             //initialize items
             RegisterItemsToInventory(items);
+            SetSubscriptions();
         }
+
+        private void SetSubscriptions()
+        {
+        }
+
+        private void ReleaseSubscriptions()
+        {
+        }
+
 
         public void ResetViewsForDisabling()
         {
@@ -57,9 +67,9 @@ namespace Game.UI
             //todo check how many views already exist. reuse if any blank. don't delete.
             foreach (var item in items)
             {
-                var itemData = item.GetItemData<ItemData>();
+                var itemData = item.GetItemData<ItemDefinitionData>();
                 var itemType = itemData._itemType;
-                
+
                 if (_registeredCategories.TryGetValue(itemType, out var categoryList))
                 {
                     categoryList.AddItemToCategory(_inventoryItemViewRef, ConvertItemDataToUIData(itemData));
@@ -67,14 +77,15 @@ namespace Game.UI
             }
         }
 
-        private InventoryItemViewData ConvertItemDataToUIData<T>(T data) where T : ItemData
+        private InventoryItemViewData ConvertItemDataToUIData<T>(T data) where T : ItemDefinitionData
         {
             var uiData = new InventoryItemViewData();
             uiData.ItemName = data._itemName;
             uiData.ItemInfo = data._itemDesc;
             uiData.ItemSprite = data._itemSprite;
             uiData.ItemWeight = "undefined weight";
-            uiData.ItemCount = "1"; //todo 
+            uiData.ItemCount = "x1"; //todo 
+            uiData.DefinitionData = data;
 
             return uiData;
         }
@@ -82,7 +93,7 @@ namespace Game.UI
         public InventoryCategoryView GetCategory(InventoryItemTypes itemType)
         {
             InventoryCategoryView categoryView = null;
-            
+
             if (_registeredCategories.TryGetValue(itemType, out var foundCategoryView))
             {
                 categoryView = foundCategoryView;
@@ -99,27 +110,27 @@ namespace Game.UI
         {
             var categoryView = GetCategory(itemType);
             listedItems = null;
-            
+
             if (categoryView == null)
                 return false;
-            
+
             listedItems = categoryView.GetRegisteredItems();
 
             if (listedItems.Count == 0) return false;
             else return true;
         }
-        
+
         public void UpdateLayout()
         {
             //todo optimize this laters
-            
+
             LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
-            
+
             /*layout.CalculateLayoutInputVertical();
             layout.CalculateLayoutInputHorizontal();
             layout.SetLayoutVertical();
             layout.SetLayoutHorizontal();*/
-            
+
             _inventoryLayoutGroup.CalculateLayoutInputVertical();
             _inventoryLayoutGroup.CalculateLayoutInputHorizontal();
             _inventoryLayoutGroup.SetLayoutVertical();

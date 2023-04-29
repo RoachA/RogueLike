@@ -25,20 +25,24 @@ namespace Game.UI
     [SerializeField] private Color _labelIdleColor;
     [SerializeField] private Color _labelSelectedColor;
     
-    public void InitEquipSlotView(ItemData item = null)
+    public void InitEquipSlotView(ItemDefinitionData definitionData = null)
     {
       SetLineConnection();
       SetItemView();
       SetSelectedState(false);
       
-      if (item != null)
-        _itemView.sprite = item._itemSprite;
+      if (definitionData != null)
+      {
+        _itemView.enabled = true;
+        _itemView.sprite = definitionData._itemSprite;
+      }
     }
 
     private void SetItemView()
     {
       _button.onClick.AddListener(OnButtonClicked);
       _labelTxt.text = Slot.ToString();
+      _itemView.enabled = false;
       _itemView.sprite = null;
     }
 

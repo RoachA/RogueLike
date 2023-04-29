@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Data;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace Game.UI
         public string ItemInfo;
         public string ItemWeight;
         public string ItemCount;
+        public ItemDefinitionData DefinitionData;
     }
     
     public class InventoryItemView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
@@ -34,7 +36,6 @@ namespace Game.UI
         [SerializeField] private Button _equipButton;
         [SerializeField] private Button _dropButton;
         [SerializeField] private Button _useButton; //todo replace equip with this if the object is usable/consumable
-        
         [Header("View Parameters")]
         [SerializeField] private Vector3 _idleSize;
         [SerializeField] private Vector3 _activeSize;
@@ -77,8 +78,14 @@ namespace Game.UI
 
             _itemCategory = GetComponentInParent<InventoryCategoryView>();
             _categoryLayout = _itemCategory.GetComponent<LayoutGroup>();
+            SetSubscriptions();
         }
-        
+
+        private void OnDisable()
+        {
+            ReleaseSubscriptions();
+        }
+
         public void SetSelectedState(bool isSelected)
         {
             //todo do how it looks when selected.
@@ -100,7 +107,7 @@ namespace Game.UI
             _equipButton.onClick.AddListener(OnEquipClicked);
         }
         
-        private void BreakSubscriptions()
+        private void ReleaseSubscriptions()
         {
             _lookButton.onClick.RemoveListener(OnLookClicked);
             _dropButton.onClick.RemoveListener(OnDropClicked);

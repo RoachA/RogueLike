@@ -97,14 +97,14 @@ public static class CombatHelper
 
         if (attacker_weapons[0] != null) //todo bare hand dmg should have something.
         {
-            weapon_base_dmg_1 = new Vector2Int(attacker_weapons[0].GetItemData<MeleeWeaponData>().Stats.BaseDmg.D, attacker_weapons[0].GetItemData<MeleeWeaponData>().Stats.BaseDmg.N);
+            weapon_base_dmg_1 = new Vector2Int(attacker_weapons[0].GetItemData<MeleeWeaponDefinitionData>().Stats.BaseDmg.D, attacker_weapons[0].GetItemData<MeleeWeaponDefinitionData>().Stats.BaseDmg.N);
         }
 
         if (attacker_weapons[1] != null)
         {
             weapon_base_dmg_2 =
-                new Vector2Int(attacker_weapons[1].GetItemData<MeleeWeaponData>().Stats.BaseDmg.D,
-                    attacker_weapons[1].GetItemData<MeleeWeaponData>().Stats.BaseDmg.N);
+                new Vector2Int(attacker_weapons[1].GetItemData<MeleeWeaponDefinitionData>().Stats.BaseDmg.D,
+                    attacker_weapons[1].GetItemData<MeleeWeaponDefinitionData>().Stats.BaseDmg.N);
         }
 
         var weapon_dmg_1 = DiceRollHelper.RollRegularDice(new Dice(weapon_base_dmg_1.x, weapon_base_dmg_1.y + penetrationTimes));
@@ -131,7 +131,7 @@ public static class CombatHelper
 
         if (attacker_weapons != null) //todo bare hand dmg should have something.
         {
-            var weaponStats = attacker_weapons.GetItemData<MeleeWeaponData>().Stats;
+            var weaponStats = attacker_weapons.GetItemData<MeleeWeaponDefinitionData>().Stats;
             weapon_base_dmg_1 = new Vector2Int(weaponStats.BaseDmg.D, weaponStats.BaseDmg.N);
             penetrationTimes = CalculatePenetration(defender_av, attacker_pv + (weaponStats.ArmorPenetration - 4));
         }

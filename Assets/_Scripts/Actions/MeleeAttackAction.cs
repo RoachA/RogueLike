@@ -86,8 +86,8 @@ namespace Game.Entites.Actions
 
         public void SendAttackLog(EntityDynamic attacker, EntityDynamic defender, int penetrationTimes, int damageOutput, ItemMeleeWeapon weaponItem)
         {
-            MeleeWeaponData weaponData = weaponItem.GetItemData<MeleeWeaponData>();
-            Game.Dice.Dice weaponDmg = weaponData.Stats.BaseDmg;
+            MeleeWeaponDefinitionData weaponDefinitionData = weaponItem.GetItemData<MeleeWeaponDefinitionData>();
+            Game.Dice.Dice weaponDmg = weaponDefinitionData.Stats.BaseDmg;
             string wpnDmg = DiceRollHelper.GetDiceAsString(weaponDmg);
             string penetrationTimesString = "(x" + penetrationTimes.ToString() + ")";
             string hitText = " hits ";
@@ -127,7 +127,7 @@ namespace Game.Entites.Actions
             if (penetrationTimes > 0)
             {
                 finalOutput = attackerName + hitText + defenderName + " " + penetrationTimesString + " for " + damageOutput + " damage with a " +
-                           weaponData._itemName + " ->" + weaponData.Stats.ArmorPenetration + " " + wpnDmg + "!";
+                           weaponDefinitionData._itemName + " ->" + weaponDefinitionData.Stats.ArmorPenetration + " " + wpnDmg + "!";
             }
             
             ActionHelper.SendActionLog(finalOutput);

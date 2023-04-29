@@ -65,7 +65,7 @@ namespace Game.UI
         
         public virtual void CloseIfOpen<T>(Type uiType) where T : UIElement
         {
-            if (uiType == this.GetType())
+            if (uiType == this.GetType() && IsOpen)
             {
                 Close<T>(uiType);
             }

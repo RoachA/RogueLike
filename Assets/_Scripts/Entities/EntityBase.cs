@@ -6,12 +6,24 @@ using Game.Utils;
 namespace Game.Entites
 {
    [Serializable]
-   public class EntityBase : MonoBehaviour
+   public class EntityBase : MonoBehaviour, IEquatable<EntityBase>
    {
+      public Guid Id { get; set; }
       [SerializeField] protected string _identifier;
       [SerializeField] protected SpriteRenderer _spriteRenderer;
       [SerializeField] protected TileBase _occupiedTile;
       [SerializeField] protected EntityType _entityType { get; set; }
+
+      protected void Start()
+      {
+         Init();
+      }
+
+      public void Init()
+      {
+         if (Id == Guid.Empty)
+            GenerateHashId();
+      }
 
       public Sprite GetSprite()
       {
@@ -52,6 +64,22 @@ namespace Game.Entites
       public void SetOccupiedTile(TileBase targetTile)
       {
          _occupiedTile = targetTile;
+      }
+
+      protected void GenerateHashId()
+      {
+         Id = Guid.NewGuid();
+      }
+
+      public bool Equals(EntityBase other)
+      {
+         if (other == null) return false;
+         return (this.Id == other.Id);
+      }
+
+      public override int GetHashCode()
+      {
+         return base.GetHashCode();
       }
    }
 }
