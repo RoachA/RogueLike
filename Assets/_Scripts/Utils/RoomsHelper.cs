@@ -85,7 +85,7 @@ namespace Game.Rooms
                         child.transform.localPosition = Vector3.zero;
                     }
                     
-                    newProp.InitProp();
+                    newProp.Init();
                     newProp.SetOccupiedTile(rndTile);
                     newProp.transform.position = new Vector3(rndPos.x, rndPos.y, 1);
                     rndTile.AddEntityToTile(newProp);

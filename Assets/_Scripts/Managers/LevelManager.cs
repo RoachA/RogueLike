@@ -111,6 +111,15 @@ namespace Game.Managers
                 var targetEntity = entities[0];
                 Type entityType = targetEntity.GetType();
                 
+                if (entityType == typeof(ItemEntityView))
+                {
+                    ItemEntityView itemEntityView = (ItemEntityView) targetEntity;
+                    var data = itemEntityView._itemData;
+                    //todo use a different popup type for this, it should support more info and has its own properties for this.
+                    UIElement.OpenUiSignal(typeof(SimplePopup), new SimplePopupProperties(data._itemName, data._itemDesc, itemEntityView.GetSprite()));
+                    return;
+                }
+                
                 if (entityType == typeof(EntityDynamic))
                 {
                     EntityDynamic dynamicEntity = (EntityDynamic) targetEntity;
@@ -119,7 +128,7 @@ namespace Game.Managers
                     UIElement.OpenUiSignal(typeof(SimplePopup), new SimplePopupProperties(data._entityName, data.Description, dynamicEntity.GetSprite()));
                     return;
                 }
-                
+
                 if (entityType == typeof(PropEntity))
                 {
                     PropEntity propEntity = (PropEntity) targetEntity;

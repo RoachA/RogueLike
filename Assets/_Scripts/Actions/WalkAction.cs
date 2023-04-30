@@ -39,6 +39,7 @@ namespace Game.Entities.Actions
 
         private void Do()
         {
+            _actor.GetOccupiedTile().RemoveEntityFromTile(_actor.Id);
             _actor.MoveEntityToTile(TargetTile);
             _actor.SetOccupiedTile(TargetTile);
             var floor = (TileFloor) TargetTile;

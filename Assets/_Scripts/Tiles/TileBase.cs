@@ -14,7 +14,7 @@ namespace Game.Tiles
         [SerializeField] protected bool IsWalkable = true;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
         [SerializeField] protected Vector2Int _tilePosId;
-        [SerializeField] protected List<EntityBase> _entitiesOnTile;
+        [SerializeField] protected Dictionary<Guid, EntityBase> _entitiesOnTile;
         [SerializeField] protected List<TileTypeData> _tileTypeData;
 
         protected TileTypeData _currentTileData;
@@ -33,6 +33,9 @@ namespace Game.Tiles
             SetTileTypeData(data);
             Coords = coords;
             _currentTileData = data[0];
+            
+            if (_entitiesOnTile == null)
+                _entitiesOnTile = new Dictionary<Guid, EntityBase>();
         }
 
         protected virtual void SetRandomSprite()
@@ -125,15 +128,13 @@ namespace Game.Tiles
                 finalValue = multiplier;
             else
                 finalValue = darkColor;
-
-           
             
             var finalColor = new Color(finalValue, finalValue, finalValue, 1);
             _spriteRenderer.color = finalColor;
             
             foreach (var entity in _entitiesOnTile)
             {
-                entity.SetLight(finalColor);
+                entity.Value.SetLight(finalColor);
             }
             //_spriteRenderer.color = new Color(1 / lightVal, 1 / lightVal, 1 / lightVal, 1);
             //Debug.LogWarning(_tilePosId + " : " + lightVal);
@@ -272,14 +273,22 @@ namespace Game.Tiles
         
         public void AddEntityToTile(EntityBase entity)
         {
-            _entitiesOnTile.Add(entity);
+            _entitiesOnTile.Add(entity.Id, entity);
+        }
+
+        public void RemoveEntityFromTile(Guid id)
+        {
+            if (_entitiesOnTile.ContainsKey(id) == false)
+                return;
+            
+            _entitiesOnTile.Remove(id);
         }
 
         public void AddEntityListToTile(List<EntityBase> entities)
         {
             foreach (var entity in entities)
             {
-                _entitiesOnTile.Add(entity);
+                _entitiesOnTile.Add(entity.Id, entity);
             }
         }
 
@@ -296,7 +305,7 @@ namespace Game.Tiles
                 return false;
             }
 
-            entities = _entitiesOnTile;
+            entities = _entitiesOnTile.Values.ToList();
             return true;
         }
         
@@ -313,7 +322,7 @@ namespace Game.Tiles
       
             foreach (var entity in _entitiesOnTile)
             {
-                IInteractable interactableEntity = entity.GetComponent<IInteractable>();
+                IInteractable interactableEntity = entity.Value.GetComponent<IInteractable>();
                 if (interactableEntity != null)
                     interactables.Add(interactableEntity);
             }

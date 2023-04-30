@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Game.Data;
 using Game.Interfaces;
@@ -15,9 +16,10 @@ namespace Game.Entities
         private PointLightView _pointLightView;
         private bool _isContainer;
 
-        public void InitProp()
+        public override void Init(Guid guid = default)
         {
-            _spriteRenderer.sprite = Data.Sprite[0];
+            base.Init(guid);
+             _spriteRenderer.sprite = Data.Sprite[0];
             _entityType = EntityType.item;
             _identifier = Data.Identifier;
 
@@ -29,7 +31,7 @@ namespace Game.Entities
 
             _pointLightView = GetComponentInChildren<PointLightView>();
         }
-
+        
         public override void SetLight(Color color)
         {
             base.SetLight(color);

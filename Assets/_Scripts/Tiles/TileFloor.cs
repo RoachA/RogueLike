@@ -16,7 +16,7 @@ namespace Game.Tiles
             {
                 if (entity.GetType() == typeof(EntityNpc))
                 {
-                    npc = (EntityNpc) entity;
+                    npc = (EntityNpc) entity.Value;
                     Debug.Log("tile : " + _tilePosId + " has an NPC a" + npc.name + " on it!");
                     return true;
                 }
