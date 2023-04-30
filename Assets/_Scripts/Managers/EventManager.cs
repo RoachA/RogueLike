@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Game.Entites;
+using Game.Entities;
 using UnityEngine;
 using UnityEngine.Events;
 

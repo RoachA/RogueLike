@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemType: 0
   _itemIdentifier: cleaver
-  _itemSprite: {fileID: -1555483448, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
+  _itemSprite: {fileID: -643994503, guid: bbb41f78515396a4a97731f8b9981cf3, type: 3}
   _itemName: Cleaver
   _itemDesc: A sharp butcher's cleaver
   _baseValue: 10

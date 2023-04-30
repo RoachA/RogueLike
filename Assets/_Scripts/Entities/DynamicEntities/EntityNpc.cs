@@ -1,11 +1,11 @@
-using Game.Entites.Data;
+using Game.Entities.Data;
 using Game.Tiles;
 using UnityEditor;
 using UnityEngine;
 using Game.Utils;
 
 
-namespace Game.Entites
+namespace Game.Entities
 {
    public class EntityNpc : EntityDynamic
    {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Data;
-using Game.Entites;
+using Game.Entities;
 using Game.Managers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,6 +47,21 @@ namespace Game.UI
                 _inventoryPanel.Init(data.InventoryItems);
                 _equippedItemsPanel.Init(data.EquippedItems);
 
+                _inventoryPanel.UpdateLayout();
+                _gameManager = GameManager.Instance;
+            }
+        }
+
+        public override void ForceUpdateUI<T, T1>(Type uiType, T1 property)
+        {
+            base.ForceUpdateUI<T, T1>(uiType, property);
+            _inventoryPanel.ResetViewsForDisabling();
+
+            if (property is InventoryUIProperties data)
+            {
+                _inventoryPanel.Init(data.InventoryItems);
+                _equippedItemsPanel.Init(data.EquippedItems);
+                
                 _inventoryPanel.UpdateLayout();
                 _gameManager = GameManager.Instance;
             }

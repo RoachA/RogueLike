@@ -1,6 +1,6 @@
 using System;
 using Game.Data;
-using Game.Entites;
+using Game.Entities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -25,16 +25,16 @@ namespace Game.UI
     [SerializeField] private Color _labelIdleColor;
     [SerializeField] private Color _labelSelectedColor;
     
-    public void InitEquipSlotView(ItemDefinitionData definitionData = null)
+    public void InitEquipSlotView(ScriptableItemData data = null)
     {
       SetLineConnection();
       SetItemView();
       SetSelectedState(false);
       
-      if (definitionData != null)
+      if (data != null)
       {
         _itemView.enabled = true;
-        _itemView.sprite = definitionData._itemSprite;
+        _itemView.sprite = data._itemSprite;
       }
     }
 

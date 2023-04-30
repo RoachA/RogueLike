@@ -87,7 +87,7 @@ public static class CombatHelper
     /// DONT USE FOR NOW xxxxxxxxxxxxxxxxxxxxxx
     /// </summary>
     /// <returns></returns>
-    public static int DamageCalculatorDualMelee(int defender_av, int attacker_str, int attacker_pv, ItemMeleeWeapon[] attacker_weapons)
+    public static int DamageCalculatorDualMelee(int defender_av, int attacker_str, int attacker_pv, IInventoryItem[] attacker_weapons)
     {
         const float secondHandDmgReduction = 0.5f;
      
@@ -97,14 +97,14 @@ public static class CombatHelper
 
         if (attacker_weapons[0] != null) //todo bare hand dmg should have something.
         {
-            weapon_base_dmg_1 = new Vector2Int(attacker_weapons[0].GetItemData<MeleeWeaponDefinitionData>().Stats.BaseDmg.D, attacker_weapons[0].GetItemData<MeleeWeaponDefinitionData>().Stats.BaseDmg.N);
+            weapon_base_dmg_1 = new Vector2Int(attacker_weapons[0].GetItemData<MeleeWeaponScriptableData>().Stats.BaseDmg.D, attacker_weapons[0].GetItemData<MeleeWeaponScriptableData>().Stats.BaseDmg.N);
         }
 
         if (attacker_weapons[1] != null)
         {
             weapon_base_dmg_2 =
-                new Vector2Int(attacker_weapons[1].GetItemData<MeleeWeaponDefinitionData>().Stats.BaseDmg.D,
-                    attacker_weapons[1].GetItemData<MeleeWeaponDefinitionData>().Stats.BaseDmg.N);
+                new Vector2Int(attacker_weapons[1].GetItemData<MeleeWeaponScriptableData>().Stats.BaseDmg.D,
+                    attacker_weapons[1].GetItemData<MeleeWeaponScriptableData>().Stats.BaseDmg.N);
         }
 
         var weapon_dmg_1 = DiceRollHelper.RollRegularDice(new Dice(weapon_base_dmg_1.x, weapon_base_dmg_1.y + penetrationTimes));
@@ -116,7 +116,7 @@ public static class CombatHelper
         return dmg_output;
     }
     
-    public static DamageOutput DamageCalculatorSingleMelee(int defender_av, int attacker_str, int attacker_pv, ItemMeleeWeapon attacker_weapons, float multiplier = 1)
+    public static DamageOutput DamageCalculatorSingleMelee(int defender_av, int attacker_str, int attacker_pv, IInventoryItem attacker_weapons, float multiplier = 1)
     {
         //get defenders armor value >> all equipped AV, additonal AV if any <auras etc>, shield bonus AV
         //get attackers penetration value >> comes from str and weapon bonus 
@@ -131,9 +131,9 @@ public static class CombatHelper
 
         if (attacker_weapons != null) //todo bare hand dmg should have something.
         {
-            var weaponStats = attacker_weapons.GetItemData<MeleeWeaponDefinitionData>().Stats;
-            weapon_base_dmg_1 = new Vector2Int(weaponStats.BaseDmg.D, weaponStats.BaseDmg.N);
-            penetrationTimes = CalculatePenetration(defender_av, attacker_pv + (weaponStats.ArmorPenetration - 4));
+            var weaponStats = attacker_weapons.GetItemData<MeleeWeaponScriptableData>();
+            weapon_base_dmg_1 = new Vector2Int(weaponStats.Stats.BaseDmg.D, weaponStats.Stats.BaseDmg.N);
+            penetrationTimes = CalculatePenetration(defender_av, attacker_pv + (weaponStats.Stats.ArmorPenetration - 4));
         }
         
         for (int i = 0; i < penetrationTimes; i++)

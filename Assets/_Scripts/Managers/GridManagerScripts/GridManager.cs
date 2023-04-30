@@ -6,7 +6,7 @@ using Game.Tiles;
 using Sirenix.OdinInspector;
 using Unity.Mathematics;
 using UnityEngine;
-using Game.Entites;
+using Game.Entities;
 using Game.Rooms;
 using Game.Utils;
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Data;
-using Game.Entites;
+using Game.Entities;
 using Game.Managers;
 using Game.Tiles;
 using UnityEngine;

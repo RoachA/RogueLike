@@ -1,9 +1,9 @@
 using Game.Data;
 using Game.Tiles;
-using Game.Entites;
+using Game.Entities;
 using System;
 using System.Collections.Generic;
-using Game.Entites.Actions;
+using Game.Entities.Actions;
 using Game.UI;
 using UnityEngine;
 

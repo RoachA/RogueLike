@@ -1,27 +1,96 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.Data;
+using Game.UI;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.Entites
+namespace Game.Entities
 {
     public class EntityInventoryView : MonoBehaviour
     {
-        [SerializeField] List<IInventoryItem> _inventoryItems;
+        [SerializeField] Dictionary<Guid, IInventoryItem> _inventoryItems;
         [SerializeField] private Dictionary<EntityEquipSlots, IInventoryItem> _equippedItems;
-
         [SerializeField] private int _inventorySize;
+
+        private EntityDynamic _entityWithInventory;
 
         private void Start()
         {
             _equippedItems = new Dictionary<EntityEquipSlots, IInventoryItem>();
-            _inventoryItems = new List<IInventoryItem>();
+            _inventoryItems = new Dictionary<Guid, IInventoryItem>();
             AddItemForTest();
+            SetSubscriptions();
         }
 
-        public void AddItemToInventory(Item item)
+        private void SetSubscriptions()
         {
-            _inventoryItems.Add(item);
+            _entityWithInventory = GetComponent<EntityDynamic>();
+            InventoryItemView.InventoryItemOperatedEvent += OnInventoryEvent;
+        }
+
+        private void OnInventoryEvent(Guid uniqueId, InventoryAction actionType)
+        {
+            if (actionType == InventoryAction.Drop)
+                DropItem(uniqueId);
+        }
+
+        public void DropItem(Guid uniqueId)
+        {
+            var itemToDrop = FindItemWithUniqueId(uniqueId);
+            GenerateEntityView(itemToDrop);
+            RemoveFromInventory(uniqueId);
+           UpdateUI();
+        }
+
+        private void UpdateUI()
+        {
+            List<IInventoryItem> inventoryList = _inventoryItems.Values.ToList();
+            UIElement.ForceUpdateUiSignal(typeof(InventoryPopup), new InventoryUIProperties(inventoryList, _equippedItems));  
+        }
+
+        private void GenerateEntityView(IInventoryItem item)
+        {
+            var itemData = (ItemData) item;
+            var entityPos = _entityWithInventory.GetEntityPos();
+            var tile = _entityWithInventory.GetOccupiedTile();
+            
+            Vector3 worldPos = new Vector3(entityPos.x, entityPos.y, 1);
+            
+            var view = DataManager.GetItemEntity();
+            
+            var entity = Instantiate(view, worldPos, Quaternion.identity);
+            entity._itemData = itemData.ScriptableItemData;
+            entity.Init(itemData.Id);
+            entity.SetOccupiedTile(tile);
+            tile.AddEntityToTile(entity);
+        }
+
+        /*private void DropItemEntityOnTile(ItemEntityView<ScriptableItemData> item)
+        {
+        }*/
+
+        private IInventoryItem FindItemWithUniqueId(Guid id)
+        {
+            if (_inventoryItems.TryGetValue(id, out var item) == false)
+            {
+                Debug.LogWarning("No item with guid exists");
+                return null;
+            }
+            
+            return item;
+        }
+
+        private void RemoveFromInventory(Guid id)
+        {
+            if (_inventoryItems.ContainsKey(id))
+                _inventoryItems.Remove(id);
+        }
+
+        public void AddItemToInventory(IInventoryItem item)
+        {
+           _inventoryItems.Add(item.Id, item);
         }
         
         public Dictionary<EntityEquipSlots, IInventoryItem> GetEquippedItems()
@@ -43,7 +112,6 @@ namespace Game.Entites
 
             foreach (var item in _equippedItems)
             {
-                var typed = item.Value as ItemMeleeWeapon;
                 Debug.Log(item.Value.GetType().Name + " is equipped in the slot " + item.Key); 
             }
         }
@@ -59,27 +127,27 @@ namespace Game.Entites
             {
                 if (item.Value.GetType() == typeof(IInventoryItem))
                 {
-                    dvSum += item.Value.GetItemData<WearableItemDefinitionData>().Stats.DV;
+                    dvSum += item.Value.GetItemData<WearableScriptableItemData>().Stats.DV;
                 }
             }
             
             return dvSum;
         }
 
-        public ItemMeleeWeapon[] GetEquippedWeapons()
+        public IInventoryItem[] GetEquippedWeapons()
         {
-            var equippedWeapons = new ItemMeleeWeapon[2];
+            var equippedWeapons = new IInventoryItem[2];
             
             if (_equippedItems.TryGetValue(EntityEquipSlots.RightHand, out IInventoryItem equippedItem_r))
             {
-                if (equippedItem_r.GetType() == typeof(ItemMeleeWeapon))
-                    equippedWeapons[0] = equippedItem_r as ItemMeleeWeapon;
+                if (equippedItem_r.GetType() == typeof(ScriptableItemDataMeleeWeapon))
+                    equippedWeapons[0] = equippedItem_r;
             }
             
             if (_equippedItems.TryGetValue(EntityEquipSlots.LeftHand, out IInventoryItem equippedItem_l))
             {
-                if (equippedItem_l.GetType() == typeof(ItemMeleeWeapon))
-                    equippedWeapons[1] = equippedItem_l as ItemMeleeWeapon;
+                if (equippedItem_l.GetType() == typeof(IInventoryItem))
+                    equippedWeapons[1] = equippedItem_l;
             }
 
             return equippedWeapons;
@@ -89,7 +157,7 @@ namespace Game.Entites
         {
             if (_equippedItems.TryGetValue(slot, out IInventoryItem equippedItem))
             {
-                AddItemToInventory(equippedItem as Item);
+                AddItemToInventory(equippedItem);
                 //todo after this check if the character is encumbered. if so, don't let him walk etc.
             }
 
@@ -102,7 +170,7 @@ namespace Game.Entites
 
             foreach (var item in _inventoryItems)
             {
-                inventoryItems.Add(item);
+                inventoryItems.Add(item.Value);
             }
 
             return inventoryItems;
@@ -113,16 +181,14 @@ namespace Game.Entites
         public void AddItemForTest(int indexFromRegistry = 0)
         {
             var registry = DataManager.GetWeaponsRegistry();
-            MeleeWeaponDefinitionData weaponDefinitionTemplate = registry.GetMeeleeWeaponDataAtIndex(0);
-            MeleeWeaponDefinitionData weaponDefinitionTemplate2 = registry.GetMeeleeWeaponDataAtIndex(1);
-            Item weapon = new Item(weaponDefinitionTemplate, false);
+            var weapon1 = new ItemData(registry.GetMeleeWeaponDataAtIndex(0), true);
             
-           EquipItem(EntityEquipSlots.RightHand, weapon);
+           EquipItem(EntityEquipSlots.RightHand, weapon1);
 
             for (int i = 0; i < 4; i++)
             {
-                Item item = new Item(weaponDefinitionTemplate2, true);
-                AddItemToInventory(item);  
+                var weapon2 = new ItemData(registry.GetMeleeWeaponDataAtIndex(1), false);
+                AddItemToInventory(weapon2);
             }
         }
     }

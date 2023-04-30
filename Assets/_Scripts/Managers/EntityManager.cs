@@ -3,9 +3,9 @@ using System.Linq;
 using Game.Data;
 using Game.Tiles;
 using UnityEngine;
-using Game.Entites;
-using Game.Entites.Actions;
-using Game.Entites.Data;
+using Game.Entities;
+using Game.Entities.Actions;
+using Game.Entities.Data;
 
 namespace Game.Managers
 {

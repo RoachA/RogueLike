@@ -5,7 +5,7 @@ using Game.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.Entites.Data
+namespace Game.Entities.Data
 {
    [CreateAssetMenu(fileName = "D_ENTITY_DATA_SET", menuName = "Data Set/Dynamic Entities Data Set", order = 1)]
    [Serializable]

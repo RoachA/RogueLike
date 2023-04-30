@@ -9,6 +9,7 @@ namespace Game.UI
         public static Action<Type, UIProperties> OpenUiSignal; 
         public static Action<Type> CloseUiSignal;
         public static Action<Type> CloseIfUiIsOpenSignal;
+        public static Action<Type, UIProperties> ForceUpdateUiSignal;
         protected Sequence Seq;
         protected bool IsOpen;
         
@@ -44,6 +45,7 @@ namespace Game.UI
             OpenUiSignal += Open<UIElement, UIProperties>;
             CloseUiSignal += Close<UIElement>;
             CloseIfUiIsOpenSignal += CloseIfOpen<UIElement>;
+            ForceUpdateUiSignal += ForceUpdateUI<UIElement, UIProperties>;
         }
         
         /// <summary>
@@ -56,6 +58,14 @@ namespace Game.UI
         public virtual void Open<T, T1>(Type uiType, T1 property) where T : UIElement where T1 : UIProperties
         {
             IsOpen = true;
+        }
+
+        public virtual void ForceUpdateUI<T, T1>(Type uiType, T1 property) where T : UIElement where T1 : UIProperties
+        {
+            if (IsOpen == false)
+            {
+                return;
+            }
         }
         
         public virtual void Close<T>(Type uiType) where T : UIElement

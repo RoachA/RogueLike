@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Game.Entites;
+using Game.Entities;
 using UnityEngine;
-using Game.Entites.Actions;
+using Game.Entities.Actions;
 
 namespace Game.UI
 {

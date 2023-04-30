@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Game.Entites;
+using Game.Entities;
 using UnityEngine;
 
 namespace Game.Rooms

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Game.Data;
-using Game.Entites;
+using Game.Entities;
 using UnityEngine;
 
 namespace Game.UI
@@ -25,7 +25,7 @@ namespace Game.UI
                 foreach (var item in EquippedItems)
                 {
                     if (view != null && item.Value != null && view.Slot == item.Key)
-                        view.InitEquipSlotView(item.Value.GetItemData<ItemDefinitionData>());
+                        view.InitEquipSlotView(item.Value.GetItemData<ScriptableItemData>());
                     else
                         view.InitEquipSlotView();
                 }

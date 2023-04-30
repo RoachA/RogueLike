@@ -7,31 +7,30 @@ namespace Game.Data
     {
         public Guid Id { get; set; }
 
-        public T GetItemData<T>() where T : ItemDefinitionData;
+        public T GetItemData<T>() where T : ScriptableItemData;
     }
     
-    public class Item : ItemBase, IInventoryItem
+    public class ItemData : IInventoryItem
     {
         public Guid Id { get; set; }
         [Header("Data")]
-        [SerializeField] protected ItemDefinitionData ItemDefinitionData;
-        [SerializeField] protected bool _isContained = true;
+        [SerializeField] public ScriptableItemData ScriptableItemData;
+        [SerializeField] public bool _isContained = true;
 
-        public Item(ItemDefinitionData definitionData, bool isContained)
+        public ItemData(ScriptableItemData data, bool isContained)
         {
-            ItemDefinitionData = definitionData;
+            ScriptableItemData = data;
             _isContained = isContained;
             GenerateHashId();
         }
 
-        public Item()
+        public ItemData()
         {
         }
         
         public void SetAsContained(bool isContained)
         {
             _isContained = isContained;
-            _spriteRenderer.enabled = _isContained == false;
         }
 
         public bool GetIsContained()
@@ -39,20 +38,20 @@ namespace Game.Data
             return _isContained;
         }
         
-        public void SetItemData(ItemDefinitionData definitionData)
+        public void SetItemData(ScriptableItemData data)
         {
-            ItemDefinitionData = definitionData;
+            ScriptableItemData = data;
         }
         
-        public T GetItemData<T>() where T : ItemDefinitionData
+        public T GetItemData<T>() where T : ScriptableItemData
         {
-            if (ItemDefinitionData == null)
+            if (ScriptableItemData == null)
             {
                 Debug.LogError("no item data was found in this entity!");
                 return null;
             }
             
-            return (T) ItemDefinitionData;
+            return (T) ScriptableItemData;
         }
 
         protected void GenerateHashId()
@@ -64,11 +63,6 @@ namespace Game.Data
         {
             if (other == null) return false;
             return (this.Id == other.Id);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
         }
     }
 }

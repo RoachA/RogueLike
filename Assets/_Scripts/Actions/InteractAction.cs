@@ -1,7 +1,7 @@
 using System;
 using Game.Interfaces;
 
-namespace Game.Entites.Actions
+namespace Game.Entities.Actions
 {
     public class InteractAction<T> : IAction where T : EntityDynamic
     {

@@ -2,7 +2,7 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.Entites.Data
+namespace Game.Entities.Data
 {
     [CreateAssetMenu(fileName = "NPC_DATA", menuName = "Entity Data/Npc Data", order = 1)]
     [Serializable]

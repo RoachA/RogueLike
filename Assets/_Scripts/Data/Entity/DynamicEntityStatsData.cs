@@ -1,6 +1,6 @@
 using System;
 
-namespace Game.Entites.Data
+namespace Game.Entities.Data
 {
     [Serializable]
     public class DynamicEntityStatsData

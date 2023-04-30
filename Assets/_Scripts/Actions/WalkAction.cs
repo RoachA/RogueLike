@@ -1,7 +1,7 @@
 using System;
 using Game.Tiles;
 
-namespace Game.Entites.Actions
+namespace Game.Entities.Actions
 {
     public sealed class WalkAction<T> : IAction where T : EntityDynamic
     {

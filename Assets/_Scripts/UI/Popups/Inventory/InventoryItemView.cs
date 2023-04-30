@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Game.Data;
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,7 +14,16 @@ namespace Game.UI
         public string ItemInfo;
         public string ItemWeight;
         public string ItemCount;
-        public ItemDefinitionData DefinitionData;
+        public ScriptableItemData Data;
+        public Guid UniqueId;
+    }
+
+    public enum InventoryAction
+    {
+        Use,
+        Drop,
+        Look,
+        Equip,
     }
     
     public class InventoryItemView : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
@@ -42,8 +48,8 @@ namespace Game.UI
         [SerializeField] private Color _idleColor;
         [SerializeField] private Color _activeColor;
         [SerializeField] private Color _hoverColor;
-        
 
+        private Guid _uniqueId;
         private readonly string _closedStateTxt = "[ + ]";
         private readonly string _openStateTxt = "[ - ]";
         private bool _isSelected = false;
@@ -52,6 +58,7 @@ namespace Game.UI
         
         public static Action<InventoryItemView> InventoryItemViewWasSelectedEvent;
         public static Action RequestInventoryLayoutUpdateEvent;
+        public static Action<Guid, InventoryAction> InventoryItemOperatedEvent; 
 
         private void Start()
         {
@@ -78,6 +85,7 @@ namespace Game.UI
 
             _itemCategory = GetComponentInParent<InventoryCategoryView>();
             _categoryLayout = _itemCategory.GetComponent<LayoutGroup>();
+            _uniqueId = data.UniqueId;
             SetSubscriptions();
         }
 
@@ -116,17 +124,17 @@ namespace Game.UI
         
         private void OnEquipClicked()
         {
-            //todo - if the equip slot is free directly equip this and remove from inventory
-            //todo - if the equip slot is not free replace that item with this item and update inventory
-            
+           InventoryItemOperatedEvent?.Invoke(_uniqueId, InventoryAction.Equip);
         }
 
         private void OnDropClicked()
         {
+            InventoryItemOperatedEvent?.Invoke(_uniqueId, InventoryAction.Drop);
         }
 
         private void OnLookClicked()
         {
+            InventoryItemOperatedEvent?.Invoke(_uniqueId, InventoryAction.Look);
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -151,6 +159,16 @@ namespace Game.UI
         {
             if (_isSelected == false)
                 _viewFrame.color = _idleColor;
+        }
+
+        public void FlushView()
+        {
+            _itemImage.sprite = default;
+            _itemName.text = default;
+            _itemInfo.text = default;
+            _itemCount.text = default;
+            _itemCategory = default;
+            _uniqueId = default;
         }
     }
 }

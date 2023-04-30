@@ -1,7 +1,7 @@
-using Game.Entites.Data;
+using Game.Entities.Data;
 using UnityEngine;
 
-namespace Game.Entites
+namespace Game.Entities
 {
     public class EntityPlayer : EntityDynamic
     {

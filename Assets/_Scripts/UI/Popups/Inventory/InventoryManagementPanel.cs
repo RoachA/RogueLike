@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Data;
-using Game.Entites;
+using Game.Entities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,6 +29,8 @@ namespace Game.UI
 
         public void Init(List<IInventoryItem> items)
         {
+            _registeredInventoryItems = new Dictionary<Guid, IInventoryItem>();
+            
             //register categories to dictionary if null
             if (_registeredCategories == null)
             {
@@ -56,28 +58,36 @@ namespace Game.UI
 
         public void ResetViewsForDisabling()
         {
-            foreach (var categoryList in _registeredCategories)
+            foreach (var category in _registeredCategories)
             {
-                categoryList.Value.DisableAllViews();
+                category.Value.DisableAllViews();
             }
         }
 
         private void RegisterItemsToInventory(List<IInventoryItem> items)
         {
-            //todo check how many views already exist. reuse if any blank. don't delete.
             foreach (var item in items)
             {
-                var itemData = item.GetItemData<ItemDefinitionData>();
+                var itemData = item.GetItemData<ScriptableItemData>();
                 var itemType = itemData._itemType;
 
                 if (_registeredCategories.TryGetValue(itemType, out var categoryList))
                 {
-                    categoryList.AddItemToCategory(_inventoryItemViewRef, ConvertItemDataToUIData(itemData));
+                    if (CheckIfItemAlreadyExists(item.Id))
+                        return;
+                    
+                    categoryList.AddItemToCategory(_inventoryItemViewRef, ConvertItemDataToUIData(itemData, item.Id));
+                    _registeredInventoryItems.Add(item.Id, item);
                 }
             }
         }
 
-        private InventoryItemViewData ConvertItemDataToUIData<T>(T data) where T : ItemDefinitionData
+        private void RemoveItemWithGuid(Guid itemId)
+        {
+            _registeredInventoryItems.Remove(itemId);
+        }
+
+        private InventoryItemViewData ConvertItemDataToUIData<T>(T data, Guid id) where T : ScriptableItemData
         {
             var uiData = new InventoryItemViewData();
             uiData.ItemName = data._itemName;
@@ -85,7 +95,8 @@ namespace Game.UI
             uiData.ItemSprite = data._itemSprite;
             uiData.ItemWeight = "undefined weight";
             uiData.ItemCount = "x1"; //todo 
-            uiData.DefinitionData = data;
+            uiData.Data = data; //may not be needed.
+            uiData.UniqueId = id;
 
             return uiData;
         }
@@ -118,6 +129,11 @@ namespace Game.UI
 
             if (listedItems.Count == 0) return false;
             else return true;
+        }
+
+        private bool CheckIfItemAlreadyExists(Guid itemId)
+        {
+            return _registeredInventoryItems.ContainsKey(itemId);
         }
 
         public void UpdateLayout()

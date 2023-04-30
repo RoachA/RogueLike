@@ -1,25 +1,27 @@
 using System.Collections.Generic;
 using System.Linq;
-using Game.Data;
 using Game.Managers;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WEAPON_REGISTRY", menuName = "Item Data/WeaponData", order = 1)]
-public class WeaponRegistriesData : ScriptableObject
+namespace Game.Data
 {
-   [SerializeField] private List<MeleeWeaponDefinitionData> _weaponRegistry;
-   
-   [Button]
-   private void LoadEntitiesFromResources()
+   [CreateAssetMenu(fileName = "WEAPON_REGISTRY", menuName = "Item Data/WeaponData", order = 1)]
+   public class WeaponRegistriesData : ScriptableObject
    {
-      var weaponRegistry = Resources.LoadAll<MeleeWeaponDefinitionData>(ResourceHelper.MeleeWeaponsPath).ToList();
-      _weaponRegistry.Clear();
-      _weaponRegistry = weaponRegistry;
-   }
+      [SerializeField] private List<MeleeWeaponScriptableData> _weaponRegistry;
 
-   public MeleeWeaponDefinitionData GetMeeleeWeaponDataAtIndex(int index)
-   {
-      return _weaponRegistry[index];
+      [Button]
+      private void LoadEntitiesFromResources()
+      {
+         var weaponRegistry = Resources.LoadAll<MeleeWeaponScriptableData>(ResourceHelper.MeleeWeaponsPath).ToList();
+         _weaponRegistry.Clear();
+         _weaponRegistry = weaponRegistry;
+      }
+
+      public MeleeWeaponScriptableData GetMeleeWeaponDataAtIndex(int index)
+      {
+         return _weaponRegistry[index];
+      }
    }
 }

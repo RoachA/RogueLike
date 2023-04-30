@@ -3,7 +3,7 @@ using System;
 using Game.Data;
 using Game.Dice;
 
-namespace Game.Entites.Actions
+namespace Game.Entities.Actions
 {
     /// <summary>
     /// Any melee attack falls into this category.
@@ -84,10 +84,10 @@ namespace Game.Entites.Actions
             DamageDealtEvent?.Invoke(target, dmg);
         }
 
-        public void SendAttackLog(EntityDynamic attacker, EntityDynamic defender, int penetrationTimes, int damageOutput, ItemMeleeWeapon weaponItem)
+        public void SendAttackLog(EntityDynamic attacker, EntityDynamic defender, int penetrationTimes, int damageOutput, IInventoryItem weaponScriptableItemData)
         {
-            MeleeWeaponDefinitionData weaponDefinitionData = weaponItem.GetItemData<MeleeWeaponDefinitionData>();
-            Game.Dice.Dice weaponDmg = weaponDefinitionData.Stats.BaseDmg;
+            MeleeWeaponScriptableData weaponScriptableData = weaponScriptableItemData.GetItemData<MeleeWeaponScriptableData>();
+            Game.Dice.Dice weaponDmg = weaponScriptableData.Stats.BaseDmg;
             string wpnDmg = DiceRollHelper.GetDiceAsString(weaponDmg);
             string penetrationTimesString = "(x" + penetrationTimes.ToString() + ")";
             string hitText = " hits ";
@@ -127,7 +127,7 @@ namespace Game.Entites.Actions
             if (penetrationTimes > 0)
             {
                 finalOutput = attackerName + hitText + defenderName + " " + penetrationTimesString + " for " + damageOutput + " damage with a " +
-                           weaponDefinitionData._itemName + " ->" + weaponDefinitionData.Stats.ArmorPenetration + " " + wpnDmg + "!";
+                           weaponScriptableData._itemName + " ->" + weaponScriptableData.Stats.ArmorPenetration + " " + wpnDmg + "!";
             }
             
             ActionHelper.SendActionLog(finalOutput);

@@ -1,6 +1,6 @@
 using Game.Data;
 
-namespace Game.Entites.Data
+namespace Game.Entities.Data
 {
     /// <summary>
     /// Don't use this for player loading now

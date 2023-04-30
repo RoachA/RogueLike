@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Game.Entites;
-using Game.Entites.Data;
+using Game.Entities;
+using Game.Entities.Data;
 using Game.Managers;
 using Game.Tiles;
 using UnityEngine;
@@ -100,9 +100,15 @@ namespace Game.Data
          return null;
       }
 
-      public static List<WearableItemDefinitionData> GetWearableItems()
+      public static ItemEntityView GetItemEntity()
       {
-         var wearableItems = Resources.LoadAll<WearableItemDefinitionData>(ResourceHelper.WearableItemsData).ToList();
+         var itemView = Resources.Load<ItemEntityView>(ResourceHelper.ItemEntityPath);
+         return itemView;
+      }
+
+      public static List<WearableScriptableItemData> GetWearableItems()
+      {
+         var wearableItems = Resources.LoadAll<WearableScriptableItemData>(ResourceHelper.WearableItemsData).ToList();
          
          if (wearableItems.Count != 0)
             return wearableItems;

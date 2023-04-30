@@ -3,13 +3,13 @@ using Game.Tiles;
 using UnityEngine;
 using Game.Utils;
 
-namespace Game.Entites
+namespace Game.Entities
 {
    [Serializable]
    public class EntityBase : MonoBehaviour, IEquatable<EntityBase>
    {
       public Guid Id { get; set; }
-      [SerializeField] protected string _identifier;
+      [SerializeField] protected string _identifier; //todo not used mostly
       [SerializeField] protected SpriteRenderer _spriteRenderer;
       [SerializeField] protected TileBase _occupiedTile;
       [SerializeField] protected EntityType _entityType { get; set; }
@@ -19,10 +19,15 @@ namespace Game.Entites
          Init();
       }
 
-      public void Init()
+      public virtual void Init(Guid guid = default)
       {
          if (Id == Guid.Empty)
-            GenerateHashId();
+         {
+            if (guid == default)
+               GenerateHashId();
+            else
+               Id = guid;
+         }
       }
 
       public Sprite GetSprite()

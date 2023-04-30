@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Game.Entites;
+using Game.Entities;
 using TMPro;
 using UnityEngine;
 namespace Game.UI
@@ -22,6 +22,15 @@ namespace Game.UI
         public List<InventoryItemView> GetRegisteredItems()
         {
             return _items;
+        }
+
+        public void ResetViews()
+        {
+            foreach (var item in _items)
+            {
+                item.FlushView();
+                item.gameObject.SetActive(false);
+            }
         }
 
         public void AddItemToCategory(InventoryItemView view, InventoryItemViewData data)
@@ -54,7 +63,7 @@ namespace Game.UI
         {
             foreach (var item in _items)
             {
-                item.gameObject.SetActive(false);
+                ResetViews();
             }
         }
         

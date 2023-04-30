@@ -3,16 +3,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Game.Data;
-using Game.Entites;
+using Game.Entities;
 
 namespace Game.UI
 {
     public class ContainerPopupProperties : UIProperties
     {
-        public List<ItemDefinitionData> ContainedItemsList;
+        public List<ScriptableItemData> ContainedItemsList;
         public PropEntityData PropData;
 
-        public ContainerPopupProperties(List<ItemDefinitionData> containedItemsList, PropEntityData propData)
+        public ContainerPopupProperties(List<ScriptableItemData> containedItemsList, PropEntityData propData)
         {
             ContainedItemsList = containedItemsList;
             PropData = propData;
@@ -52,7 +52,7 @@ namespace Game.UI
             _storeItemBtn.onClick.RemoveListener(OnStoreItem);
         }
 
-        private void SetContainerViews(List<ItemDefinitionData> items)
+        private void SetContainerViews(List<ScriptableItemData> items)
         {
             var availabeCount = _availableTemplates.Count;
             var neededCount = items.Count;

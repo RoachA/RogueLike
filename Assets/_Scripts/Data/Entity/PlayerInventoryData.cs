@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using Game.Entites;
+using Game.Entities;
 using UnityEngine;
 
 namespace Game.Data
 {
-    public class PlayerInventoryData : MonoBehaviour
+    public class PlayerInventoryData<T> : MonoBehaviour where T : ScriptableItemData
     {
-        public List<Item> InventoryItems;
-        public Dictionary<EntityEquipSlots, Item> _equippedItems;
+        public List<ItemData> InventoryItems;
+        public Dictionary<EntityEquipSlots, ItemData> _equippedItems;
     }
 }

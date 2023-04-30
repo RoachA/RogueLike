@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using Game.Data;
 public static class ItemSpawnHelper
 {
-    public static List<WearableItemDefinitionData> GetRandomWearableItems(int count)
+    public static List<WearableScriptableItemData> GetRandomWearableItems(int count)
     {
-        List<WearableItemDefinitionData> itemData = DataManager.GetWearableItems();
-        List<WearableItemDefinitionData> randomWearables = new List<WearableItemDefinitionData>();
+        List<WearableScriptableItemData> itemData = DataManager.GetWearableItems();
+        List<WearableScriptableItemData> randomWearables = new List<WearableScriptableItemData>();
 
         for (int i = 0; i < count; i++)
         {

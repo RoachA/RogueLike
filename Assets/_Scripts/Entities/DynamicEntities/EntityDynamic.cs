@@ -1,12 +1,11 @@
-using System;
 using System.Collections.Generic;
 using Game.Data;
-using Game.Entites.Actions;
-using Game.Entites.Data;
+using Game.Entities.Actions;
+using Game.Entities.Data;
 using Game.Tiles;
 using UnityEngine;
 
-namespace Game.Entites
+namespace Game.Entities
 {
     //todo STUDY INTERFACES IMPLEMENT I=DAMAGABLE, 
     public abstract class EntityDynamic : EntityBase
@@ -121,7 +120,7 @@ namespace Game.Entites
             return _inventoryView.GetEquippedItems();
         }
 
-        public ItemMeleeWeapon[] GetEquippedWeapons()
+        public IInventoryItem[] GetEquippedWeapons()
         {
             return _inventoryView.GetEquippedWeapons();
         }

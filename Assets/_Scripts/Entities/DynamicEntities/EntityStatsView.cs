@@ -1,10 +1,10 @@
 using System;
-using Game.Entites.Actions;
-using Game.Entites.Data;
+using Game.Entities.Actions;
+using Game.Entities.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.Entites
+namespace Game.Entities
 {
     public class EntityStatsView : MonoBehaviour
     {

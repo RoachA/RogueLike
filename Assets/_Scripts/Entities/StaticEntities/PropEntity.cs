@@ -4,12 +4,12 @@ using Game.Interfaces;
 using Game.UI;
 using UnityEngine;
 
-namespace Game.Entites
+namespace Game.Entities
 {
     public class PropEntity : EntityStatic, IInteractable
     {
         public PropEntityData Data;
-        public List<ItemDefinitionData> ContainedItems;
+        public List<ScriptableItemData> ContainedItems;
         public string InteractionResultLog { get; set; }
 
         private PointLightView _pointLightView;
@@ -53,7 +53,7 @@ namespace Game.Entites
         public void InitContainer()
         {
             ContainerEntityData data = Data as ContainerEntityData;
-            var randomWearables = new List<WearableItemDefinitionData>();
+            var randomWearables = new List<WearableScriptableItemData>();
             var rndCount = UnityEngine.Random.Range(1, 5);
 
             if (data.ContainerType == ContainerTypes.Clothes)

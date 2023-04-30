@@ -1,5 +1,5 @@
 using UnityEngine;
-using Game.Entites;
+using Game.Entities;
 
 namespace Game.Tiles
 {

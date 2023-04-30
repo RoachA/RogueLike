@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Game.Entites
+namespace Game.Entities
 {
     [CreateAssetMenu(fileName = "PROP_DATA", menuName = "Environment Data/Prop", order = 1)]
     public class PropEntityData : ScriptableObject

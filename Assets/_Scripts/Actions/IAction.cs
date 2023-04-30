@@ -1,6 +1,6 @@
 using System;
 
-namespace Game.Entites.Actions
+namespace Game.Entities.Actions
 {
     /// <summary>
     /// base action class, this can be queued later on. because these are objects and can be registered in a dictionary etc

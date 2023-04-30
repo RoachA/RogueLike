@@ -1,6 +1,6 @@
 using Unity.VisualScripting;
 
-namespace Game.Entites
+namespace Game.Entities
 {
     public enum SkillTypes
     {
@@ -19,7 +19,7 @@ namespace Game.Entites
 
     public enum EntityBehaviorTypes
     {
-        meelee = 0,
+        melee = 0,
         ranged = 1,
         frenzy = 2,
         defensive = 3,
