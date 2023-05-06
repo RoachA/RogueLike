@@ -1,18 +1,21 @@
 using System;
+using Game.Data;
 using Game.Tiles;
+using Game.UI;
 using UnityEngine;
 using Game.Utils;
 
 namespace Game.Entities
 {
    [Serializable]
-   public class EntityBase : MonoBehaviour, IEquatable<EntityBase>
+   public class EntityBase : MonoBehaviour, IEquatable<EntityBase>, ILookable
    {
       public Guid Id { get; set; }
       [SerializeField] protected string _identifier; //todo not used mostly
       [SerializeField] protected SpriteRenderer _spriteRenderer;
       [SerializeField] protected TileBase _occupiedTile;
       [SerializeField] protected EntityType _entityType { get; set; }
+      public LookableType MyLookableType { get; set; }
 
       protected void Start()
       {
@@ -20,6 +23,17 @@ namespace Game.Entities
       }
 
       public virtual void Init(Guid guid = default)
+      {
+         if (Id == Guid.Empty)
+         {
+            if (guid == default)
+               GenerateHashId();
+            else
+               Id = guid;
+         }
+      }
+      
+      public virtual void Init(ScriptableItemData data, Guid guid = default)
       {
          if (Id == Guid.Empty)
          {

@@ -61,8 +61,7 @@ namespace Game.Entities
             var view = DataManager.GetItemEntity();
             
             var entity = Instantiate(view, worldPos, Quaternion.identity);
-            entity._itemData = itemData.ScriptableItemData;
-            entity.Init(itemData.Id);
+            entity.Init(itemData.ScriptableItemData, itemData.Id);
             entity.SetOccupiedTile(tile);
             tile.AddEntityToTile(entity);
         }

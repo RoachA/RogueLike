@@ -15,6 +15,7 @@ namespace Game.Entities
 
         private PointLightView _pointLightView;
         private bool _isContainer;
+        
 
         public override void Init(Guid guid = default)
         {
@@ -30,6 +31,7 @@ namespace Game.Entities
             }
 
             _pointLightView = GetComponentInChildren<PointLightView>();
+            MyLookableType = LookableType.Generic;
         }
         
         public override void SetLight(Color color)

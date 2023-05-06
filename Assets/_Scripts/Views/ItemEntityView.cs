@@ -1,6 +1,7 @@
 using System;
 using Game.Data;
 using Game.Interfaces;
+using Game.UI;
 using UnityEngine;
 
 namespace Game.Entities
@@ -9,10 +10,22 @@ namespace Game.Entities
    {
       [SerializeField] public ScriptableItemData _itemData;
 
-      public override void Init(Guid guid = default)
+      public override void Init(ScriptableItemData data, Guid guid = default)
       {
          _spriteRenderer.sprite = _itemData._itemSprite;
          base.Init(guid);
+         _itemData = data;
+         SetLookableType();
+      }
+
+      private void SetLookableType()
+      {
+         if (_itemData.GetType() == typeof(MeleeWeaponScriptableData) || (_itemData.GetType() == typeof(RangedWeaponData)))
+            MyLookableType = LookableType.Weapon;
+         if (_itemData.GetType() == typeof(WearableScriptableItemData))
+            MyLookableType = LookableType.Gear;
+         
+         //todo add other types here in the future
       }
 
       public string InteractionResultLog { get; set; }

@@ -1,5 +1,6 @@
 using Game.Entities.Data;
 using Game.Tiles;
+using Game.UI;
 using UnityEditor;
 using UnityEngine;
 using Game.Utils;
@@ -12,7 +13,7 @@ namespace Game.Entities
       [SerializeField] protected EntityDemeanor _demeanor;
       [SerializeField] protected EntityBehaviorTypes _behaviorType;
       [SerializeField] protected int _aggroDistance;
-      
+
       protected NpcEntityScriptableData NpcScriptableData;
       protected bool _aggroStatus;
 
@@ -37,6 +38,8 @@ namespace Game.Entities
          SetDemeanor(NpcScriptableData._demeanor);
          SetBehaviorType(NpcScriptableData._behaviorType);
          UpdateAggroDistance(NpcScriptableData._aggroRadius);
+
+         MyLookableType = LookableType.Actor;
       }
       
       public EntityDemeanor GetDemeanor()

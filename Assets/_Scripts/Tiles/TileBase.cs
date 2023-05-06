@@ -5,11 +5,12 @@ using System.Linq;
 using Game.Entities;
 using Game.Interfaces;
 using Game.Managers;
+using Game.UI;
 
 namespace Game.Tiles
 {
     [ExecuteAlways]
-    public class TileBase : MonoBehaviour
+    public class TileBase : MonoBehaviour, ILookable
     {
         [SerializeField] protected bool IsWalkable = true;
         [SerializeField] protected SpriteRenderer _spriteRenderer;
@@ -20,6 +21,7 @@ namespace Game.Tiles
         protected TileTypeData _currentTileData;
         protected bool _wasMarked; // this is used for internal room detection algorithms.
         protected bool _isVisibleToPlayer;
+        public LookableType MyLookableType { get; set; }
         
         public virtual void Init(ICoords coords, List<TileTypeData> data) 
         {
@@ -36,6 +38,8 @@ namespace Game.Tiles
             
             if (_entitiesOnTile == null)
                 _entitiesOnTile = new Dictionary<Guid, EntityBase>();
+
+            MyLookableType = LookableType.Tile;
         }
 
         protected virtual void SetRandomSprite()

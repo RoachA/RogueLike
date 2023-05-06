@@ -1,4 +1,5 @@
 using Game.Entities.Data;
+using Game.UI;
 using UnityEngine;
 
 namespace Game.Entities
@@ -11,6 +12,7 @@ namespace Game.Entities
         public void SetPlayerData(PlayerEntityData data)
         {
             PlayerData = data;
+            MyLookableType = LookableType.Actor;
         }
     }
 

@@ -3,6 +3,7 @@ using Game.Data;
 using Game.Entities.Actions;
 using Game.Entities.Data;
 using Game.Tiles;
+using Game.UI;
 using UnityEngine;
 
 namespace Game.Entities
@@ -26,6 +27,7 @@ namespace Game.Entities
         {
             MeleeAttackAction<EntityDynamic>.DamageDealtEvent += OnReceiveDamage;
             MeleeAttackAction<EntityDynamic>.AttackHappenedEvent += OnAttack;
+            MyLookableType = LookableType.Actor;
         }
 
         protected void OnDestroy()
@@ -50,6 +52,11 @@ namespace Game.Entities
                 entityScriptableData._dynamicEntityDefinitionData);
 
             SetSprite(entityScriptableData._dynamicEntityDefinitionData.Sprite);
+        }
+
+        public virtual DynamicEntityScriptableData GetEntityData()
+        {
+            return EntityScriptableData;
         }
 
         public virtual void Init(BaseStatsData stats, DynamicEntityDefinitionData definition) //for player

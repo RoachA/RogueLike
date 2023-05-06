@@ -13,6 +13,7 @@ namespace Game.Data
         [SerializeField] public string _itemDesc;
         [SerializeField] public float _baseValue;
         [SerializeField] public int _durability;
+        [SerializeField] public int _weight;
     }
 
     [Serializable] // todo migrate laters
