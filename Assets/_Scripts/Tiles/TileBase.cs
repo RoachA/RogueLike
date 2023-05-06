@@ -54,6 +54,19 @@ namespace Game.Tiles
         {
             return _spriteRenderer.sprite;
         }
+
+        public List<ILookable> GetAllLookables()
+        {
+            List<ILookable> lookables = new List<ILookable>();
+            lookables.Add(this);
+
+            foreach (var entity in _entitiesOnTile)
+            {
+                lookables.Add(entity.Value);
+            }
+
+            return lookables;
+        }
         
         protected virtual void SetSpriteWithIndex(int index)
         {

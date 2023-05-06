@@ -32,6 +32,7 @@ namespace Game.UI
 
     public class LookPopup : UIElement
     {
+        [SerializeField] private GameObject _container;
         [SerializeField] private Button _closeBtn;
         [SerializeField] private LookupDetailsView _detailsView;
         [SerializeField] private LookUpListView _listView;
@@ -39,6 +40,7 @@ namespace Game.UI
         public override void Init<T>(T uiProperties = default)
         {
             base.Init(uiProperties);
+            _container.SetActive(false);
         }
 
         public override void Open<T, T1>(Type uiType, T1 property)
@@ -48,6 +50,8 @@ namespace Game.UI
             
             if (property is LookPopupProperties data)
             {
+                _container.SetActive(true);
+                _listView.InitLookUpItems(data.Lookables);
             }
         }
 
@@ -61,7 +65,7 @@ namespace Game.UI
         private void OnClose()
         {
             _closeBtn.onClick.RemoveListener(OnClose);
-            UIElement.CloseUiSignal(typeof(LookPopup));
+            _container.SetActive(false);
         }
 
         public override void Close<T>(Type uiElement)

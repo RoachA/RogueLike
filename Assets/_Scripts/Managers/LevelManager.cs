@@ -105,44 +105,8 @@ namespace Game.Managers
         { 
             var targetTile = _gridManager.GetTileAtPosition(_cursor.GetCurrentCursorPos());
             if (targetTile.IsTileVisible() == false) return;
-            
-            if (targetTile.QueryForEntities(out var entities))
-            {
-                var targetEntity = entities[0];
-                Type entityType = targetEntity.GetType();
-                
-                if (entityType == typeof(ItemEntityView))
-                {
-                    ItemEntityView itemEntityView = (ItemEntityView) targetEntity;
-                    var data = itemEntityView._itemData;
-                    //todo use a different popup type for this, it should support more info and has its own properties for this.
-                    UIElement.OpenUiSignal(typeof(SimplePopup), new SimplePopupProperties(data._itemName, data._itemDesc, itemEntityView.GetSprite()));
-                    return;
-                }
-                
-                if (entityType == typeof(EntityDynamic))
-                {
-                    EntityDynamic dynamicEntity = (EntityDynamic) targetEntity;
-                    var data = dynamicEntity.GetDefinitionData();
-                    //todo use a different popup type for this, it should support more info and has its own properties for this.
-                    UIElement.OpenUiSignal(typeof(SimplePopup), new SimplePopupProperties(data._entityName, data.Description, dynamicEntity.GetSprite()));
-                    return;
-                }
 
-                if (entityType == typeof(PropEntity))
-                {
-                    PropEntity propEntity = (PropEntity) targetEntity;
-                    var data = propEntity.Data;
-                    //todo use a different popup type for this, it should support more info and has its own properties for this.
-                    UIElement.OpenUiSignal(typeof(SimplePopup), new SimplePopupProperties(data.Name, data.Desc, propEntity.GetSprite()));
-                    return;
-                }
-                
-                //todo other types would be checked along the way, if no type is found check tile alone.
-            }
-            
-            var tileDesc = targetTile.GetCurrentTileData();
-            UIElement.OpenUiSignal(typeof(SimplePopup), new SimplePopupProperties(tileDesc.TileType.ToString() + " - " + tileDesc.TileName, tileDesc.TileDesc, targetTile.GetSprite()));
+            UIElement.OpenUiSignal(typeof(LookPopup), new LookPopupProperties(targetTile.GetAllLookables()));
         }
 
         public void LookAtTile(Vector2Int target)

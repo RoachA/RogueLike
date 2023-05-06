@@ -282,6 +282,7 @@ namespace Game.Managers
             UIElement.CloseIfUiIsOpenSignal(typeof(SimplePopup));
             UIElement.CloseIfUiIsOpenSignal(typeof(InventoryPopup));
             UIElement.CloseIfUiIsOpenSignal(typeof(ContainerPopup));
+            UIElement.CloseIfUiIsOpenSignal(typeof(LookPopup));
         }
         
         [BoxGroup("debug")]
