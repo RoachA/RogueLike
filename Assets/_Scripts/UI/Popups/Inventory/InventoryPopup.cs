@@ -37,11 +37,10 @@ namespace Game.UI
 
         public override void Open<T, T1>(Type uiType, T1 property)
         {
-            _closeBtn.onClick.AddListener(OnClose);
-            base.Open<T, T1>(uiType, property);
-            
             if (property is InventoryUIProperties data)
             {
+                _closeBtn.onClick.AddListener(OnClose);
+                base.Open<T, T1>(uiType, property);
                 SetState(true);
                 
                 _inventoryPanel.Init(data.InventoryItems);

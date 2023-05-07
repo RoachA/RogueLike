@@ -192,9 +192,9 @@ namespace Game.Managers
             {
                 if (_currentMode == PlayerModes.use)
                 {
+                    //todo it will need work laters
                     Debug.Log("Player uses item here.");
                     _levelManager.InteractWithObject();
-                    ResetToNormalMode();
                     UpdateGameState(GameState.evaluate);
                     return;
                 }

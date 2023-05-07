@@ -194,15 +194,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8e137c9cdd13f4f80a690c4f65f63b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _title: {fileID: 857377314211882512}
+  _desc: {fileID: 612545108918445816}
   _container: {fileID: 6848559881021777511}
-  _popUpRect: {fileID: 2260149323092869590}
-  _headerTxt: {fileID: 857377314211882512}
-  _infoTxt: {fileID: 612545108918445816}
-  _closeButton: {fileID: 5648845128997851036}
-  _buttons:
-  - {fileID: 5839971016100255076}
-  - {fileID: 2088969743555595494}
-  - {fileID: 5648845128997851036}
   _image: {fileID: 635565587005621772}
   _containerItemViewTemplate: {fileID: 1613295165224838835, guid: eb775181edfd3f54d9fc2ee6892e9b39, type: 3}
   _availableTemplates: []
@@ -1266,17 +1260,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6ec6196e9d5fcb4bab8ebdec871d1ce, type: 3}
---- !u!114 &5648845128997851036 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3870484504145367744, guid: a6ec6196e9d5fcb4bab8ebdec871d1ce, type: 3}
-  m_PrefabInstance: {fileID: 8922197733400501596}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &7340894650696643438 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2175831650170531378, guid: a6ec6196e9d5fcb4bab8ebdec871d1ce, type: 3}

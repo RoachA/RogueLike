@@ -47,8 +47,8 @@ namespace Game.Entities
         {
             if (_isContainer)
             {
-                UIElement.OpenUiSignal(typeof(ContainerPopup),
-                new ContainerPopupProperties(ContainedItems, Data));
+                var property = new ContainerPopupProperties(ContainedItems, Data);
+                UIElement.OpenUiSignal(typeof(ContainerPopup), property);
             }
 
             return Data.InteractionFeedback;

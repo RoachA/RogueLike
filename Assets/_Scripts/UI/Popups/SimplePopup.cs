@@ -21,10 +21,10 @@ namespace Game.UI
     {
         public override void Open<T, T1>(Type uiType, T1 property)
         {
-            base.Open<T, T1>(uiType, property);
-            
             if (property is SimplePopupProperties data)
             {
+                base.Open<T, T1>(uiType, property);
+                
                 SetHeaderText(data.Header);
                 SetInfoText(data.Info);
                 SetSprite(data.SpriteImage);

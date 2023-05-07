@@ -46,11 +46,11 @@ namespace Game.UI
 
         public override void Open<T, T1>(Type uiType, T1 property)
         {
-            base.Open<T, T1>(uiType, property);
-            _closeBtn.onClick.AddListener(OnClose);
-            
             if (property is LookPopupProperties data)
             {
+                base.Open<T, T1>(uiType, property);
+                _closeBtn.onClick.AddListener(OnClose);
+                
                 _container.SetActive(true);
                 _listView.InitLookUpItems(data.Lookables);
             }
