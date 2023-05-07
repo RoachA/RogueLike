@@ -170,6 +170,7 @@ namespace Game.Managers
         //THIS IS STUPıd.!
         private void Update()
         {
+            Debug.Log(GetPlayerMode());
             //todo here may cause issues if other conditions come.
             if (_currentGameState == GameState.playerTurn && Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.KeypadEnter)) 
             {
@@ -178,9 +179,13 @@ namespace Game.Managers
                    _levelManager.ReadLookAtDataAtTile();
                     return;
                 }
-               // _levelManager.UpdateLevelState();
+                
+                if (GetPlayerMode() != PlayerModes.normal)
+                    return;
+                
                 SetPlayerMode(PlayerModes.look);
                 _levelManager.StartLookAt();
+                return;
             }
 
             if (_currentGameState == GameState.playerTurn && Input.GetKeyDown(KeyCode.Space))
@@ -193,20 +198,24 @@ namespace Game.Managers
                     UpdateGameState(GameState.evaluate);
                     return;
                 }
+                 
+                if (GetPlayerMode() != PlayerModes.normal)
+                    return;
                 
                 _levelManager.UpdateLevelState();
                 SetPlayerMode(PlayerModes.use);
                 _levelManager.StartUseAt();
+                return;
             }
 
-            if (_currentGameState == GameState.playerTurn && _currentMode == PlayerModes.normal &&
-                Input.GetKeyDown(KeyCode.Tab))
+            if (_currentGameState == GameState.playerTurn && _currentMode == PlayerModes.normal && Input.GetKeyDown(KeyCode.Tab))
             {
                 var properties = new InventoryUIProperties(_levelManager.GetPlayerInventory(), _levelManager.GetPlayersEquippedItems());
               
                 UIElement.OpenUiSignal(typeof(InventoryPopup), properties);
                 UIElement.CloseIfUiIsOpenSignal(typeof(RightHudView));
                 SetPlayerMode(PlayerModes.uiUsage);
+                return;
             }
 
             if (_currentGameState == GameState.playerTurn && _currentMode != PlayerModes.normal && Input.GetKeyDown(KeyCode.Escape))
@@ -214,8 +223,8 @@ namespace Game.Managers
                 ResetToNormalMode();
                 //todo needs a close all UI signal for laters.
 
-                UIElement.OpenUiSignal(typeof(RightHudView), new UIProperties());
-
+                UIElement.OpenUiSignal(typeof(RightHudView), new UIProperties()); // todo open if closed
+                return;
                 ///check where the cursor is, get that tile, check if there is something interactable in or, or, if the tile itself is interactable.
                 //trigger use action - make I usable interface
             }
@@ -234,6 +243,7 @@ namespace Game.Managers
                             {
                                 _levelManager.MovePlayerTo(motionVector);
                                 UpdateGameState(GameManager.GameState.evaluate);
+                                return;
                             }
                         }
                     }
@@ -249,6 +259,7 @@ namespace Game.Managers
                             {
                                 _levelManager.MovePlayerTo(motionVector);
                                 UpdateGameState(GameManager.GameState.evaluate);
+                                return;
                             }
                         }
                     }
@@ -268,6 +279,8 @@ namespace Game.Managers
                             
                             if (_currentMode == PlayerModes.use)
                                 _levelManager.UseAtTile(motionVector);
+                            
+                            return;
                         }
                     }
                 }
