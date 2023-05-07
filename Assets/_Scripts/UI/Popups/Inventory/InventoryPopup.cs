@@ -37,8 +37,8 @@ namespace Game.UI
 
         public override void Open<T, T1>(Type uiType, T1 property)
         {
-            base.Open<T, T1>(uiType, property);
             _closeBtn.onClick.AddListener(OnClose);
+            base.Open<T, T1>(uiType, property);
             
             if (property is InventoryUIProperties data)
             {
@@ -70,15 +70,13 @@ namespace Game.UI
         private void OnClose()
         {
             _closeBtn.onClick.RemoveListener(OnClose);
-            UIElement.CloseUiSignal(typeof(InventoryPopup));
         }
 
         public override void Close<T>(Type uiElement)
         {
-            _inventoryPanel.ResetViewsForDisabling();
             base.Close<T>(uiElement);
+            _inventoryPanel.ResetViewsForDisabling();
             SetState(false);
-            _gameManager.ResetToNormalMode();
         }
 
         private void GetReferences()

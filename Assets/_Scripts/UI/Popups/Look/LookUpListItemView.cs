@@ -1,4 +1,5 @@
 using Game.Data;
+using Game.Entities;
 using Game.Entities.Data;
 using Game.Tiles;
 using Game.UI.Helper;
@@ -47,12 +48,19 @@ namespace Game.UI
             if (lookableItem.MyLookableType == LookableType.Tile)
             {
                 TileTypeData data;
-                data = LookupHelper.GetTileData<TileTypeData>(lookableItem);
+                data = LookupHelper.GetTileData(lookableItem);
                 SetView(data.TileSprite_A, data.TileName);
             }
 
             if (lookableItem.MyLookableType == LookableType.Consumable)
             {
+            }
+            
+            if (lookableItem.MyLookableType == LookableType.Prop)
+            {
+                PropEntityData data;
+                data = LookupHelper.GetPropData(lookableItem);
+                SetView(data.Sprite[0], data.Name); //todo why is this an array?
             }
             
             if (lookableItem.MyLookableType == LookableType.Generic)

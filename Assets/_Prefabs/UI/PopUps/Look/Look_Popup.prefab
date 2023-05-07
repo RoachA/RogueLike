@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Info text...
+  m_text: Here is a list of items you see here.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ba3c91d97b477674da181bef80b94aaf, type: 2}
   m_sharedMaterial: {fileID: -7354011214256703361, guid: ba3c91d97b477674da181bef80b94aaf, type: 2}
@@ -1357,6 +1357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75b37acf4002e0e4eb211d4accb21dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _container: {fileID: 0}
   _closeBtn: {fileID: 1370871157979476651}
   _detailsView: {fileID: 4042118910711503370}
   _listView: {fileID: 6595394976419534239}
@@ -2411,7 +2412,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Header
+  m_text: Entity List To Look At
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ba3c91d97b477674da181bef80b94aaf, type: 2}
   m_sharedMaterial: {fileID: -7354011214256703361, guid: ba3c91d97b477674da181bef80b94aaf, type: 2}

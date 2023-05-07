@@ -46,6 +46,7 @@ namespace Game.UI
             CloseUiSignal += Close<UIElement>;
             CloseIfUiIsOpenSignal += CloseIfOpen<UIElement>;
             ForceUpdateUiSignal += ForceUpdateUI<UIElement, UIProperties>;
+            IsOpen = false;
         }
         
         /// <summary>
@@ -57,6 +58,7 @@ namespace Game.UI
         /// <typeparam name="T1"></typeparam>
         public virtual void Open<T, T1>(Type uiType, T1 property) where T : UIElement where T1 : UIProperties
         {
+            Debug.LogError("open attempt for " + uiType);
             IsOpen = true;
         }
 
@@ -75,7 +77,8 @@ namespace Game.UI
         
         public virtual void CloseIfOpen<T>(Type uiType) where T : UIElement
         {
-            if (uiType == this.GetType() && IsOpen)
+            Debug.LogError("close attempt for " + uiType);
+            if (uiType == GetType() && IsOpen)
             {
                 Close<T>(uiType);
             }

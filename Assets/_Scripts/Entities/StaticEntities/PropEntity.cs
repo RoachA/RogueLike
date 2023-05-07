@@ -31,7 +31,7 @@ namespace Game.Entities
             }
 
             _pointLightView = GetComponentInChildren<PointLightView>();
-            MyLookableType = LookableType.Generic;
+            MyLookableType = LookableType.Prop;
         }
         
         public override void SetLight(Color color)

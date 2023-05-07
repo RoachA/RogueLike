@@ -12,12 +12,8 @@ namespace Game.UI.Helper
         {
             T returnData = default;
     
-            if (item.GetType() == typeof(ItemEntityView))
+            if (item is ItemEntityView container)
             {
-                ItemEntityView container = item as ItemEntityView;
-                if (container == null)
-                    return default;
-        
                 returnData = container._itemData as T;
             }
     
@@ -31,13 +27,8 @@ namespace Game.UI.Helper
         {
             T returnData = default;
 
-            if (actor.GetType() == typeof(EntityDynamic))
+            if (actor is EntityDynamic container)
             {
-                EntityDynamic container = actor as EntityDynamic;
-
-                if (container == null)
-                    return default;
-
                 returnData = container.GetEntityData() as T;
             }
             
@@ -47,22 +38,36 @@ namespace Game.UI.Helper
             return returnData;
         }
 
-        public static T GetTileData<T>(ILookable tile) where T : TileTypeData
+        public static TileTypeData GetTileData(ILookable tile)
         {
-            T returnData = default;
-            
-            if (tile.GetType() == typeof(TileBase))
+            TileTypeData returnData = default;
+
+            if (tile is TileBase container)
             {
-                TileBase container = tile as TileBase;
-
-                if (container == null)
-                    return default;
-
-                returnData = container.GetCurrentTileData() as T;
+                returnData = container.GetCurrentTileData();
             }
+
+            if (returnData == default)
+            {
+                Debug.LogError(tile.MyLookableType + " could not be read!");
+            }
+
+            return returnData;
+        }
+
+        public static PropEntityData GetPropData(ILookable prop)
+        {
+            PropEntityData returnData = default;
             
-            if (returnData == null)
-                Debug.LogError($"{typeof(T).Name} could not be read!");
+            if (prop is PropEntity container)
+            {
+                returnData = container.Data;
+            }
+
+            if (returnData == default)
+            {
+                Debug.LogError(prop.MyLookableType + " could not be read!");
+            }
 
             return returnData;
         }

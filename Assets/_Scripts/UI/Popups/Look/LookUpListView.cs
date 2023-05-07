@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Game.UI;
 using UnityEngine;
@@ -25,10 +24,11 @@ public class LookUpListView : MonoBehaviour
             else
             {
                 newView = Instantiate(_itemReference, _itemsContainer);
+                _currentItems.Add(item.MyLookableType, newView);
             }
 
             newView.InitView(item);
-            _currentItems.Add(item.MyLookableType, newView);
+            newView.gameObject.SetActive(true);
         }
     }
 
@@ -36,6 +36,14 @@ public class LookUpListView : MonoBehaviour
     {
         existingItem = _currentItems.TryGetValue(type, out var item) ? item : null;
         return existingItem != null;
+    }
+
+    private void HideAllViews()
+    {
+        foreach (var itemView in _currentItems)
+        {
+            itemView.Value.gameObject.SetActive(false);
+        }
     }
     
 }

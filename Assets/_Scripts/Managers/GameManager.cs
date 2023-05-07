@@ -279,6 +279,7 @@ namespace Game.Managers
             SetPlayerMode(PlayerModes.normal);
             _levelManager.ResetCursor();
             
+            Debug.LogError("reset ui call");
             UIElement.CloseIfUiIsOpenSignal(typeof(SimplePopup));
             UIElement.CloseIfUiIsOpenSignal(typeof(InventoryPopup));
             UIElement.CloseIfUiIsOpenSignal(typeof(ContainerPopup));

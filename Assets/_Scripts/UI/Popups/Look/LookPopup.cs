@@ -13,6 +13,7 @@ namespace Game.UI
         Consumable,
         Actor,
         Tile,
+        Prop,
     }
     
     public interface ILookable
@@ -71,6 +72,7 @@ namespace Game.UI
         public override void Close<T>(Type uiElement)
         {
             base.Close<T>(uiElement);
+            _container.SetActive(false);
         }
     }
 }
