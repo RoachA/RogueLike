@@ -1957,8 +1957,8 @@ MonoBehaviour:
   _penetrationMeleeTxt: {fileID: 7893613841361321941}
   _rangedContainer: {fileID: 7508658387472943595}
   _gearsContainer: {fileID: 2699697952924619758}
-  _AVTxt: {fileID: 0}
-  _DVTxt: {fileID: 0}
+  _AVTxt: {fileID: 6473540405373150953}
+  _DVTxt: {fileID: 4085453371756102884}
   _bonusesTxt: {fileID: 465939529891306259}
   _consumablesContainer: {fileID: 5006004654343097687}
   _effectsTxt: {fileID: 4042039020697392833}

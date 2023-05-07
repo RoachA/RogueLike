@@ -1,3 +1,4 @@
+using System;
 using Game.Data;
 using Game.Dice;
 using Game.Entities;
@@ -43,6 +44,15 @@ namespace Game.UI
       [SerializeField] private TextMeshProUGUI _equippedItemsTxt;
       [SerializeField] private TextMeshProUGUI _demeanorTxt;
 
+      private void Start()
+      {
+         LookUpListItemView._lookActor += InitActorView;
+         LookUpListItemView._lookGear += InitGearView;
+         LookUpListItemView._lookTile += InitTileView;
+         LookUpListItemView._lookProp += InitPropView;
+         LookUpListItemView._lookMeleeWeapon += InitMeleeWeaponView;
+      }
+
       public void InitGenericView(Sprite sprite, string thisName, string desc, string weight = default)
       {
          _image.sprite = sprite;
@@ -80,6 +90,16 @@ namespace Game.UI
 
          _AVTxt.text = data.Stats.AV.ToString();
          _DVTxt.text = data.Stats.DV.ToString();
+      }
+
+      public void InitTileView(TileTypeData data)
+      {
+         InitGenericView(data.TileSprite_A, data.TileName, data.TileDesc);
+      }
+
+      public void InitPropView(PropEntityData data)
+      {
+         InitGenericView(data.Sprite[0], data.name, data.Desc);
       }
 
       public void InitConsumableView()

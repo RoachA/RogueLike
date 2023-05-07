@@ -1,7 +1,7 @@
+using System;
 using Game.Data;
 using Game.Entities;
 using Game.Entities.Data;
-using Game.Tiles;
 using Game.UI.Helper;
 using TMPro;
 using UnityEngine.UI;
@@ -10,25 +10,34 @@ using UnityEngine.EventSystems;
 
 namespace Game.UI
 {
-
     public class LookUpListItemView : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image _image;
         [SerializeField] private TextMeshProUGUI _name;
         [SerializeField] private Image _frame;
         [SerializeField] private Color _activeColor, _inactiveColor;
-        private IPointerDownHandler _pointerDownHandlerImplementation;
         //todo keep data here as well!
+        
+        private object _cachedData;
+        private LookableType _cachedType;
 
+        public static Action<EntityDynamic> _lookActor;
+        public static Action<WearableScriptableItemData> _lookGear;
+        public static Action<MeleeWeaponScriptableData> _lookMeleeWeapon;
+        public static Action<TileTypeData> _lookTile;
+        public static Action<PropEntityData> _lookProp;
+        
         public void InitView(ILookable lookableItem)
         {
             FlushView();
+            _cachedType = lookableItem.MyLookableType;
             
             if (lookableItem.MyLookableType == LookableType.Actor)
             {
                 DynamicEntityScriptableData data;
                 data = LookupHelper.GetActorData<DynamicEntityScriptableData>(lookableItem);
                 SetView(data._dynamicEntityDefinitionData.Sprite, data._dynamicEntityDefinitionData._entityName);
+                _cachedData = lookableItem as EntityDynamic;
             }
             
             if (lookableItem.MyLookableType == LookableType.Gear)
@@ -36,6 +45,7 @@ namespace Game.UI
                 WearableScriptableItemData data;
                 data = LookupHelper.GetItemData<WearableScriptableItemData>(lookableItem);
                 SetView(data._itemSprite, data._itemName);
+                _cachedData = data;
             }
             
             if (lookableItem.MyLookableType == LookableType.Weapon)
@@ -43,6 +53,7 @@ namespace Game.UI
                 MeleeWeaponScriptableData data;
                 data = LookupHelper.GetItemData<MeleeWeaponScriptableData>(lookableItem);
                 SetView(data._itemSprite, data._itemName);
+                _cachedData = data;
             }
             
             if (lookableItem.MyLookableType == LookableType.Tile)
@@ -50,6 +61,7 @@ namespace Game.UI
                 TileTypeData data;
                 data = LookupHelper.GetTileData(lookableItem);
                 SetView(data.TileSprite_A, data.TileName);
+                _cachedData = data;
             }
 
             if (lookableItem.MyLookableType == LookableType.Consumable)
@@ -61,6 +73,7 @@ namespace Game.UI
                 PropEntityData data;
                 data = LookupHelper.GetPropData(lookableItem);
                 SetView(data.Sprite[0], data.Name); //todo why is this an array?
+                _cachedData = data;
             }
             
             if (lookableItem.MyLookableType == LookableType.Generic)
@@ -78,11 +91,35 @@ namespace Game.UI
         {
             _image.sprite = null;
             _name.text = default;
+            _cachedData = default;
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            //show details view for this view
+            switch (_cachedType)
+            {
+                case LookableType.Generic:
+                    break;
+                case LookableType.Weapon:
+                    _lookMeleeWeapon?.Invoke(_cachedData as MeleeWeaponScriptableData);
+                    break;
+                case LookableType.Gear:
+                    _lookGear?.Invoke(_cachedData as WearableScriptableItemData);
+                    break;
+                case LookableType.Consumable:
+                    break;
+                case LookableType.Actor:
+                    _lookActor?.Invoke(_cachedData as EntityDynamic);
+                    break;
+                case LookableType.Tile:
+                    _lookTile?.Invoke(_cachedData as TileTypeData);
+                    break;
+                case LookableType.Prop:
+                    _lookProp?.Invoke(_cachedData as PropEntityData);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public void OnPointerEnter(PointerEventData eventData)

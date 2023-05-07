@@ -9,6 +9,13 @@ public class LookUpListView : MonoBehaviour
 
     [SerializeField] private Dictionary<LookableType, LookUpListItemView> _currentItems;
 
+    private LookPopup _lookPopup;
+
+    private void Start()
+    {
+        _lookPopup = GetComponentInParent<LookPopup>() ?? _lookPopup;
+    }
+
     public void InitLookUpItems(List<ILookable> items)
     {
         if (_currentItems == null)
