@@ -45,7 +45,7 @@ public class LookUpListView : MonoBehaviour
         return existingItem != null;
     }
 
-    private void HideAllViews()
+    public void HideAllViews()
     {
         foreach (var itemView in _currentItems)
         {

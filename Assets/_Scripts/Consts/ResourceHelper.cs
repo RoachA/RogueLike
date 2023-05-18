@@ -15,7 +15,7 @@ namespace Game.Managers
       public static string ScriptableNpcPath = "ScriptableObjects/NPC";
       public static string WeaponsPath = "ScriptableObjects/Items/Weapons/Meelee/";
       public static string SpritesPath = "Sprites";
-      public static string PlayerSpriteTmp = "/game_sprites";
+      public static string PlayerSpriteTmp = "/character_sheet_1";
       public static string WeaponsRegistryPath = "ScriptableObjects/Items/Weapons/";
       public static string MeleeWeaponsPath = "ScriptableObjects/Items/Weapons/Melee";
       public static string ItemEntityTemplate = "/ItemEntity";

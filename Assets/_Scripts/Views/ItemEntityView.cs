@@ -12,7 +12,7 @@ namespace Game.Entities
 
       public override void Init(ScriptableItemData data, Guid guid = default)
       {
-         _spriteRenderer.sprite = _itemData._itemSprite;
+         _spriteRenderer.sprite = data._itemSprite;
          base.Init(guid);
          _itemData = data;
          SetLookableType();

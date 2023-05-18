@@ -41,7 +41,7 @@ namespace Game.Entities
             var itemToDrop = FindItemWithUniqueId(uniqueId);
             GenerateEntityView(itemToDrop);
             RemoveFromInventory(uniqueId);
-           UpdateUI();
+            UpdateUI();
         }
 
         private void UpdateUI()

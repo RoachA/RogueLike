@@ -66,12 +66,14 @@ namespace Game.UI
         private void OnClose()
         {
             _closeBtn.onClick.RemoveListener(OnClose);
+            _listView.HideAllViews();
             _container.SetActive(false);
         }
 
         public override void Close<T>(Type uiElement)
         {
             base.Close<T>(uiElement);
+            _listView.HideAllViews();
             _container.SetActive(false);
         }
     }
